@@ -1,6 +1,6 @@
 <template>
     <div align="center">
-        <v-toolbar dense dark height="90px;" class="d-flex justify-space-around"> <!-- 가운데 정렬 -->
+        <v-toolbar dense color="black" height="90px;" class="d-flex justify-space-around"> <!-- 가운데 정렬 -->
             <div align="center"> 
                 <v-toolbar-items>      
                     <p class="content" v-for="content in contents" :key="content.text">
@@ -10,7 +10,7 @@
                 <p class="sentence">{{ sentence }}</p>
             </div>
         </v-toolbar>
-        <div>
+        <div class="#424242 grey darken-4">
             <P style="font-size: 12px; padding-top: 4px; margin-bottom: 4px;">&copy; MUSIC GHUETTO</P>
         </div>
     </div>

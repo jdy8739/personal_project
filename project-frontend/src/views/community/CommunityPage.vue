@@ -1,7 +1,7 @@
-ZXWWW<template>
+<template>
 
-    <div align="center" class="grey darken-0.1" style="height: 100%;"> 
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">COMMUNITY COMMENT</h3>
+    <div align="center" class="#424242 grey darken-4" style="height: 100%;"> 
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 80px;">COMMUNITY COMMENT</h3>
 
         <span>
             <p class="description" style="display: inline;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>

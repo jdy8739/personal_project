@@ -107,10 +107,13 @@ export default {
             alert('적용되었습니다.')
 
             if(this.$store.state.taste == null) {
+                //alert('xx')
                 this.$store.state.taste = { chosenGenres: this.chosenGenre }
+            } else {
+                alert(this.chosenGenre)
+                this.$store.state.taste.chosenGenres = this.chosenGenre
             }
-            
-            this.$store.state.taste.chosenGenres = this.chosenGenre
+
             this.dialog = false
         },
         btn_cancel() {

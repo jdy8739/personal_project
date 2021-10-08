@@ -1,12 +1,12 @@
 <template>
     <div>
-        <v-toolbar dense dark>
+        <v-toolbar dense color="black">
 
             <v-app-bar-nav-icon @click="nav_drawer = !nav_drawer">
-                <v-icon>dehaze</v-icon>
+                <v-icon style="color: white;">dehaze</v-icon>
             </v-app-bar-nav-icon>
             <v-toolbar-title>
-                <span class="font-weight-light" style="margin-right: 40px;">NAVI</span>
+                <span class="font-weight-light" style="margin-right: 40px; color: white;">NAVI</span>
             </v-toolbar-title>
 
             <v-toolbar-items v-if="!isLoggedIn">
@@ -39,8 +39,10 @@
             <v-toolbar-items>
             
                 <v-icon class="material-icons small teal-text" @click="searchKeyword">search</v-icon>
-                <input type="text" style="font-size: 13px; font-style: italic; width: 250px;" v-model="searchText" v-on:click="blankText" @keydown.enter="searchKeyword"/>
-                <p class="btn-flat topBarText" style="padding-top: 5px;">&copy; MUSIC GHUETTO</p>
+                <input type="text" style="font-size: 13px; font-style: italic; width: 250px; color: white;" v-model="searchText" 
+                v-on:click="blankText" @keydown.enter="searchKeyword"/>
+
+                <p class="btn-flat topBarText" style="padding-top: 5px; color: white;">&copy; MUSIC GHUETTO</p>
            
             </v-toolbar-items>
 
