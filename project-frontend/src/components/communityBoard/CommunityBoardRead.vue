@@ -1,25 +1,47 @@
 <template>
     <div>
         <v-container style="margin-top: 30px;">
+            
+            <table style="color: white; width: 600px;">
+                <tr>
+                    <td class="description" style="width: 100px; color: grey;">글 제목</td>
+                    <input disabled v-bind:value="board.title" style="width: 500px; color: white;"/>
+                </tr>
+                <tr>
+                    <td class="description" style="width: 100px; color: grey;">본문</td>
+                    <v-textarea disabled v-bind:value="board.content" style="width: 500px; color: white;" auto-grow dark outlined></v-textarea>
+                </tr>
 
-            <table style="margin-left: 300px;">
-                <tr>
-                    <td class="description" style="width: 100px;">글 제목</td>
-                    <v-text-field disabled v-bind:value="board.title" style="width: 500px;"/>
-                </tr>
-                <tr>
-                    <td class="description" style="width: 100px;">본문</td>
-                    <v-textarea disabled v-bind:value="board.content" style="width: 500px;" auto-grow></v-textarea>
-                </tr>
                 <tr>
                     <td class="description" style="width: 100px; color: red;" @click="addReply">댓글 달기</td>
-                    <v-text-field style="width: 500px;" v-model="reply" @keydown.enter="addReply"></v-text-field>
+
+                    <span>
+                        <input style="width: 440px; color: white;" v-model="reply" @keydown.enter="addReply"/>
+
+                        
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="deleteInput">
+                                    <v-icon>
+                                        clear_all
+                                    </v-icon>
+                                </v-btn>
+                            </template>
+                            <span>입력 취소</span>    
+                        </v-tooltip>
+
+                    </span>
                 </tr>
             </table>
 
-            <div style="margin-top: 30px;">
-                <v-btn type="text" class="btn-flat red-text waves-effect waves-teal" @click="modify">수정, 삭제</v-btn>
-                <v-btn type="text" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 30px;" @click="goBack">뒤로가기</v-btn>
+            <div style="margin-top: 80px; padding-left: 400px;">
+                <v-btn text color="red" @click="modify" style="font-size: 11px;">
+                    수정, 삭제
+                </v-btn>
+                
+                <v-btn text color="red" style="margin-left: 30px; font-size: 11px;" @click="goBack">
+                    뒤로가기
+                </v-btn>
             </div>
 
         </v-container>
@@ -49,6 +71,10 @@ export default {
     },
     methods: {
         ...mapActions(['fetchReplyList', 'fetchBoard']),
+
+        deleteInput() {
+            this.reply = ''
+        },
 
         modify() {
             if(this.$store.state.isLoggedIn && (this.$store.state.userProfile.id == this.$store.state.board.id ||

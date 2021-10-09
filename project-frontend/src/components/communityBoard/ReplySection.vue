@@ -1,43 +1,75 @@
 <template>
     <div style="margin-top: 30px; width: 75%;">
-        <v-container style=" margin-left: 370px; width: 50%;">
-            <table>
+        <v-container style="width: 44%;">
+
+            <table dense dark>
                 <tr>
-                    <td class="description">작성된 댓글</td>
+                    <td class="description" style="color: gray;">작성된 댓글</td>
                 </tr>
 
                 <tr v-for="(reply, index) in replyList" :key="index">
-                    <td class="description" style="width: 14%;">{{ reply.id }}</td>
+                    <td class="description" style="width: 14%; color: gray;">{{ reply.id }}</td>
 
-                    <td v-if="modifyIndex == index" class="description" style="width: 75%;"><v-text-field v-model="modifyContent"
-                    @keydown.enter="submitModified(reply.boardReplyNo, reply.id, index)"></v-text-field></td>
+                    <td v-if="modifyIndex == index" class="description" style="width: 75%;">
+                        <input v-model="modifyContent" style="color: white;"
+                        @keydown.enter="submitModified(reply.boardReplyNo, reply.id, index)"/>
+                    </td>
 
-                    <td v-else-if="modifyIndex != index" class="description" style="width: 75%;">{{ reply.content }}</td>
+                    <td v-else-if="modifyIndex != index" class="description" style="width: 75%; color: white;">{{ reply.content }}</td>
 
 
                     <div v-if="modifyIndex == index">
 
-                        <td width="20" style="padding-left: 5px;"><v-btn class="ma-2" text icon color="red lighten-3" 
-                        @click="submitModified(reply.boardReplyNo, reply.id, index)"><v-icon>keyboard_arrow_up</v-icon></v-btn></td>
+                        <td width="20" style="padding-left: 5px;">
+                            <v-btn class="ma-2" text icon color="red lighten-3" 
+                            @click="submitModified(reply.boardReplyNo, reply.id, index)">
 
-                        <td style="width: 5%; padding-left: 5px;"><v-btn class="ma-2" text icon color="red lighten-3" 
-                        @click="cancel()"><v-icon>cancel</v-icon></v-btn></td>
+                                <v-icon>
+                                keyboard_arrow_up
+                                </v-icon>
+                            </v-btn>
+                        </td>
+
+                        <td style="width: 5%; padding-left: 5px;">
+                            <v-btn class="ma-2" text icon color="red lighten-3" 
+                            @click="cancel()">
+
+                                <v-icon>
+                                    cancel
+                                </v-icon>
+                            </v-btn>
+                        </td>
 
                     </div>
 
                     <div v-else-if="modifyIndex != index" style="width: 55px;">
 
-                        <td style="width: 55px;"><v-btn class="ma-2" text icon color="red lighten-3" 
-                        @click="modifyReply(reply.content, index)"><v-icon>mode_edit</v-icon></v-btn></td>
+                        <td style="width: 55px;">
+                            <v-btn class="ma-2" text icon color="red lighten-3" 
+                            @click="modifyReply(reply.content, index)">
+                            
+                                <v-icon>
+                                    mode_edit
+                                </v-icon>
+                            </v-btn>
+                        </td>
 
                     </div>
 
-                    <td style="text-align: right; width: 55px;"><v-btn class="ma-2" text icon color="red lighten-3"
-                    @click="deleteReply(reply.boardReplyNo, reply.id, index)"><v-icon>delete</v-icon></v-btn></td>
+                    <td style="text-align: right; width: 55px;">
+                        <v-btn class="ma-2" text icon color="red lighten-3"
+                        @click="deleteReply(reply.boardReplyNo, reply.id, index)">
+                        
+                            <v-icon>
+                                delete
+                            </v-icon>
+                        </v-btn>
+                    </td>
 
                 </tr>
 
             </table>
+            
         </v-container>
     </div>
 </template>

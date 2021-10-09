@@ -3,15 +3,15 @@
         <v-toolbar dense color="black" height="90px;" class="d-flex justify-space-around"> <!-- 가운데 정렬 -->
             <div align="center"> 
                 <v-toolbar-items>      
-                    <p class="content" v-for="content in contents" :key="content.text">
+                    <p class="content" v-for="content in contents" :key="content.text" style="color: grey;">
                         {{ content.text }}
                     </p>
                 </v-toolbar-items>
-                <p class="sentence">{{ sentence }}</p>
+                <p class="sentence" style="color: grey;">{{ sentence }}</p>
             </div>
         </v-toolbar>
         <div class="#424242 grey darken-4">
-            <P style="font-size: 12px; padding-top: 4px; margin-bottom: 4px;">&copy; MUSIC GHUETTO</P>
+            <P style="font-size: 12px; padding-top: 4px; margin-bottom: 4px; color: grey;">&copy; MUSIC GHUETTO</P>
         </div>
     </div>
 </template>

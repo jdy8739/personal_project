@@ -24,7 +24,7 @@
                     <td style="text-align: right;">{{ board.regDate }}</td>
                 </tr>
             </table> -->
-            <v-data-table :headers="headerTitle"
+            <v-data-table :headers="headerTitle" dark 
                         :items="boards"
                         :items-per-page="5"
                         :search="searchTitle"
@@ -41,9 +41,14 @@
 
             </v-data-table>
             
-            <v-text-field label="찾을 게시글의 제목 또는 작성자를 검색하세요." v-model="searchTitle" class="footerText"
-            style="width: 300px; float: right;"/>
+            <div style="float: right; width: 300px; margin-top: 20px;">
+                <h5 style="font-size: 12px; float: left; color: grey;">찾을 게시글의 제목 또는 작성자를 검색하세요.</h5>
 
+                <input v-model="searchTitle" class="description"
+                style="color: white; font-size: 12px; margin-top: -10px; margin-bottom: 40px;"/>
+                    
+            </div>
+        
         </v-container>
         
     </div>
@@ -86,12 +91,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-tr:hover {
-    border: 3px teal;
-    border-style: solid;
-}
-
-</style>

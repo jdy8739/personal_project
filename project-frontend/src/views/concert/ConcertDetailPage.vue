@@ -49,7 +49,7 @@
             <v-tooltip bottom v-if="notLikedYet == true || isLoggedIn == false">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn text="text" class="btn-flat red-text waves-effect waves-teal" style="margin-right: 10px;" outlined
-                    @click="addLiked(concert.concertNo)" color="black" v-bind="attrs" v-on="on">
+                    @click="addLiked(concert.concertNo)" color="white" v-bind="attrs" v-on="on">
                         <v-icon>
                             mdi-heart
                         </v-icon>
