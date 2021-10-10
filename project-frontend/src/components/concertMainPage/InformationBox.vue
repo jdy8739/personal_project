@@ -1,9 +1,9 @@
 <template>
-    <div v-if="infoBar" class="col xs12 sm12 md12 lg12 app grey darken-5" style="width: 100%;">
+    <div v-if="infoBar" class="col xs12 sm12 md12 lg12 app grey darken-3" style="width: 100%;">
 
         <div style="margin-top: 10px;" class="row">
 
-            <div style="margin-right: -230px; margin-left: 20px;">
+            <div style="margin-left: 50px; width: 480px;">
                 <input type="text" disabled class="infoText" style="font-size: 50px; color: white;" v-bind:value="concert.concertName"/>
                 <input type="text" disabled class="infoText" style="font-size: 35px; color: white;" v-bind:value="concert.concertArtist"/>
                 <input type="text" disabled class="infoText" style="font-size: 22px; color: white;" v-bind:value="concert.concertVenue"/>
@@ -24,10 +24,13 @@
                 <v-btn text v-else-if="notLikedYet == false && isLoggedIn == true" class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" 
                 @click="unLiked" color="pink"><v-icon>mdi-heart</v-icon></v-btn>  <!-- text 값을 주면 버튼 배경이 없어짐 -->
 
-                <v-btn class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;"
-                @click="sendToDetailPage">자세히보기</v-btn>
+                <v-btn style="margin-right: 30px;" @click="sendToDetailPage" outlined color="red">
+                    자세히보기
+                </v-btn>
 
-                <v-btn @click="offInfoBox" class="btn-flat red-text waves-effect waves-teal">취소</v-btn>
+                <v-btn @click="offInfoBox" outlined color="red">
+                    취소
+                </v-btn>
                 <!-- <p>.....{{ likedList }}</p> -->
                 <p style="text-align: right; padding-right: 15px; padding-top: 60px; font-style: italic; color: rgba(0, 0, 0, 0.3);">MUSIC GHUETTO</p>
 

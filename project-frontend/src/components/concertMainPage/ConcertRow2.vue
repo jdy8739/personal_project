@@ -114,8 +114,7 @@ export default {
 .bigImgBlured {
     filter: blur(2px) grayscale(100%); 
     opacity: 0.6;
-    width: 24%;
-    margin-right: 5px;
+    width: 25%;
 }
 
 </style>

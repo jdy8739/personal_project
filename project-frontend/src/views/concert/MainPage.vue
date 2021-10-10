@@ -1,5 +1,5 @@
 <template>
-    <div class="grey darken-3" style="height: 100%;">
+    <div class="#424242 grey darken-4" style="height: 100%;">
         <br>
         
         <div align="center" style="margin-top: -20px;">

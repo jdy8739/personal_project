@@ -1,6 +1,6 @@
 <template>
-    <div style="margin-top: 30px; width: 75%;">
-        <v-container style="width: 44%;">
+    <div style="margin-top: 30px;">
+        <v-container style="width: 630px;">
 
             <table dense dark>
                 <tr>

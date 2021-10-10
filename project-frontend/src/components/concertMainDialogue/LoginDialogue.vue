@@ -1,34 +1,50 @@
 <template>
     <v-dialog v-model="loginDialog" persistent max-width="290">
+
         <template v-slot:activator="{ on }">
-            <p class="flat waves-effect waves-red topBarText" v-on="on" style="margin-top: -5px;">lOG IN</p>
+
+            <p class="flat waves-effect waves-red topBarText" v-on="on" style="margin-top: -5px;">
+                lOG IN
+            </p>
+
         </template>
 
-        <v-card>
+        <v-card class="#424242 grey darken-3">
+
             <v-card-title class="headLine">
-                <p class="headline" style="margin-bottom: -5px;">Login</p>
+
+                <p class="headline" style="margin-bottom: -5px;">
+                    Login
+                </p>
+
             </v-card-title>
+
             <v-card-text>
                 <v-container grid-list-md>
                     <v-layout wrap>
                         <v-flex xs12>
-                            <v-text-field label="Email" type="text" required v-model="userInfo.id"></v-text-field>
+                            <v-text-field label="Email" type="text" required v-model="userInfo.id" dark color="teal"/>
                         </v-flex>
                         <v-flex xs12>
-                            <v-text-field label="Password" type="password" required v-model="userInfo.password"></v-text-field>
+                            <v-text-field label="Password" type="password" required v-model="userInfo.password" dark color="red"/>
                         </v-flex>
                     </v-layout>
                 </v-container>
             </v-card-text>
+
             <v-card-actions>
+
                 <v-spacer></v-spacer>
+
                 <v-btn color="teal darken-1" text @click.native="btn_login($event)">
                     로그인
                 </v-btn>
                 <v-btn color="teal darken-1" text @click.native="btn_login($event)">
                     취소
                 </v-btn>
+
             </v-card-actions>
+
         </v-card>
     </v-dialog>
     

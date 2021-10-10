@@ -2,8 +2,14 @@
     <div style="padding-top: 25px;">
 
         <div align="center">
-            <v-btn v-if="btnColor == 0" class="ma-2" outlined large color="black" v-on:mouseover="changeBtn">SHOW MORE</v-btn> 
-            <v-btn v-else-if="btnColor == 1" class="ma-2" outlined large color="teal" v-on:mouseout="changeBtnBack">SHOW MORE</v-btn>
+            
+            <v-btn v-if="btnColor == 0" class="ma-2" outlined large color="grey" v-on:mouseover="changeBtn">
+                SHOW MORE
+            </v-btn> 
+
+            <v-btn v-else-if="btnColor == 1" class="ma-2" outlined large color="teal" v-on:mouseout="changeBtnBack">
+                SHOW MORE
+            </v-btn>
         </div>
 
         <div row style="margin-top: 70px; margin-bottom: 220px;">
@@ -40,7 +46,10 @@
         <div align="center" style="margin-top: 50px; margin-bottom: 40px;">
             <p class="footerText">혹시 찾으시는 정보나 불편한 점이 있으신가요???</p>
             <p class="footerText" style="display: inline; margin-right: 10px;">여기에서 말씀해주세요. :)</p>
-            <v-icon color="teal">email</v-icon>
+
+            <v-icon color="teal">
+                email
+            </v-icon>
         </div>
 
     </div>
@@ -99,6 +108,7 @@ export default {
 
 .first {
     /* border: 1px solid red; */
+    color: white; 
     float: left;
     width: 20%;
     box-sizing: border-box;
@@ -107,6 +117,7 @@ export default {
 
 .second {
     /* border: 1px solid green; */
+    color: white; 
     float: left;
     width: 20%;
     box-sizing: border-box;
@@ -115,6 +126,7 @@ export default {
 
 .third {
     /* border: 1px solid blue; */
+    color: white; 
     float: right;
     width: 20%;
     box-sizing: border-box;

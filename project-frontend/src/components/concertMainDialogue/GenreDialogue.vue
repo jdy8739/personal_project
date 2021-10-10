@@ -3,76 +3,110 @@
             <v-dialog v-model="dialog" persistent max-width="470">
 
                 <template v-slot:activator="{ on }">
-                    <div class="col s4 m4 l4 xl4 gray darken-5 btn-flat waves-effect waves-teal" align="center" v-on="on">
+                    <div class="col s4 m4 l4 xl4 gray darken-5 btn-flat waves-effect waves-teal" align="center" v-on="on" style="color: white;">
                         Genre
                     </div>
                 </template>
              
-                <v-card>
+                <v-card class="#424242 grey darken-3">
+
                     <v-card-title class="headline">
                         <p class="headline">Genre</p>
                         <p class="description">장르를 설정하시면 맞는 공연을 추천해드려요! :)</p>
                     </v-card-title>
+
                     <v-card-text>
                         <div class="row">
-                            <p class="genreText" style="margin-right: 10px;">Rock</p>
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="ROCK" input-value="true"></v-checkbox>
+
+                            <p class="genreText" style="margin-right: 10px;">
+                                Rock
+                            </p>
+
+                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="ROCK" 
+                            dark color="teal"/>
+
                             <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="Pop"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Metal"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Punk"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Core"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Acoustic"></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Pop" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Metal" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Punk" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Core" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Acoustic" dark></v-checkbox>
                             </div>
                        </div>
                        <div class="row">
-                            <p class="genreText" style="margin-right: 10px;">Hip-Hop</p>
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="HIP-HOP"></v-checkbox>
+
+                            <p class="genreText" style="margin-right: 10px;">
+                                Hip-Hop
+                            </p>
+
+                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="HIP-HOP" 
+                            dark color="teal"/>
+
                             <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="BoomBap"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Trap"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Old-School"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="R&B"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Dance"></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="BoomBap" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Trap" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Old-School" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="R&B" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Dance" dark></v-checkbox>
                             </div>
                        </div>
                        <div class="row">
-                            <p class="genreText" style="margin-right: 10px;">EDM</p>
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="EDM"></v-checkbox>
+
+                            <p class="genreText" style="margin-right: 10px;">
+                                EDM
+                            </p>
+
+                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="EDM" 
+                            dark color="teal"/>
+
                             <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="House"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Disco"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Techno"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Garage"></v-checkbox> 
-                                <v-checkbox class="shrink mr-2" label="Euro"></v-checkbox>  
+                                <v-checkbox class="shrink mr-2" label="House" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Disco" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Techno" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Garage" dark></v-checkbox> 
+                                <v-checkbox class="shrink mr-2" label="Euro" dark></v-checkbox>  
        
                             </div>
                        </div>
                        <div class="row">
-                            <p class="genreText" style="margin-right: 10px;">Jazz</p>
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="JAZZ"></v-checkbox>
+
+                            <p class="genreText" style="margin-right: 10px;">
+                                Jazz
+                            </p>
+
+                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="JAZZ" 
+                            dark color="teal"/>
+
                             <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="Blues"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Swing"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Fusion"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Contemporary"></v-checkbox> 
-                                <v-checkbox class="shrink mr-2" label="Free"></v-checkbox>                    
+                                <v-checkbox class="shrink mr-2" label="Blues" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Swing" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Fusion" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Contemporary" dark></v-checkbox> 
+                                <v-checkbox class="shrink mr-2" label="Free" dark></v-checkbox>                    
                             </div>
                        </div>
                        <div class="row">
-                            <p class="genreText" style="margin-right: 10px;">Acoustic</p>
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="ACOUSTIC"></v-checkbox>
+
+                            <p class="genreText" style="margin-right: 10px;">
+                                Acoustic
+                            </p>
+
+                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="ACOUSTIC" 
+                            dark color="teal"/>
+
                             <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="Blues"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Swing"></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Fusion"></v-checkbox>             
+                                <v-checkbox class="shrink mr-2" label="Blues" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Swing" dark></v-checkbox>
+                                <v-checkbox class="shrink mr-2" label="Fusion" dark></v-checkbox>             
                             </div>
                        </div>
                        <div>
                            <p class="description">찾으시는 장르가 없나요? :( <br> 밑에 입력하시면 저희가 취향을 최대한 반영해드릴게요!</p>
-                           <input type="text" style="font-size: 12px; font-style: italic;" v-model="basicText" @click="resetText"/>
+                           <input type="text" style="font-size: 12px; font-style: italic; color: white;" v-model="basicText" @click="resetText"/>
                        </div>
+
                     </v-card-text>
+
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <!-- <v-btn class="teal darken-1" text @click.native="btn_apply($event)">
@@ -86,9 +120,11 @@
                         </v-btn>
                         
                     </v-card-actions>
+
                 </v-card>
             </v-dialog>
         </v-layout>
+        
 </template>
 
 <script>
@@ -143,6 +179,7 @@ export default {
     font-size: 12px;
     font-style: italic;
     margin-top: 10px;
+    color: white;
 }
 
 .genreText {
