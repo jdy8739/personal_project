@@ -1,5 +1,6 @@
 <template>
-    <div style="padding-top: 30px; height: 100%;" class="grey darken-3">
+    <div style="padding-top: 30px; height: 100%;" class="grey darken-4" align="center">
+
         <input type="text" class="detailTitle" disabled v-bind:value="concert.concertName" style="font-size: 50px; color: white;"/>    
 
         <div style="width: 25%; margin: 0px auto; padding-top: 10px;" class="circle responsive-img" v-on:mouseover="turnOffColor" v-on:mouseout="turnOnColor">
@@ -7,8 +8,8 @@
             <img v-if="onColor == true" class="circle responsive-img" :src="imgRequest()" >
 
             <a :href="urlRequest(concert.concertNo)" target="_blank" v-else-if="onColor == false">
-                <img :src="imgRequest()" class="circle responsive-img bluredImg"
-            style="position: relative"></a>
+                <img :src="imgRequest()" class="circle responsive-img bluredImg" style="position: relative">
+            </a>
 
             <div v-if="onColor == false" class="hide-on-med-and-down search">사진을 클릭하시면 해당 아티스트의 관련 페이지로 이동합니다!</div>
         </div>
@@ -21,8 +22,25 @@
           
         <input type="text" class="venue" disabled v-bind:value="concert.concertVenue" style="color: white;"/>
 
-        <input type="text" class="venue" disabled v-bind:value="concert.numberOfLikes + '명이 좋아요했습니다!' + ' 현재 남은 자리 수 ' + 
-        concert.venueCapacity" style="font-size: 15px; color: white;"/>
+        <!-- <input type="text" class="venue" disabled v-bind:value="concert.numberOfLikes + '명이 좋아요했습니다!' + ' 현재 남은 자리 수 ' + 
+        concert.venueCapacity" style="font-size: 15px; color: white;"/> -->
+
+        <div class="row" style="justify-content: center; padding-top: 20px;">
+
+            <p style="font-size: 20px; color: #FF24A3; width: 15px;" class="venue">
+                {{ concert.numberOfLikes }}
+            </p>
+            <p style="font-size: 15px; margin-top: 4px;" class="venue">
+                명이 좋아요했습니다! 현재 남은 자리 수는 
+            </p>
+
+            &nbsp; &nbsp;
+            
+            <p style="font-size: 20px; color: #FF24A3; width: 15px;" class="venue">
+                {{ concert.venueCapacity }}
+            </p>
+
+        </div>
 
         <hr style="width: 25%">
 
@@ -267,7 +285,6 @@ hr{
     font-family: 'Roboto', sans-serif;
     font-style: italic;
     text-align: center;
-    margin-top: -300px;
 }
 
 .venue {
@@ -276,7 +293,6 @@ hr{
     font-family: 'Do Hyeon', sans-serif;
     font-style: italic;
     text-align: center;
-    margin-top: -100px;
 }
 
 .bluredImg {

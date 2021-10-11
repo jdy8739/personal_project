@@ -11,7 +11,7 @@
                 </template>
                 <!-- 팝업창에서 선택하는 폼이라는데.. 이해가 잘안되서 패턴처럼 외우는게 나을듯 
                 어쨋든 이 dialog 기능을 on시키는거라고 생각하면된다. -->
-                <v-card class="#424242 grey darken-3">
+                <v-card class="grey darken-3">
 
                     <v-card-title class="headline">
                         <p class="headline">Artist</p>
@@ -19,17 +19,26 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <input type="text" style="font-size: 12px; font-style: italic; color: white;" v-model="basicText" @click="resetText"/>
+                        <p v-for="(artistName, index) in artistNameArr" :key="index" style="color: white; display: inline;" @click="removeName(index)">
+                            {{ artistName }} &nbsp; &nbsp;
+                        </p>
+
+                        <input type="text" style="font-size: 12px; font-style: italic; color: white;" v-model="basicText" 
+                        @click="resetText" @keydown.enter="inputArtistName"/>
+
                     </v-card-text>
 
                     <v-card-actions>
+
                         <v-spacer></v-spacer>
+
                         <v-btn color="teal darken-1" text @click.native="btn_apply($event)">
                             적용
                         </v-btn>
                         <v-btn color="teal darken-1" text @click.native="btn_cancel($event)">
                             취소
                         </v-btn>
+
                     </v-card-actions>
                     
                 </v-card>
@@ -44,10 +53,30 @@ export default {
     data() {
         return {
             dialog: false,
-            basicText: '선호하는 아티스트의 이름을 입력해주세요.'
+            basicText: '선호하는 아티스트의 이름을 입력해주세요.',
+
+            artistNameArr: []
         }
     },
     methods: {
+        inputArtistName() {
+
+            if(!/^[가-힣|a-z|A-Z|0-9|?'#!$|/\s/g]+$/.test(this.basicText)) { //   /\s/g   <--스페이스바 허용
+                alert('올바른 문자를 입력해주세요. :)')
+                
+            } else {
+
+                var artistName = '#' + this.basicText
+                this.artistNameArr.push(artistName)
+
+                this.basicText = ''
+            }
+        },
+
+        removeName(index) {
+            this.artistNameArr.splice(index, 1)
+        },
+
         btn_apply() {
             alert('적용되었습니다.')
             this.dialog = false

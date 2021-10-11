@@ -31,7 +31,7 @@
                                 to
                             </p>
 
-                            <input type="date" name="date" style="width: 288px; color: white;" v-model="endDate">
+                            <input type="date" name="date" style="width: 288px; color: white;" v-model="endDate" c>
                         </div>
                     </v-card-text>
 
