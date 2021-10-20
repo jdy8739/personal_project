@@ -1,7 +1,8 @@
 <template>
 
-    <div align="center" class="#424242 grey darken-4" style="height: 100%;">
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 80px;">COMMUNITY COMMENT</h3>
+    <div align="center" class="#424242 grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar">COMMUNITY COMMENT</h3>
 
         <p class="description" style="color: white;">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
         

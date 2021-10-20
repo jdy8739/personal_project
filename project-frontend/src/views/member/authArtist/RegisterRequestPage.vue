@@ -1,6 +1,7 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">Concert Request</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar">CONCERT REQUEST</h3>
         <p class="description">관리자에게 공연 정보의 등록을 요청할 수 있습니다. 회원님의 공연을 MUSIC GUETTO에서 홍보하세요!</p>
 
         <v-container style="margin-top: 50px;">
@@ -8,17 +9,19 @@
             <form @submit.prevent="checkVal">
 
                 <div class="row" style="justify-content: center;">
-                    <v-checkbox label="가입 시 이름과 동일" class="shrink mr-2 footerText" color="teal" v-model="useOriginalName" @click="chooseUseOrigName"/>
-                    <input type="text" v-model="regName" required class="footerText" style="width: 300px; margin-left: 30px;" @click="deleteTyped"/> 
+                    <v-checkbox label="가입 시 이름과 동일" class="shrink mr-2 footerText" color="teal" v-model="useOriginalName" @click="chooseUseOrigName" dark/>
+
+                    <input type="text" v-model="regName" required class="footerText" style="width: 300px; margin-left: 30px;" 
+                    @click="deleteTyped"/> 
                 </div>
 
-                <v-text-field v-model="artistName" required label="아티스트 이름을 입력해주세요."
+                <v-text-field v-model="artistName" required label="아티스트 이름을 입력해주세요." dark color="pink"
                 class="footerText" style="width: 490px;"/>
 
-                <v-text-field v-model="venueName" required label="공연 장소를 입력해주세요."
+                <v-text-field v-model="venueName" required label="공연 장소를 입력해주세요." dark color="pink"
                 class="footerText" style="width: 490px;"/>
 
-                <v-text-field v-model="concertName" required label="공연 이름을 입력해주세요."
+                <v-text-field v-model="concertName" required label="공연 이름을 입력해주세요." dark color="pink"
                 class="footerText" style="width: 490px;"/>
 
                 <div style="justify-content: center; margin-top: 10px;" class="row">
@@ -30,8 +33,8 @@
                 <p class="footerText" style="text-align: center; margin-right: 280px; margin-top: 30px;">공연의 시작과 끝 시간을 설정해주세요.</p>
 
                 <div style="justify-content: center; margin-top: 10px;" class="row">
-                    <input type="time" v-model="timeOfConcert" style="width: 230px; margin-right: 30px;"/>
-                    <input type="time" v-model="timeOfEnd" style="width: 230px; margin-right: 0px;"/>
+                    <input type="time" v-model="timeOfConcert" style="width: 230px; margin-right: 30px; color: pink;"/>
+                    <input type="time" v-model="timeOfEnd" style="width: 230px; margin-right: 0px; color: pink;"/>
                 </div>
 
                 <p class="footerText" style="text-align: center; margin-top: 30px;">회원님의 공연을 홍보할 사진을 업로드해주세요 :) (파일 이름은 신청자 이름으로 해주세요!)</p>
@@ -44,8 +47,14 @@
                 <br/>
 
                 <div style="margin-top: 50px; margin-bottom: 20px;">
-                    <button type="submit" class="btn-flat red-text waves-effect waves-teal">업로드</button>
-                    <button @click="cancel" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 50px;">취소</button>
+
+                    <button type="submit" class="btn-flat red-text waves-effect waves-teal">
+                        업로드
+                    </button>
+
+                    <button @click="cancel" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 50px;">
+                        취소
+                    </button>
                 </div>
                 
             </form>

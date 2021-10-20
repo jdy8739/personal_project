@@ -1,5 +1,5 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
         <p class="memberListTitle">SEARCH RESEARCH</p>
         
         <v-container style="margin-top: 50px;">
@@ -10,7 +10,7 @@
             </div>
 
             <table border="1px">
-                <tr class="listItem">
+                <tr class="listItem" style="color: grey;">
                     <td width="90">concert</td>
                     <td width="70">artist</td>
                     <td width="70">date</td>
@@ -20,9 +20,9 @@
                 </tr>
 
                 <tr v-if="!searchedResults" class="listItem" style="font-size: 12px;">
-                    <p style="padding-top: 15px;">검색된 결과가 없습니다.</p>
+                    <p style="padding-top: 15px; color: white;">검색된 결과가 없습니다.</p>
                 </tr>
-                <tr v-else v-for="(sr, idx) in searchedResults" :key="idx" class="listItem" style="font-size: 12px;">
+                <tr v-else v-for="(sr, idx) in searchedResults" :key="idx" class="listItem" style="font-size: 12px; color: white;">
                     <td>{{ sr.concertName }}</td>
                     <td>{{ sr.concertArtist }}</td>
                     <td>{{ sr.concertDate }}</td>
@@ -39,7 +39,7 @@
             </div>
 
             <table border="1px">
-                <tr class="listItem">
+                <tr class="listItem" style="color: grey;">
                     <td width="90">concert</td>
                     <td width="70">artist</td>
                     <td width="70">date</td>
@@ -49,9 +49,9 @@
                 </tr>
 
                 <tr v-if="searchedArtists == ''" class="listItem" style="font-size: 12px;">
-                    <p style="padding-top: 15px;">검색된 결과가 없습니다.</p> <!-- 안나옴 -->
+                    <p style="padding-top: 15px; color: white;">검색된 결과가 없습니다.</p> <!-- 안나옴 -->
                 </tr>
-                <tr v-else v-for="(sa, idx) in searchedArtists" :key="idx" class="listItem" style="font-size: 12px;">
+                <tr v-else v-for="(sa, idx) in searchedArtists" :key="idx" class="listItem" style="font-size: 12px; color: white;">
                     <td>{{ sa.concertName }}</td>
                     <td>{{ sa.concertArtist }}</td>
                     <td>{{ sa.concertDate }}</td>

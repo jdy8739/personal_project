@@ -1,21 +1,18 @@
 <template>
 
-    <div align="center" class="#424242 grey darken-4" style="height: 100%; color: white;"> 
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 80px;">COMMUNITY COMMENT</h3>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;"> 
+        
+        <h3 class="topBar">COMMUNITY COMMENT</h3>
 
-        <span>
-            <p class="description" style="display: inline;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
+        <p class="description" style="margin-right: 30px;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
 
-            <v-btn text color="red" style="margin-left: 20px; font-size: 12px;" @click="goToWrite">
-
+        <v-container>
+            
+            <v-btn text color="red" style="margin-left: 20px; font-size: 12px; float: right;" @click="goToWrite">
                 글 쓰러가기
-
-                <v-icon style="margin-left: 10px;">
-                    border_color
-                </v-icon>
-
             </v-btn>
-        </span>
+
+        </v-container>
 
         <community-board-list :boards="boards"/>
 

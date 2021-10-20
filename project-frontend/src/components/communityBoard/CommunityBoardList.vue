@@ -1,5 +1,5 @@
 <template>
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 50px;">
         <v-container>
             <!-- <table>
                 <tr>
@@ -26,7 +26,7 @@
             </table> -->
             <v-data-table :headers="headerTitle" dark 
                         :items="boards"
-                        :items-per-page="5"
+                        :items-per-page="10"
                         :search="searchTitle"
                         class="elevation-1">
 

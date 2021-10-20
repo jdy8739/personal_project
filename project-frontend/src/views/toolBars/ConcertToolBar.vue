@@ -48,7 +48,7 @@
 
         </v-toolbar>
 
-        <v-navigation-drawer v-model="nav_drawer" app temporary width="150px">
+        <v-navigation-drawer v-model="nav_drawer" app temporary width="150px" dark>
             <v-list nav>
                 <v-list-item-group active-class="red--text text--accent-4">
 

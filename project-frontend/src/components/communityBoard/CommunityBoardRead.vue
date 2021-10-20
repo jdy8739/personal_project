@@ -2,14 +2,14 @@
     <div>
         <v-container style="margin-top: 30px;">
             
-            <table style="color: white; width: 600px;">
+            <table style="color: white; width: 1000px;">
                 <tr>
                     <td class="description" style="width: 100px; color: grey;">글 제목</td>
-                    <input disabled v-bind:value="board.title" style="width: 500px; color: white;"/>
+                    <input disabled v-bind:value="board.title" style="width: 800px; color: white;"/>
                 </tr>
                 <tr>
                     <td class="description" style="width: 100px; color: grey;">본문</td>
-                    <v-textarea disabled v-bind:value="board.content" style="width: 500px; color: white;" auto-grow dark outlined></v-textarea>
+                    <v-textarea disabled v-bind:value="board.content" style="width: 800px; color: white;" auto-grow dark outlined></v-textarea>
                 </tr>
 
                 <tr>

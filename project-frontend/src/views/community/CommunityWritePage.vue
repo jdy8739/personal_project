@@ -1,33 +1,35 @@
 <template>
 
-    <div align="center" class="#424242 grey darken-4" style="height: 100%;">
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 80px;">COMMUNITY COMMENT</h3>
+    <div align="center" class="#424242 grey darken-4" style="height: 100%; padding-top: 60px;">
 
-        <p class="description" style="color: white;">여러분들의 공연에 대한 기대나 후기를 공유해주세요. :)</p>
+        <h3 class="topBar">COMMUNITY COMMENT</h3>
 
-        <v-container style="margin-top: 30px;">
+        <p class="description" style="margin-right: 30px;">여러분들의 공연에 대한 기대나 후기를 공유해주세요. :)</p>
+
+        <v-container style="margin-top: 50px;">
 
             <form @submit.prevent="onSubmit">
-                <table style="color: white; width: 600px;">
+                <table style="color: white; width: 1000px;">
 
                     <tr>
                         <td class="description" style="width: 100px; color: grey;">글 제목</td>
-                        <v-text-field required v-model="title" style="width: 500px;" dark color="red"/>
+                        <v-text-field required v-model="title" style="width: 800px;" dark color="red"/>
                     </tr>
                     <tr>
                         <td class="description" style="width: 100px; color: grey;">본문</td>
-                        <v-textarea required v-model="content" style="width: 500px;" auto-grow outlined color="red" dark clearable
+                        
+                        <v-textarea required v-model="content" style="width: 800px;" auto-grow color="red" dark clearable
                         counter="100" label="자유롭게 기대나 후기를 작성해주세요!" :rules="rules"/>
                     </tr>
 
                 </table>
 
-                <div style="margin-top: 80px; padding-left: 400px;">
-                    <v-btn text type="submit" color="red" style="font-size: 11px;">
+                <div style="margin-top: 80px;">
+                    <v-btn text type="submit" color="red" style="font-size: 12px;">
                         확인
                     </v-btn>
                     
-                    <v-btn text color="red" style="margin-left: 30px; font-size: 11px;" @click="goBack">
+                    <v-btn text color="red" style="margin-left: 30px; font-size: 12px;" @click="goBack">
                         뒤로가기
                     </v-btn>
                 </div>

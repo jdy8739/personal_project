@@ -152,6 +152,7 @@ export default {
     font-family: 'Roboto', sans-serif;
     margin-right: 25px;
     color: white;
+    font-size: 35px;
 }
 
 .description {
