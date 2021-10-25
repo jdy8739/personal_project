@@ -1,10 +1,10 @@
 <template>
 
-    <div align="center" class="#424242 grey darken-4" style="height: 100%; padding-top: 60px;">
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
 
         <h3 class="topBar">COMMUNITY COMMENT</h3>
 
-        <p class="description" style="color: white;">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
+        <p class="description" style="margin-right: 20px;">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
         
         <community-board-modify v-if="board" :board="board"/>
         <p class="description" v-else-if="!board">해당 게시글의 정보를 불러오는 중입니다. 조금만 기다려주세요. :)</p>

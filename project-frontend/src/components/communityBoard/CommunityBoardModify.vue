@@ -1,33 +1,65 @@
 <template>
     <div>
-        <v-container style="margin-top: 30px;">
+        <v-container style="margin-top: 30px; width: 65%;">
 
-            <table style="color: white; width: 600px;">
+            <v-select
+              v-model="chosenCategory"
+              :items="category"
+              attach
+              chips
+              label="카테고리"
+              dark
+              style="width: 120px; float: left;"
+              color="red"
+            ></v-select>
+
+            <table style="color: white;">
+
                 <tr>
-                    <td class="description" style="width: 100px; color: grey;">글 제목</td>
-                    <input required v-model="title" style="width: 500px; color: white;"/>
+                    <td class="description" style="color: grey;">글 제목</td>
                 </tr>
+
                 <tr>
-                    <td class="description" style="width: 100px; color: grey;">본문</td>
-                    <v-textarea required v-model="content" style="width: 500px; color: red;" auto-grow dark></v-textarea>
+                    <td>
+                        <input required v-model="title" style="color: white;"/>
+                    </td>
                 </tr>
+
+                <tr>
+                    <td class="description" style="color: grey;">본문</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <v-textarea required v-model="content" auto-grow dark color="red" clearable/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        
+                        <span style="float: right;">
+
+                            <v-btn text color="red" @click="modify" style="font-size: 11px;">
+                                수정
+                            </v-btn>
+
+                            <v-btn text color="red" @click="deletee" style="margin-left: 10px; font-size: 11px;">
+                                삭제
+                            </v-btn>
+                            
+                            <v-btn text color="red" style="margin-left: 10px; font-size: 11px;" @click="goBack">
+                                뒤로가기
+                            </v-btn>
+
+                        </span>
+
+                    </td>
+                </tr>
+
             </table>
-
-            <div style="margin-top: 80px; padding-left: 400px;">
-                <v-btn text color="red" @click="modify" style="font-size: 11px;">
-                    확인
-                </v-btn>
-
-                <v-btn text color="red" @click="deletee" style="margin-left: 10px; font-size: 11px;">
-                    삭제
-                </v-btn>
-                
-                <v-btn text color="red" style="margin-left: 10px; font-size: 11px;" @click="goBack">
-                    뒤로가기
-                </v-btn>
-            </div>
-
         </v-container>
+
     </div>
 </template>
 
@@ -46,7 +78,10 @@ export default {
     data() {
         return {
             title: this.board.title,
-            content: this.board.content
+            content: this.board.content,
+
+            category: [ '후기', '음악', '공연', '건의' ],
+            chosenCategory: ''
         }
     },
     computed: {

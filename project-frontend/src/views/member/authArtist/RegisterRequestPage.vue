@@ -2,6 +2,7 @@
     <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
 
         <h3 class="topBar">CONCERT REQUEST</h3>
+        
         <p class="description">관리자에게 공연 정보의 등록을 요청할 수 있습니다. 회원님의 공연을 MUSIC GUETTO에서 홍보하세요!</p>
 
         <v-container style="margin-top: 50px;">

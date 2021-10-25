@@ -1,8 +1,10 @@
 <template>
     <div style="margin-top: 30px;">
-        <v-container style="width: 630px;">
+
+        <v-container style="width: 65%;">
 
             <table dense dark>
+
                 <tr>
                     <td class="description" style="color: gray;">작성된 댓글</td>
                 </tr>

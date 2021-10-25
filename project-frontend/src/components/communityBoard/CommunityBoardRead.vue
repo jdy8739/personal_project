@@ -1,50 +1,84 @@
 <template>
     <div>
-        <v-container style="margin-top: 30px;">
+        <v-container style="margin-top: 30px; width: 65%;">
+
+            <v-select
+              :items="category"
+              attach
+              chips
+              label="카테고리"
+              dark
+              style="width: 120px; float: left;"
+              color="red"
+            ></v-select>
             
-            <table style="color: white; width: 1000px;">
+            <table style="color: white;">
+
                 <tr>
-                    <td class="description" style="width: 100px; color: grey;">글 제목</td>
-                    <input disabled v-bind:value="board.title" style="width: 800px; color: white;"/>
-                </tr>
-                <tr>
-                    <td class="description" style="width: 100px; color: grey;">본문</td>
-                    <v-textarea disabled v-bind:value="board.content" style="width: 800px; color: white;" auto-grow dark outlined></v-textarea>
+                    <td class="description" style="color: grey;">글 제목</td>
                 </tr>
 
                 <tr>
-                    <td class="description" style="width: 100px; color: red;" @click="addReply">댓글 달기</td>
+                    <td>
+                        <input disabled v-bind:value="board.title" style="color: white;"/>
+                    </td>
+                </tr>
 
-                    <span>
-                        <input style="width: 440px; color: white;" v-model="reply" @keydown.enter="addReply"/>
+                <tr>
+                    <td class="description" style="color: grey;">본문</td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <v-textarea disabled v-bind:value="board.content" style="color: white;" auto-grow dark outlined/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+
+                        <span style="float: right;">
+
+                            <v-btn text color="red" style="font-size: 11px; margin-right: 10px;" @click="modify">
+                                수정, 삭제
+                            </v-btn>
+                            
+                            <v-btn text color="red" style="font-size: 11px;" @click="goBack">
+                                뒤로가기
+                            </v-btn>
+
+                        </span>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p class="description" style="color: red;" @click="addReply">댓글 달기</p>
+
+                        <span>
+                            <input style="color: white; width: 95%;" v-model="reply" @keydown.enter="addReply"/>
+
+                            <v-tooltip bottom>
+
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="deleteInput">
+                                        <v-icon>
+                                            clear_all
+                                        </v-icon>
+                                    </v-btn>
+                                </template>
+
+                                <span>입력 취소</span>   
+                            </v-tooltip>
                         
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="deleteInput">
-                                    <v-icon>
-                                        clear_all
-                                    </v-icon>
-                                </v-btn>
-                            </template>
-                            <span>입력 취소</span>    
-                        </v-tooltip>
-
-                    </span>
+                        </span>
+                    </td>
                 </tr>
+
             </table>
-
-            <div style="margin-top: 80px; padding-left: 400px;">
-                <v-btn text color="red" @click="modify" style="font-size: 11px;">
-                    수정, 삭제
-                </v-btn>
-                
-                <v-btn text color="red" style="margin-left: 30px; font-size: 11px;" @click="goBack">
-                    뒤로가기
-                </v-btn>
-            </div>
-
         </v-container>
+        
     </div>
 </template>
 
@@ -63,7 +97,9 @@ export default {
     data() {
         return {
             reply: '',
-            inputComplete: false
+            inputComplete: false,
+
+            category: [ '후기', '음악', '공연', '건의' ]
         }
     },
     computed: {

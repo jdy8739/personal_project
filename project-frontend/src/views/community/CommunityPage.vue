@@ -4,7 +4,7 @@
         
         <h3 class="topBar">COMMUNITY COMMENT</h3>
 
-        <p class="description" style="margin-right: 30px;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
+        <p class="description" style="margin-right: 20px;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
 
         <v-container>
             
