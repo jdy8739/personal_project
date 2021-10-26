@@ -1,9 +1,10 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 850px;"> 
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+        
         <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">INDIE NEWS THIS WEEK</h3>
-        <p class="description">오늘의 최신 인디음악 관련 블로그를 확인해보세요 :)</p>
+        <p class="description" style="margin-right: 25px;">오늘의 최신 인디음악 관련 블로그를 확인해보세요 :)</p>
 
-        <v-container>
+        <v-container style="margin-bottom: 50px; margin-top: 50px;">
             <table>
                 <tr>
                     <th class="text-left description" width="15%;">No.</th>
@@ -14,25 +15,25 @@
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="teal" plain @click="update('인디밴드')">
+                        <v-btn :loading="disabled" class="ma-1" small color="yellow" plain @click="update('인디밴드')">
                             인디밴드
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="teal" plain @click="update('홍대')">
+                        <v-btn :loading="disabled" class="ma-1" small color="pink" plain @click="update('홍대')">
                             홍대
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="teal" plain @click="update('공연')">
+                        <v-btn :loading="disabled" class="ma-1" small color="orange" plain @click="update('공연')">
                             공연
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="teal" plain @click="update('콘서트')">
+                        <v-btn :loading="disabled" class="ma-1" small color="purple" plain @click="update('콘서트')">
                             콘서트
                         </v-btn>
                     </td>
@@ -43,8 +44,10 @@
                         </v-btn>
                     </td>
 
-                    <td><v-text-field label="키워드 입력" type="text" required v-model="keyword" style="margin-bottom: -15px; width: 200px;"
-                    @keydown.enter="update(keyword)"></v-text-field></td>
+                    <td>
+                        <v-text-field label="키워드 입력" type="text" required v-model="keyword" style="margin-bottom: -15px; width: 200px;" dark
+                        @keydown.enter="update(keyword)" color="red"/>
+                    </td>
 
                     <!-- <td><v-btn @click="update(keyword)" text color="red"
                     style="margin-left: 20px;">UPDATE</v-btn></td> -->
@@ -53,8 +56,10 @@
                     <td style="color: pink">{{ news.newsNo }}</td>
                     <td colspan="8" class="description"><a v-bind:href="news.address" target='_blank'>{{ news.title }}</a></td>  <!--  target='_blank'는 a를 새 창에서 열리게함 -->
                 </tr>
+
             </table>
         </v-container>
+
     </div>
 </template>
 

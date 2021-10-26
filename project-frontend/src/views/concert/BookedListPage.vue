@@ -1,10 +1,12 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">My Booked List</p>
-        <p class="description">회원님이 예약한 공연 정보입니다. :)</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
 
-        <div style="width: 70%; margin-top: 40px;"> 
-            <v-data-table :headers="headerTitle"
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">MY BOOKED LIST</h3>
+        <p class="description" style="margin-right: 20px;">회원님이 예약한 공연 정보입니다. :)</p>
+
+        <v-container style="margin-top: 40px;"> 
+            
+            <v-data-table :headers="headerTitle" dark
                             :items="bookedList"
                             :items-per-page="5"
                             :search="searchRequest"
@@ -20,21 +22,20 @@
                                 <td>{{ item.message }}</td>
                                 <td>{{ item.regDate }}</td>
                                 <td>
-                                    <v-btn class="ma-2" text color="error lighten-4" @click="goToBookedAlterPage(item.bookedConcertNo)" style="font-size: 10px;">
+                                    <v-btn class="ma-2" text color="error lighten-4" @click="goToBookedAlterPage(item.bookedConcertNo)" style="font-size: 11px;">
                                         예약 변경
                                     </v-btn>
 
-                                    <v-btn class="ma-2" text color="error lighten-2" @click="goToDetailPage(item.concertNo)" style="font-size: 10px;">
+                                    <v-btn class="ma-2" text color="error lighten-2" @click="goToDetailPage(item.concertNo)" style="font-size: 11px;">
                                         해당 공연 정보
                                     </v-btn>
                                 </td>
                 
                             </tr>
-
                         </template>
 
             </v-data-table>
-        </div>
+        </v-container>
 
     </div>
 </template>

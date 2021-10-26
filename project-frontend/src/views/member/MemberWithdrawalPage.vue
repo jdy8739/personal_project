@@ -1,6 +1,7 @@
 <template>
-    <div align="center" style="margin-top: 60px;">
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">Withdrawal</h3>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">WITHDRAWAL</h3>
         <p class="description" style="margin-right: 20px;">정말로 탈퇴하시나요? 탈퇴하시면 기록된 모든 정보가 사라집니다!</p>
 
         <div style="margin-top: 50px; margin-right: 20px;">

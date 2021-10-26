@@ -1,9 +1,10 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%;">
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">Wish List</h3>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">WISH LIST</h3>
         <p class="description" style="margin-right: 20px;">찜하신 공연을 한눈에 확인해보세요 :)</p>
 
-        <v-container fluid style="margin-top: 30px; width: 100%">
+        <v-container fluid style="margin-top: 40px;">
             <!-- <table>
                 <tr>
                     <td class="description" style="width: 130px;">공연 명</td>
@@ -27,7 +28,7 @@
                     </div>
                 </tr>
             </table> -->
-            <v-data-table :headers="headerTitle"
+            <v-data-table :headers="headerTitle" dark
                         :items="likedList"
                         :items-per-page="5"
                         class="elevation-1">
@@ -39,14 +40,18 @@
                             <td>{{ item.concertArtist }}</td>
                             <td>{{ item.concertDate }}</td>
                             <td>{{ item.concertVenue }}</td>
-                            
-                            <div style="margin-top: 5px; margin-right: 60px; text-align: right;">
-                                <v-btn class="btn-flat red-text waves-effect waves-teal" style="font-size: 12px;"
-                                @click="goToDetailPage(item.concertNo)">바로가기</v-btn>
+                            <td>
 
-                                <v-btn style="margin-left: 10px; font-size: 12px;" class="btn-flat red-text waves-effect waves-teal" 
-                                @click="deleteLikedConcert(item.concertNo, index)">찜해제</v-btn>
-                            </div>
+                                <v-btn class="ma-2" color="error lighten-4" style="margin-left: 10px; font-size: 11px;"
+                                @click="deleteLikedConcert(item.concertNo, index)" text>찜해제
+                                </v-btn>
+                                
+                                <v-btn class="ma-2" color="error lighten-2" style="font-size: 11px;"
+                                @click="goToDetailPage(item.concertNo)" text>바로가기
+                                </v-btn>
+                      
+                            </td>
+
                         </tr>
                     </template>
 

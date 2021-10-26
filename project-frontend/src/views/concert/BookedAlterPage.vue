@@ -1,7 +1,8 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">My Booked Concert</p>
-        <p class="description">회원님이 예약한 공연 정보입니다. :) 수정할 사항들을 입력하세요.</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+   
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">MY BOOKED CONCERT</h3>
+        <p class="description" style="margin-right: 30px;">회원님이 예약한 공연 정보입니다. :) 수정할 사항들을 입력하세요.</p>
 
         <booked-concert-alter v-if="bookedConcert" :bookedConcert="bookedConcert" @submit="onSubmit"/>
         <p v-else-if="!bookedConcert" class="description">예약하신 공연 정보를 불러오고 있습니다. 잠시만 기다려주세요! :)</p>

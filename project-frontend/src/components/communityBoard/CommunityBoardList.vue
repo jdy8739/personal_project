@@ -1,6 +1,8 @@
 <template>
-    <div style="margin-top: 50px;">
+
+    <div style="margin-top: -15px;">
         <v-container>
+
             <!-- <table>
                 <tr>
                     <td class="description" width="15%;">No</td>
@@ -24,6 +26,27 @@
                     <td style="text-align: right;">{{ board.regDate }}</td>
                 </tr>
             </table> -->
+
+            <v-select
+              v-model="chosenCategory"
+              :items="category"
+              attach
+              chips
+              label="카테고리"
+              dark
+              style="width: 120px; float: left;"
+              color="red"
+            ></v-select>
+
+            <v-btn text color="red" style="margin-top: 20px; font-size: 12px; float: right;" @click="goToWrite">
+                글 쓰러가기
+            </v-btn>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
             <v-data-table :headers="headerTitle" dark 
                         :items="boards"
                         :items-per-page="10"
@@ -72,16 +95,26 @@ export default {
                 { text: '작성자', value: 'id', width: '20%'},
                 { text: '게시일', value: 'regDate', width: '20%'}
             ],
-            searchTitle: ''
+            searchTitle: '',
+
+            category: [ '후기', '음악', '공연', '건의' ],
+            chosenCategory: ''
         }
     },
     methods: {
-        sendNum() { //(boardNo)
-            // const payload = [ boardNo ]
 
-            // EventBus.$emit('sendNum', payload)
-            // console.log('The num has been sent! ' + payload)
+        goToWrite() {
+            if(this.$store.state.isLoggedIn) {
+
+                this.$router.push({
+                    name: 'CommunityWritePage'
+                })
+
+            } else {
+                alert('로그인이 필요한 서비스입니다!')
+            }
         },
+
         handleClick(boardNo) {
             this.$router.push({
                 name:'CommunityReadPage',

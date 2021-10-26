@@ -12,49 +12,67 @@
                 class="btn-flat red-text waves-effect waves-teal" text="text">
                     탈퇴
                 </router-link> -->
+                <span style="float: right; margin-bottom: 50px;">
 
-                <v-btn class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" v-on="on" outlined @click="checkWord($event)">수정</v-btn>
-                <v-btn class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" v-on="on" outlined @click="checkWord($event)">탈퇴</v-btn>
+                    <v-btn text color="red" style="font-size: 11px; margin-right: 10px;" v-on="on" @click="checkWord($event)">
+                        수정
+                    </v-btn>
+                    
+                    <v-btn text color="red" style="font-size: 11px;" v-on="on" @click="checkWord($event)">
+                        탈퇴
+                    </v-btn>
+
+                </span>
             </div>
 
         </template>
 
-        <v-card>
+        <v-card class="grey darken-3" style="height: 380px;">
             <v-card-title class="headLine">
                 
-                    <p class="footerText" style="margin-bottom: -5px; font-size: 30px; margin: auto;">잠깐만요!</p>
-                    <p style="margin-bottom: -5px; font-size: 12px; margin: auto; line-height: 20px; padding-top: 10px;">
-                        변경이나 탈퇴 전 본인 확인을 위해 비밀번호를 다시한번 더 입력해주세요!</p>
+                    <p class="footerText" style="margin-bottom: -5px; font-size: 30px; margin: auto; padding-top: 20px;">잠깐만요!</p>
+                    
+                    <br/>
+
+                    <p style="margin-bottom: -5px; font-size: 12px; line-height: 20px; padding-top: 10px; color: white; margin-top: 10px;">
+                        변경이나 탈퇴 전 본인 확인을 위해 비밀번호를 다시한번 더 입력해주세요!
+                    </p>
              
             </v-card-title>
-            <v-card-text>
 
+            <v-card-text>
                 <v-container grid-list-md style="width: 100%;">
 
                     <v-layout wrap>
-                        <v-flex xs12>
-                            <v-text-field label="Password" type="password" required v-model="password"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field label="Password 재입력" type="password" required v-model="passwordCheck"></v-text-field>
-                        </v-flex>
-                    </v-layout>
 
+                        <v-flex xs12>
+                            <v-text-field label="Password" type="password" required v-model="password" dark/>
+                        </v-flex>
+
+                        <v-flex xs12>
+                            <v-text-field label="Password 재입력" type="password" required v-model="passwordCheck" dark/>
+                        </v-flex>
+
+                    </v-layout>
                 </v-container>
 
             </v-card-text>
-            <v-card-actions>
+
+            <v-card-actions style="margin-top: -30px;">
                 <v-spacer></v-spacer>
-                <v-btn color="teal darken-1" text @click.native="confirm">
+
+                <v-btn color="red" text @click.native="confirm">
                     확인
                 </v-btn>
-                <v-btn color="teal darken-1" text @click.native="cancel">
+
+                <v-btn color="error" text @click.native="cancel">
                     취소
                 </v-btn>
+
             </v-card-actions>
         </v-card>
+
     </v-dialog>
-    
 </template>
 
 <script>
@@ -96,13 +114,13 @@ export default {
                     .then(res => {
                         if(res.data) {
                             this.checkDialog = false
-
-                            if(this.checkedWord == '수정') {
+                            
+                            if(this.checkedWord == ' 수정 ') {
                                 this.$router.push({
                                     name: 'MemberModifyPage'
                                 })
 
-                            } else if(this.checkedWord == '탈퇴') {
+                            } else if(this.checkedWord == ' 탈퇴 ') {
                                 this.$router.push({
                                     name: 'MemberWithdrawalPage',
                                     params: { memberNo: this.$store.state.userProfile.memberNo.toString() }

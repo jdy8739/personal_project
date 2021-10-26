@@ -1,6 +1,7 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%;">
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">ABOUT US</h3>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar">ABOUT US</h3>
 
         <p class="description">MUSIC GHUETTO는 고객분들과 아티스트를 더욱 가깝게합니다 :)</p>
         <br>

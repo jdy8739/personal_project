@@ -1,9 +1,12 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%;">
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
         <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">PRFERENCE</h3>
+
         <p class="description" style="margin-right: 25px;">공연을 선택하는데 어려움이 있나요??? 고객님의 취향에 맞게 장르와 아티스트를 선택해보세요! :)</p>
 
         <preference-box v-if="isLoggedIn && notDecidedYet" style="margin-top: 30px;" @complete="onComplete"/>
+
         <p v-else-if="!isLoggedIn" class="footerText" style="margin-top: 50px; margin-right: 30px;">로그인이 필요한 서비스입니다! 로그인해주세요 :)</p>
         <p v-else-if="!notDecidedYet" class="footerText" style="margin-top: 50px; margin-right: 30px;">이미 이전에 취향을 정하셨어요! 다시 하실건가요???</p>
 

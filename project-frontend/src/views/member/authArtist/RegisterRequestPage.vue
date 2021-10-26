@@ -3,9 +3,9 @@
 
         <h3 class="topBar">CONCERT REQUEST</h3>
         
-        <p class="description">관리자에게 공연 정보의 등록을 요청할 수 있습니다. 회원님의 공연을 MUSIC GUETTO에서 홍보하세요!</p>
+        <p class="description" style="margin-right: 20px;">관리자에게 공연 정보의 등록을 요청할 수 있습니다. 회원님의 공연을 MUSIC GUETTO에서 홍보하세요!</p>
 
-        <v-container style="margin-top: 50px;">
+        <v-container style="margin-top: 50px; width: 610px;">
 
             <form @submit.prevent="checkVal">
 
@@ -26,16 +26,20 @@
                 class="footerText" style="width: 490px;"/>
 
                 <div style="justify-content: center; margin-top: 10px;" class="row">
+                    
                     <label class="footerText" style="margin-left: 60px;">공연 날짜
                         <input type="date" name="date" style="width: 300px; margin-right: 190px;" v-model="dateOfConcert">
                     </label>
+
                 </div>
 
                 <p class="footerText" style="text-align: center; margin-right: 280px; margin-top: 30px;">공연의 시작과 끝 시간을 설정해주세요.</p>
 
                 <div style="justify-content: center; margin-top: 10px;" class="row">
+
                     <input type="time" v-model="timeOfConcert" style="width: 230px; margin-right: 30px; color: pink;"/>
                     <input type="time" v-model="timeOfEnd" style="width: 230px; margin-right: 0px; color: pink;"/>
+
                 </div>
 
                 <p class="footerText" style="text-align: center; margin-top: 30px;">회원님의 공연을 홍보할 사진을 업로드해주세요 :) (파일 이름은 신청자 이름으로 해주세요!)</p>
@@ -46,20 +50,23 @@
                 </label>
                 
                 <br/>
+                <br/>
+                <br/>
+                <br/>
 
-                <div style="margin-top: 50px; margin-bottom: 20px;">
+                <span style="float: right; margin-bottom: 50px; margin-right: 40px;">
 
-                    <button type="submit" class="btn-flat red-text waves-effect waves-teal">
+                    <v-btn text color="red" type="submit" style="font-size: 11px; margin-right: 10px;">
                         업로드
-                    </button>
-
-                    <button @click="cancel" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 50px;">
+                    </v-btn>
+                    
+                    <v-btn text color="red" style="font-size: 11px;" @click="cancel">
                         취소
-                    </button>
-                </div>
-                
-            </form>
+                    </v-btn>
 
+                </span>
+    
+            </form>
         </v-container>
         
     </div>

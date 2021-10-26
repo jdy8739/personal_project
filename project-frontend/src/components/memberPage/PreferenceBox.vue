@@ -78,12 +78,12 @@
                     <p class="footerText">어떤 분위기의 음악을 좋아하시나요?</p>
 
                     <v-slider v-model="firstSlide" :tick-labels="firstLabels" :max="4" step="1" ticks="always" tick-size="4" class="footerText"
-                    :color="color1" track-color="grey" always-dirty style="display: block; margin-bottom: 30px;"></v-slider>
+                    :color="color1" track-color="grey" style="display: block; margin-bottom: 30px;" dark></v-slider>
 
                     <p class="footerText">공연장은 어떤 분위기가 좋으세요?</p>
 
                     <v-slider v-model="secondSlide" :tick-labels="secondLabels" :max="3" step="1" ticks="always" tick-size="4" class="footerText"
-                    :color="color2" track-color="grey" always-dirty></v-slider>
+                    :color="color2" track-color="grey" dark></v-slider>
 
                 </div>
 
@@ -104,7 +104,7 @@
           <div style="margin-top: 25px;" align="center">
             
             <v-text-field label="회원님이 좋아하는 아티스트를 적어주세요!" class="footerText" outlined shaped color="teal"
-            hint="꼭 인디 아티스트가 아니더라고 괜찮아요! :)" style="width: 40%;" v-model="artist" @keydown.enter="pushArtist(artist)"/>
+            hint="꼭 인디 아티스트가 아니더라고 괜찮아요! :)" style="width: 40%;" v-model="artist" @keydown.enter="pushArtist(artist)" dark/>
 
             <div style="margin-top: 20px; margin-bottom: 20px;">
                 <p class="footerText">선택한 아티스트 (클릭해서 삭제)</p>

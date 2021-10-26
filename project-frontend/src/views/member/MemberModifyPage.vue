@@ -1,44 +1,48 @@
 <template>
-    <div align="center" style="height: 100%;">
-        <p class="memberListTitle" style="margin-top: 60px;">Profile Modify</p>
-        <p class="subTitle" style="font-style: italic;">원하시는 정보를 수정하세요.</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
 
-        <v-container style="width: 20%">
+        <p class="topBar" style="margin-top: 0px; padding-top: 30px;">PROFILE MODIFY</p>
+        <p class="description" style="margin-right: 25px;">원하시는 정보를 수정하세요.</p>
+
+        <v-container style="width: 25%; margin-top: 30px;">
             <form @submit.prevent="onSubmit">
             
-                <v-text-field label="ID(e-mail)" type="text" required v-model="user.id"></v-text-field>
+                <v-text-field label="ID(e-mail)" type="text" required v-model="user.id" dark/>
             
-                <v-text-field label="비밀번호(10자리 이상)" type="password" required v-model="user.password" class="cutTopMargin"></v-text-field>
+                <v-text-field label="비밀번호(10자리 이상)" type="password" required v-model="user.password" class="cutTopMargin" dark/>
                 
-                <v-text-field label="비밀번호 재확인" type="password" required v-model="user.passwordCheck" class="cutTopMargin"></v-text-field>
+                <v-text-field label="비밀번호 재확인" type="password" required v-model="user.passwordCheck" class="cutTopMargin" dark/>
                 
-                <v-text-field label="이름" type="text" required v-model="user.name" class="cutTopMargin"></v-text-field>
+                <v-text-field label="이름" type="text" required v-model="user.name" class="cutTopMargin" dark/>
 
-                <v-select v-model="user.location" :items="locations" label="지역 선택" multiple class="cutTopMargin"></v-select>
+                <v-select v-model="user.location" :items="locations" label="지역 선택" multiple class="cutTopMargin" dark/>
                 
-                <input type="date" name="date" style="width: 100%;" required v-model="user.birthDay">
+                <input type="date" name="date" style="width: 100%; color: white;" required v-model="user.birthDay">
 
-                <v-radio-group v-model="user.identity" row style="margin-top: 30px;">
-                    <v-radio label="개인" value="individual"></v-radio>
-                    <v-radio label="아티스트" value="artist"></v-radio>
+                <v-radio-group v-model="user.identity" row style="margin-top: 30px;" dark>
+                    <v-radio label="개인" value="individual" color="teal"/>
+                    <v-radio label="아티스트" value="artist" color="red"/>
                     <!-- <v-radio label="관리자" value="admin"></v-radio> -->
                 </v-radio-group>
                 
-                <v-text-field label="휴대전화" type="text" required v-model="user.phoneNo"></v-text-field>
+                <v-text-field label="휴대전화" type="text" required v-model="user.phoneNo" dark/>
 
-                <div style="margin-top: 20px;">
-                    <v-btn class="btn-flat red-text waves-effect waves-teal" type="submit" @click.native="btn_confirm($event)" style="margin-right: 40px;">
+                <span style="float: right; margin-top: 20px; padding-bottom: 50px;">
+
+                    <v-btn text class="btn-flat red-text waves-effect waves-teal" type="submit" style="font-size: 11px; margin-right: 10px;">
                         수정
                     </v-btn>
-                    <v-btn class="btn-flat red-text waves-effect waves-teal" type="text" @click.native="btn_cancel($event)">
+
+                    <v-btn text class="btn-flat red-text waves-effect waves-teal" type="text" @click.native="btn_cancel($event)" style="font-size: 11px;">
                         취소
                     </v-btn>
-                </div>
 
+                </span>
                 <check-dialogue/> 
 
             </form>
         </v-container>
+
     </div>
 </template>
 

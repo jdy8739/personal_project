@@ -9,7 +9,7 @@
 
         </template>
 
-        <v-card class="#424242 grey darken-3">
+        <v-card class="grey darken-3">
 
             <v-card-title class="headLine">
 

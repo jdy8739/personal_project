@@ -37,8 +37,6 @@ import BookedAlterPage from '../views/concert/BookedAlterPage.vue'
 
 import SearchPage from '../views/concert/SearchPage.vue'
 
-import SingupPageDummy from '../views/SingupPageDummy.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -231,16 +229,6 @@ const routes = [
     name: 'SearchPage',
     components: {
       default: SearchPage
-    },
-    props: {
-      default: true
-    }
-  },
-  {
-    path: '/singupPageDummy',
-    name: 'SingupPageDummy',
-    components: {
-      default: SingupPageDummy
     },
     props: {
       default: true

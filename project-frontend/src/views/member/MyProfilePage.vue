@@ -1,7 +1,9 @@
 <template>
-    <div align="center">
-        <p class="memberListTitle" style="margin-top: 60px;">My Profile</p>
-        <p class="subTitle" style="font-style: italic;">현재 회원님의 가입 정보입니다.</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <p class="topBar" style="margin-top: 0px; padding-top: 30px;">MY PROFILE</p>
+        <p class="description" style="margin-right: 25px;">현재 회원님의 가입 정보입니다.</p>
+
         <v-container style="width: 75%">
             <table border="1px">
                 <tr class="footerText">
@@ -18,7 +20,7 @@
                     <td colspan="8">회원 정보를 불러오지 못했습니다!</td>
                 </tr>
 
-                <tr v-else-if="userProfile" class="item">
+                <tr v-else-if="userProfile" class="item" style="color: white;">
                     <td>{{ member.id }}</td>
                     <td>{{ password }}</td>
                     <td>{{ member.name }}</td>
@@ -28,6 +30,11 @@
                     <td>{{ member.phoneNo }}</td>
                     <td style="text-align: right">{{ member.regDate }}</td>
                 </tr>
+
+                <br/>
+                <br/>
+                <br/>
+
                 <tr class="footerText">
                     <td>선택 취향</td>
                     <td colspan="2">선택한 장르</td>
@@ -35,7 +42,7 @@
                     <td colspan="2">공연장 선호사항</td>
                     <td colspan="2" style="text-align: right">선택한 아티스트</td>
                 </tr>
-                <tr v-if="taste" class="item">
+                <tr v-if="taste" class="item" style="color: white;">
                     <td></td>
                     <td colspan="2">{{ taste.chosenGenres }}</td>
                     <td colspan="2">{{ taste.speedTaste }}</td>
@@ -47,6 +54,11 @@
                 </tr>
            
             </table>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
             <check-dialogue v-bind:memberNo="member.memberNo"/>
 
@@ -62,10 +74,8 @@
                 </router-link>
             </div> -->
         </v-container>
-
-        <h2 v-if="jazz">TEST</h2>
-        <h2 v-else>TEST2</h2>
     </div>
+
 </template>
 
 <script>

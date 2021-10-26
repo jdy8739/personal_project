@@ -1,33 +1,42 @@
 <template>
     <div style="width: 20%; margin-top: 30px;">
         <form @submit.prevent="onSubmit">
+            
             <table>
                 <tr>
                     <td>
-                        <input type="text" class="name" disabled v-bind:value="'콘서트명: ' + bookedConcert.concertName" style="color: white;"/>
+                        <input type="text" class="name" disabled v-bind:value="'콘서트명: ' + bookedConcert.concertName" style="color: white; text-align: left;"/>
                     </td>
                 </tr>
                 <tr>
+
                     <td v-if="notAlterName">
                         <input type="text" class="name" disabled 
                         v-bind:value="'예약자명: ' + bookedConcert.name" style="color: white; width: 80%; text-align: left;"/>
+
                         <v-btn text style="color: teal" @click="alterContent(1)"><v-icon>mode_edit</v-icon></v-btn>
                     </td>
+
                     <td v-else-if="!notAlterName">
-                        <v-text-field label="예약자명" required v-model="name" outlined shaped color="teal"                  
+                        <v-text-field label="예약자명" required v-model="name" outlined shaped color="teal" dark                
                         hint="영문, 한글로 이름을 작성해주세요!"/>
+
                         <v-btn text style="color: teal" @click="doneAlter(1)"><v-icon>done</v-icon></v-btn>
                     </td>
+
                 </tr>
                 <tr>
                     <td v-if="notAlterPhoneNo">
                         <input type="text" class="name" disabled 
                         v-bind:value="'예약 휴대번호: ' + bookedConcert.phoneNumber" style="color: white; width: 80%; text-align: left;"/>
+
                         <v-btn text style="color: teal" @click="alterContent(2)"><v-icon>mode_edit</v-icon></v-btn>
                     </td>
+
                     <td v-else-if="!notAlterPhoneNo">
-                        <v-text-field label="예약자명" required v-model="phoneNo" outlined shaped color="teal"
+                        <v-text-field label="예약자명" required v-model="phoneNo" outlined shaped color="teal" dark
                         hint="수정할 전화번호를 입력해주세요!"/>
+
                         <v-btn text style="color: teal" @click="doneAlter(2)"><v-icon>done</v-icon></v-btn>
                     </td>
                 </tr>
@@ -35,11 +44,14 @@
                     <td v-if="notAlterNumOfVisitors">
                         <input type="text" class="name" disabled 
                         v-bind:value="'예약 인원: ' + bookedConcert.numOfVisitors + '명'" style="color: white; width: 80%; text-align: left;"/>
+
                         <v-btn text style="color: teal" @click="alterContent(3)"><v-icon>mode_edit</v-icon></v-btn>
                     </td>
+
                     <td v-else-if="!notAlterNumOfVisitors">
-                        <v-text-field label="예약 인원" type="number" required v-model="numOfVisitors" outlined shaped color="teal"
+                        <v-text-field label="예약 인원" type="number" required v-model="numOfVisitors" outlined shaped color="teal" dark
                         hint="수정할 전화번호를 입력해주세요!" style="width: 50%;"/>
+
                         <v-btn text style="color: teal" @click="doneAlter(3)"><v-icon>done</v-icon></v-btn>
                     </td>
                 </tr>
@@ -47,35 +59,36 @@
                     <td v-if="notAlterMessage">
                         <input type="text" class="name" disabled 
                         v-bind:value="'요청메세지: ' + bookedConcert.message" style="color: white; width: 80%; text-align: left;"/>
+
                         <v-btn text style="color: teal" @click="alterContent(4)"><v-icon>mode_edit</v-icon></v-btn>
                     </td>
+
                     <td v-else-if="!notAlterMessage">
-                        <v-text-field label="요청메세지" type="text" required v-model="message" outlined shaped color="teal"
+                        <v-text-field label="요청메세지" type="text" required v-model="message" outlined shaped color="teal" dark
                         hint="수정할 전화번호를 입력해주세요!"/>
+
                         <v-btn text style="color: teal" @click="doneAlter(4)"><v-icon>done</v-icon></v-btn>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" class="name" disabled v-bind:value="'예약일시: ' + bookedConcert.regDate" style="color: white;"/>
+                        <input type="text" class="name" disabled v-bind:value="'예약일시: ' + bookedConcert.regDate" style="color: white; text-align: left;"/>
                     </td>
                 </tr>
             </table>
 
-            <div style="margin-top: 20px; margin-bottom: 30px;">
-                <v-btn color="error darken-2" text type="submit" style="font-size: 12px;">
-                    예약 사항 변경
-                </v-btn>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <v-btn color="error darken-3" text @click.native="deleteBooking(bookedConcert.bookedConcertNo)" style="font-size: 12px;">
-                    예약 취소
-                </v-btn>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <v-btn color="error darken-4" text @click.native="cancel" style="font-size: 12px;">
-                    뒤로
+            
+            <span style="float: right; margin-bottom: 50px; margin-top: 40px; margin-right: 20px;">
+
+                <v-btn text color="error lighten-4" type="submit" style="font-size: 11px; margin-right: 10px;">
+                    변경 확인
                 </v-btn>
                 
-            </div>
+                <v-btn text color="red" style="font-size: 11px;" @click.native="deleteBooking(bookedConcert.bookedConcertNo)">
+                    예약 취소
+                </v-btn>
+
+            </span>
         </form>
 
     </div>

@@ -1,8 +1,9 @@
 <template>
     <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">SEARCH RESEARCH</p>
+
+        <h3 class="topBar">SEARCH RESEARCH</h3>
         
-        <v-container style="margin-top: 50px;">
+        <v-container style="margin-top: 60px;">
 
             <div class="row" style="justify-content: left; padding-left: 15px;">
                 <h5 class="footerText" style="margin-top: 8px;">{{ searchText1 }}</h5>

@@ -1,5 +1,4 @@
 <template>
-
     <div align="center" class="#424242 grey darken-4" style="height: 100%; padding-top: 60px;">
 
         <h3 class="topBar">COMMUNITY COMMENT</h3>
@@ -8,31 +7,59 @@
 
         <v-container style="margin-top: 50px;">
 
+            <v-select
+              :items="category"
+              attach
+              chips
+              label="카테고리"
+              dark
+              style="width: 120px; float: left;"
+              color="red"
+            ></v-select>
+
             <form @submit.prevent="onSubmit">
-                <table style="color: white; width: 1000px;">
+                
+                <table style="color: white;">
 
                     <tr>
-                        <td class="description" style="width: 100px; color: grey;">글 제목</td>
-                        <v-text-field required v-model="title" style="width: 800px;" dark color="red"/>
-                    </tr>
-                    <tr>
-                        <td class="description" style="width: 100px; color: grey;">본문</td>
-                        
-                        <v-textarea required v-model="content" style="width: 800px;" auto-grow color="red" dark clearable
-                        counter="100" label="자유롭게 기대나 후기를 작성해주세요!" :rules="rules"/>
+                        <td class="description" style="color: grey;">글 제목</td>
                     </tr>
 
+                    <tr>
+                        <td>
+                            <input required v-model="title" style="color: white;"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="description" style="color: grey;">본문</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <v-textarea required v-model="content" auto-grow dark color="red" clearable/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            
+                            <span style="float: right;">
+
+                                <v-btn text type="submit" color="red" style="font-size: 12px;">
+                                    확인
+                                </v-btn>
+
+                                <v-btn text color="red" style="margin-left: 30px; font-size: 12px;" @click="goBack">
+                                    뒤로가기
+                                </v-btn>
+
+                            </span>
+
+                        </td>
+                    </tr>
                 </table>
 
-                <div style="margin-top: 80px;">
-                    <v-btn text type="submit" color="red" style="font-size: 12px;">
-                        확인
-                    </v-btn>
-                    
-                    <v-btn text color="red" style="margin-left: 30px; font-size: 12px;" @click="goBack">
-                        뒤로가기
-                    </v-btn>
-                </div>
             </form>
 
         </v-container>
@@ -48,7 +75,10 @@ export default {
     data() {
         return {
             title: '',
-            content: ''
+            content: '',
+            
+            category: [ '후기', '음악', '공연', '건의' ],
+            chosenCategory: ''
         }
     },
     methods: {
