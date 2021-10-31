@@ -48,7 +48,7 @@
             <br/>
 
             <v-data-table :headers="headerTitle" dark 
-                        :items="boards"
+                        :items="filteredBoards()"
                         :items-per-page="10"
                         :search="searchTitle"
                         class="elevation-1">
@@ -57,6 +57,7 @@
                         <tr>
                             <td>{{ index + 1 }}</td>
                             <td @click="handleClick(item.boardNo)">{{ item.title }}</td>
+                            <td>{{ item.category }}</td>
                             <td>{{ item.id }}</td>
                             <td>{{ item.regDate }}</td>
                         </tr>
@@ -92,13 +93,14 @@ export default {
             headerTitle: [
                 { text: 'NO', value: 'boardNo', width: '10%'},
                 { text: '제목', value: 'title', width: '50%'},
+                { text: '분류', value: 'category', width: '10%'},
                 { text: '작성자', value: 'id', width: '20%'},
                 { text: '게시일', value: 'regDate', width: '20%'}
             ],
             searchTitle: '',
 
-            category: [ '후기', '음악', '공연', '건의' ],
-            chosenCategory: ''
+            category: [ '후기', '음악', '공연', '건의', '전체' ],
+            chosenCategory: '전체'
         }
     },
     methods: {
@@ -120,6 +122,20 @@ export default {
                 name:'CommunityReadPage',
                 params: { boardNo: boardNo.toString() }
             })
+        },
+
+        filteredBoards() {
+
+            var filteredBoards = []
+
+            if(this.chosenCategory == '전체') filteredBoards = this.boards
+           
+            for(var i=0; i<this.boards.length; i++) {
+
+                if(this.boards[i].category == this.chosenCategory) filteredBoards.push(this.boards[i])
+            }
+
+            return filteredBoards
         }
     }
 }

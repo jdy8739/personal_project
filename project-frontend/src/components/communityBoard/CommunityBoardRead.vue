@@ -3,7 +3,9 @@
         <v-container style="margin-top: 30px; width: 65%;">
 
             <v-select
-              :items="category"
+              :items="categories"
+              v-model="category"
+              readonly
               attach
               chips
               label="카테고리"
@@ -99,7 +101,8 @@ export default {
             reply: '',
             inputComplete: false,
 
-            category: [ '후기', '음악', '공연', '건의' ]
+            categories: [ '후기', '음악', '공연', '건의' ],
+            category: this.board.category
         }
     },
     computed: {

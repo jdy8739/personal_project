@@ -109,20 +109,21 @@ export default {
             this.modifyContent = content
 
         },
-        submitModified(boardReplyNo, id, index) {
+        submitModified(tmpBoardReplyNoo, id, index) {
             
             if(this.isLoggedIn && (this.userProfile.id == id || this.userProfile.identity == 'admin')) {
                 
                  axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-                        if(res.data == true) {
+
+                        if(res.data) {
 
                             this.$store.state.replyList.splice(index, 1, { boardReplyNo: boardReplyNo, boardNo: this.board.boardNo, id: id, content: this.modifyContent })
 
-                            const replyNo = boardReplyNo
+                            const boardReplyNo = tmpBoardReplyNoo
                             const content = this.modifyContent
 
-                            axios.put('http://localhost:8888/board/modifyReply', { replyNo, content })
+                            axios.put('http://localhost:8888/board/modifyReply', { boardReplyNo, content })
                                 .then(alert('댓글이 수정되었습니다 :)'))
 
                             //this.fetchReplyList(this.board.boardNo)

@@ -83,7 +83,7 @@ export default {
     name: 'CheckDialogue',
     props: {
         memberNo: {
-            type: String,
+            type: Number,
             required: true
         }
     },

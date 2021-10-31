@@ -8,7 +8,8 @@
         <v-container style="margin-top: 50px;">
 
             <v-select
-              :items="category"
+              :items="categories"
+              v-model="category"
               attach
               chips
               label="카테고리"
@@ -77,8 +78,8 @@ export default {
             title: '',
             content: '',
             
-            category: [ '후기', '음악', '공연', '건의' ],
-            chosenCategory: ''
+            categories: [ '후기', '음악', '공연', '건의' ],
+            category: ''
         }
     },
     methods: {
@@ -89,12 +90,18 @@ export default {
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
                         if(res.data == true) {
+
+                            if(this.category == '') {
+                                alert('게시글의 카테고리를 설정해주세요!')
+                                return false
+                            }
                             
                             const id = this.$store.state.userProfile.id
                             const title = this.title
                             const content = this.content
+                            const category = this.category
                             
-                            axios.post('http://localhost:8888/board/upload', { id, title, content })
+                            axios.post('http://localhost:8888/board/upload', { id, title, content, category })
                                 .then(alert('글이 등록되었습니다 :)'))
 
                                 this.fetchBoardList()

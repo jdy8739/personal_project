@@ -3,8 +3,8 @@
         <v-container style="margin-top: 30px; width: 65%;">
 
             <v-select
-              v-model="chosenCategory"
-              :items="category"
+              v-model="category"
+              :items="categories"
               attach
               chips
               label="카테고리"
@@ -80,8 +80,8 @@ export default {
             title: this.board.title,
             content: this.board.content,
 
-            category: [ '후기', '음악', '공연', '건의' ],
-            chosenCategory: ''
+            categories: [ '후기', '음악', '공연', '건의' ],
+            category: this.board.category
         }
     },
     computed: {
@@ -96,11 +96,17 @@ export default {
                     .then(res => {
                         if(res.data == true) {
 
+                            if(this.category == '') {
+                                alert('게시글의 카테고리를 설정해주세요!')
+                                return false
+                            }
+
                             const boardNo = this.$store.state.board.boardNo
                             const title = this.title
                             const content = this.content
+                            const category = this.category
                             
-                            axios.put('http://localhost:8888/board/modify', { boardNo, title, content })
+                            axios.put('http://localhost:8888/board/modify', { boardNo, title, content, category })
                                 .then(() => {
                                     alert('수정이 완료되었습니다!')
 
