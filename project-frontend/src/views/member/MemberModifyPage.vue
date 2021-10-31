@@ -4,7 +4,8 @@
         <p class="topBar" style="margin-top: 0px; padding-top: 30px;">PROFILE MODIFY</p>
         <p class="description" style="margin-right: 25px;">원하시는 정보를 수정하세요.</p>
 
-        <v-container style="width: 25%; margin-top: 30px;">
+        <v-container style="width: 15%; margin-top: 30px;">
+
             <form @submit.prevent="onSubmit">
             
                 <v-text-field label="ID(e-mail)" type="text" required v-model="user.id" dark/>
@@ -38,10 +39,23 @@
                     </v-btn>
 
                 </span>
-                <check-dialogue/> 
 
             </form>
         </v-container>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    
+        <p class="description" style="font-size: 5px;">이용약관 | 개인정보처리방침 | 책임의 한계와 법적고지 | 회원정보 고객센터
+
+        &emsp; &emsp;
+
+        MUSIC GHUETTO Copyright &copy; MUSIC GHUETTO</p>
+
+        <br/>
+        <br/>
 
     </div>
 </template>

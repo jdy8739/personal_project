@@ -2,7 +2,6 @@
     <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
 
         <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">SIGN UP</h3>
-
         <p class="description">MUSIC GHUETTO에 오신것을 환영합니다! 가입하셔서 다양한 공연 정보와 서비스를 사용해보세요. :)</p>
         
         <v-container style="width: 15%;" v-if="!signupSuccess">
@@ -17,7 +16,7 @@
                 
                 <v-text-field label="이름" type="text" required v-model="user.name" class="cutTopMargin" dark/>
 
-                <v-select required v-model="user.location" :items="locations" label="지역 선택" multiple class="cutTopMargin" dark/>
+                <v-select v-model="user.location" :items="locations" label="지역 선택" multiple class="cutTopMargin" dark/>
                 
                 <input type="date" name="date" style="width: 100%; color: white;" required v-model="user.birthDay">
 
