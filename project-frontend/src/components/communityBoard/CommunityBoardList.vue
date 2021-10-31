@@ -118,7 +118,7 @@ export default {
         handleClick(boardNo) {
             this.$router.push({
                 name:'CommunityReadPage',
-                params: { boardNo: boardNo }
+                params: { boardNo: boardNo.toString() }
             })
         }
     }
