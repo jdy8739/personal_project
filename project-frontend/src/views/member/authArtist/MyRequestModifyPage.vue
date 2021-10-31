@@ -1,7 +1,8 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">Concert Request Modify</p>
-        <p class="description">회원님이 작성한 공연 게시 요청 정보입니다. 거부되어도 재요청을 보낼 수 있습니다. :)</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+        
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">REQUEST MODIFY</h3>
+        <p class="description" style="margin-right: 20px;">회원님이 작성한 공연 게시 요청 정보입니다. 거부되어도 재요청을 보낼 수 있습니다. :)</p>
         
         <my-request-modify v-if="concertRequest" :concertRequest="concertRequest" @submit="onSubmit"/>
         <p v-else-if="!concertRequest">잠시만 기다려주세요!</p> <!-- 이게 있어야 새로고침해도 concertRequest값이 자식 컴포넌트에 들어감? -->
@@ -20,7 +21,7 @@ export default {
     },
     props: {
         concertRequestNo: {
-            type: Number,
+            type: String,
             required: true
         }
     },
@@ -38,7 +39,7 @@ export default {
 
                     this.$router.push({
                         name: 'MyRequestReadPage',
-                        params: { concertRequestNo: this.concertRequest.concertRequestNo }
+                        params: { concertRequestNo: this.concertRequest.concertRequestNo.toString() }
                     })
                 })
                 .catch(() => {

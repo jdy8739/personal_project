@@ -1,14 +1,15 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">Concert Request</p>
-        <p class="description">회원님이 작성한 공연 게시 요청 정보입니다. 거부되어도 재요청을 보낼 수 있습니다. :)</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">CONCERT REQUEST</h3>
+        <p class="description" style="margin-right: 20px;">회원님이 작성한 공연 게시 요청 정보입니다. 거부되어도 재요청을 보낼 수 있습니다. :)</p>
 
         <v-container style="margin-top: 40px;">
 
             <div class="row" style="justify-content: center;">
 
                 <div>
-                    <p class="footerText" style="font-size: 20px;">이하 공연 업로드 요청사항</p>
+                    <p class="footerText" style="font-size: 20px; margin-right: 20px;">이하 공연 업로드 요청사항</p>
 
                     <br/>
 
@@ -45,28 +46,28 @@
 
                     <td v-if="concertRequest.approvedOrNot == null || concertRequest.approvedOrNot == 'A'" class="footerText">
                         게시 요청 대기 중
-                        <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on">
+                        <v-btn class="ma-2" text icon color="primary lighten-1">
                             <v-icon>crop_square</v-icon>
                         </v-btn>
                     </td>
 
                     <td v-else-if="concertRequest.approvedOrNot == 'Y'" class="footerText">
                         게시 요청 수락됨
-                        <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on">
+                        <v-btn class="ma-2" text icon color="teal lighten-1">
                             <v-icon>done</v-icon>
                         </v-btn>
                     </td>
 
                     <td v-else-if="concertRequest.approvedOrNot == 'N'" class="footerText">
                         게시 요청 거부됨
-                        <v-btn class="ma-2" text icon color="error lighten-1" v-bind="attrs" v-on="on">
+                        <v-btn class="ma-2" text icon color="error lighten-1">
                             <v-icon>remove</v-icon>
                         </v-btn>
                     </td>
 
                     <td v-else-if="concertRequest.approvedOrNot == 'R'" class="footerText">
                         수정된 요청 대기 중
-                        <v-btn class="ma-2" text icon color="orange lighten-1" v-bind="attrs" v-on="on">
+                        <v-btn class="ma-2" text icon color="orange lighten-1">
                             <v-icon>replay</v-icon>
                         </v-btn>
                     </td>
@@ -84,11 +85,24 @@
                         readonly
                     ></v-textarea> <!-- height조절이 안되는 버그??? -->
 
-                    <div style="margin-top: 20px;">
-                        <button @click="modify" class="btn-flat red-text waves-effect waves-teal" style="font-size: 12px;">요청 사항 변경</button>
-                        <button @click="deletee" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 50px; font-size: 12px;">요청 취소</button>
-                        <button @click="cancel" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 50px; font-size: 12px;">뒤로</button>
+                    <div style="margin-top: 20px; float: right;">
+
+                        <v-btn @click="modify" class="ma-2" text color="error lighten-4" style="font-size: 11px;">
+                            요청 사항 변경
+                        </v-btn>
+
+                        <v-btn @click="deletee" text color="error lighten-2" style="font-size: 11px;">
+                            요청 취소
+                        </v-btn>
+
+                        <v-btn @click="cancel" text color="error lighten-2" style="font-size: 11px;">
+                            뒤로
+                        </v-btn>
+
                     </div>
+
+                    <br/>
+                    <br/>
 
                     <div style="margin-top: 50px;">
                         <p align="left" class="footerText" style="margin-bottom: 20px;">공연 요청자의 아티스트 사진</p>

@@ -1,14 +1,16 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">My Request List</p>
-        <p class="description">회원님이 요청한 공연의 리스트 정보입니다. 요청자 이름을 눌러 상세정보를 확인하세요!</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">MY REQUEST LIST</h3>
+        <p class="description" style="margin-right: 20px;">회원님이 요청한 공연의 리스트 정보입니다. 요청자 이름을 눌러 상세정보를 확인하세요!</p>
 
         <div style="width: 70%; margin-top: 40px;"> 
+
             <v-data-table :headers="headerTitle"
                             :items="myRequestList"
                             :items-per-page="5"
-                            :search="searchRequest"
-                            class="elevation-1">
+                            class="elevation-1"
+                            dark>
 
                         <template v-slot:item="{ item, index }"> 
                             <tr>
@@ -20,36 +22,81 @@
                                 <td>{{ item.dateOfConcert }} {{ item.timeOfConcert }}</td>
 
                                 <td v-if="item.approvedOrNot == null || item.approvedOrNot == 'A' ">
-                                    게시 요청 대기 중
-                                    <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on">
-                                        <v-icon>crop_square</v-icon>
-                                    </v-btn>
+
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+
+                                            <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on">
+                                                <v-icon>
+                                                    crop_square
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+
+                                         <span>게시 요청 대기 중</span>
+
+                                    </v-tooltip>
                                 </td>
 
                                 <td v-else-if="item.approvedOrNot == 'Y'">
-                                    게시 요청 수락됨
-                                    <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on">
-                                        <v-icon>done</v-icon>
-                                    </v-btn>
+                                    <v-tooltip bottom>
+
+                                        <template v-slot:activator="{ on, attrs }">
+                    
+                                            <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on">
+                                                <v-icon>
+                                                    done
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+
+                                        <span>게시 요청 수락됨</span>
+
+                                    </v-tooltip>
                                 </td>
 
                                 <td v-else-if="item.approvedOrNot == 'N'">
-                                    게시 요청 거부됨
-                                    <v-btn class="ma-2" text icon color="error lighten-1" v-bind="attrs" v-on="on">
-                                        <v-icon>remove</v-icon>
-                                    </v-btn>
+                                    <v-tooltip bottom>
+
+                                        <template v-slot:activator="{ on, attrs }">
+                    
+                                            <v-btn class="ma-2" text icon color="error lighten-1" v-bind="attrs" v-on="on">
+                                                <v-icon>
+                                                    remove
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+
+                                        <span>게시 요청 거부됨</span>
+
+                                    </v-tooltip>
                                 </td>
 
                                 <td v-else-if="item.approvedOrNot == 'R'">
-                                    수정된 요청 대기 중
-                                    <v-btn class="ma-2" text icon color="orange lighten-1" v-bind="attrs" v-on="on">
-                                        <v-icon>replay</v-icon>
-                                    </v-btn>
+
+                                    <v-tooltip bottom>
+
+                                        <template v-slot:activator="{ on, attrs }">
+                    
+                                            <v-btn class="ma-2" text icon color="orange lighten-1" v-bind="attrs" v-on="on">
+                                                <v-icon>
+                                                    replay
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+
+                                        <span>  수정된 요청 대기 중</span>
+
+                                    </v-tooltip>
                                 </td>
+                                
                                 <td>{{ item.regDate }}</td>
+
                             </tr>
+
                         </template>
             </v-data-table>
+
         </div>
     </div>
 </template>
@@ -67,8 +114,8 @@ export default {
                 { text: '아티스트', value: 'artistName', width: '12%'},
                 { text: '공연 장소', value: 'venueName', width: '12%'},
                 { text: '공연 이름', value: 'concertName', width: '12%'},
-                { text: '일시', value: 'dateOfConcert', width: '20%'},
-                { text: '승인 여부', value: 'approvedOrNot', width: '18%'},
+                { text: '일시', value: 'dateOfConcert', width: '25%'},
+                { text: '승인 여부', value: 'approvedOrNot', width: '8%'},
                 { text: '요청일자', value: 'regDate', width: '15%'}
             ]
         }
@@ -79,7 +126,7 @@ export default {
         handleClick(concertRequestNo) {
             this.$router.push({
                 name: 'MyRequestReadPage',
-                params: { concertRequestNo: concertRequestNo }
+                params: { concertRequestNo: concertRequestNo.toString() }
             })
         }
     },
@@ -107,7 +154,7 @@ export default {
 <style scoped>
 
 .footerText:hover {
-  color: teal;
+  color: turquoise;
   font-size: 15px;
 }
 

@@ -1,7 +1,8 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">Concert Request</p>
-        <p class="description">아티스트로부터 요청된 공연의 상세정보입니다. 만약 거절을 한다면 사유를 입력해주세요.</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">CONCERT REQUEST</h3>
+        <p class="description" style="margin-right: 20px;">아티스트로부터 요청된 공연의 상세정보입니다. 만약 거절을 한다면 사유를 입력해주세요.</p>
 
         <v-container style="margin-top: 40px;">
 
@@ -43,86 +44,99 @@
                     <br/>
                     <br/>
 
-                    <div v-if="concertRequest.approvedOrNot == null || concertRequest.approvedOrNot == 'A' || concertRequest.approvedOrNot == 'R'">승인 대기
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 1)">
-                                                <v-icon>done</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 수락</span>    
-                                    </v-tooltip>
+                    <div v-if="concertRequest.approvedOrNot == null || concertRequest.approvedOrNot == 'A' || concertRequest.approvedOrNot == 'R'"
+                    class="footerText">
+                        
+                        승인 대기
 
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 2)">
-                                                <v-icon>remove</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 거부</span>    
-                                    </v-tooltip>
-                                    
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on" disabled>
-                                                <v-icon>crop_square</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 보류</span>    
-                                    </v-tooltip>
-                                </div>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 1)">
+                                    <v-icon>done</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 수락</span>    
+                        </v-tooltip>
 
-                                <div v-else-if="concertRequest.approvedOrNot == 'N'">게시 불가
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 1)">
-                                                <v-icon>done</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 수락</span>    
-                                    </v-tooltip>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 2)">
+                                    <v-icon>remove</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 거부</span>    
+                        </v-tooltip>
+                        
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on" disabled>
+                                    <v-icon>crop_square</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 보류</span>    
+                        </v-tooltip>
+                    </div>
 
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" disabled>
-                                                <v-icon>remove</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 거절</span>    
-                                    </v-tooltip>
+                    <div v-else-if="concertRequest.approvedOrNot == 'N'"
+                    class="footerText">
 
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 3)">
-                                                <v-icon>crop_square</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 보류</span>    
-                                    </v-tooltip>
-                                </div>
+                        게시 불가
 
-                                <div v-else-if="concertRequest.approvedOrNot == 'Y'">승인 완료 <!-- 순서 버그 있음 -> 해결 같이 툴팁에 다 넣어야됨 -->
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on" disabled>
-                                                <v-icon>done</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 수락</span>    
-                                    </v-tooltip>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 1)">
+                                    <v-icon>done</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 수락</span>    
+                        </v-tooltip>
 
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 2)">
-                                                <v-icon>remove</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 거절</span>    
-                                    </v-tooltip>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" disabled>
+                                    <v-icon>remove</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 거절</span>    
+                        </v-tooltip>
 
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 3)">
-                                                <v-icon>crop_square</v-icon></v-btn>
-                                        </template>
-                                        <span>게시 요청 보류</span>    
-                                    </v-tooltip>
-                                </div>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 3)">
+                                    <v-icon>crop_square</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 보류</span>    
+                        </v-tooltip>
+                    </div>
+
+                    <div v-else-if="concertRequest.approvedOrNot == 'Y'"
+                    class="footerText">
+
+                        승인 완료 <!-- 순서 버그 있음 -> 해결 같이 툴팁에 다 넣어야됨 -->
+
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="teal lighten-1" v-bind="attrs" v-on="on" disabled>
+                                    <v-icon>done</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 수락</span>    
+                        </v-tooltip>
+
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 2)">
+                                    <v-icon>remove</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 거절</span>    
+                        </v-tooltip>
+
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="ma-2" text icon color="primary lighten-1" v-bind="attrs" v-on="on" @click="approveOrNotConcert(concertRequest.concertRequestNo, 3)">
+                                    <v-icon>crop_square</v-icon></v-btn>
+                            </template>
+                            <span>게시 요청 보류</span>    
+                        </v-tooltip>
+                    </div>
                     
                     <v-textarea v-if="concertRequest.approvedOrNot == 'N'"
-                        background-color="grey lighten-2"
+                        dark
+            
                         color="teal"
                         label="거절하신다면 사유를 입력해주세요."
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
@@ -135,8 +149,9 @@
                     ></v-textarea> <!-- height조절이 안되는 버그??? -->
 
                     <v-textarea v-else-if="concertRequest.approvedOrNot == 'Y' || concertRequest.approvedOrNot == 'A' || concertRequest.approvedOrNot == 'R' || concertRequest.approvedOrNot == null"
+                        dark
                         disabled
-                        background-color="grey lighten-2"
+              
                         color="teal"
                         label=""
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
@@ -145,14 +160,28 @@
                         height="300px;"
                     ></v-textarea> <!-- height조절이 안되는 버그??? -->
 
-                    <div style="margin-top: 20px;">
-                        <button @click="submit" class="btn-flat red-text waves-effect waves-teal" style="font-size: 12px;">확인</button>
-                        <button @click="deletee" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 30px; font-size: 12px;">요청 삭제</button>
-                        <button @click="cancel" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 30px; font-size: 12px;">뒤로</button>
+                    <br/>
+
+                    <div style="float: right;">
+
+                        <v-btn text class="ma-2" color="error lighten-4" style="font-size: 11px;" @click="submit">
+                            확인
+                        </v-btn>
+
+                        <v-btn text class="ma-2" color="error lighten-2" @click="deletee" style="font-size: 11px;">
+                            요청 삭제
+                        </v-btn>
+
+                        <v-btn text class="ma-2" color="error lighten-2" @click="cancel" style="font-size: 11px;">
+                            뒤로
+                        </v-btn>
+
                     </div>
 
                     <div style="margin-top: 50px;">
+                        
                         <p align="left" class="footerText" style="margin-bottom: 20px;">공연 요청자의 아티스트 사진</p>
+
                         <div class="row">
                             <img :src="imgRequest()" style="margin-right: 20px;">
                             <img :src="imgRequest2()" style="margin-left: 20px;">

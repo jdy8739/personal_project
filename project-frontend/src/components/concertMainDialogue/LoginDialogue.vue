@@ -20,15 +20,12 @@
             </v-card-title>
 
             <v-card-text>
-                <v-container grid-list-md>
-                    <v-layout wrap>
-                        <v-flex xs12>
-                            <v-text-field label="Email" type="text" required v-model="userInfo.id" dark color="teal"/>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field label="Password" type="password" required v-model="userInfo.password" dark color="red"/>
-                        </v-flex>
-                    </v-layout>
+                <v-container grid-list-md style="width: 90%;">
+             
+                    <v-text-field label="Email" type="text" required v-model="userInfo.id" dark color="teal"/>
+            
+                    <v-text-field label="Password" type="password" required v-model="userInfo.password" dark color="red"/>
+
                 </v-container>
             </v-card-text>
 
@@ -36,10 +33,10 @@
 
                 <v-spacer></v-spacer>
 
-                <v-btn color="teal darken-1" text @click.native="btn_login($event)">
+                <v-btn color="error" text @click.native="btn_login($event)">
                     로그인
                 </v-btn>
-                <v-btn color="teal darken-1" text @click.native="btn_login($event)">
+                <v-btn color="error" text @click.native="btn_login($event)">
                     취소
                 </v-btn>
 

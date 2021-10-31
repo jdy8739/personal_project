@@ -5,30 +5,35 @@
             <form @submit.prevent="checkVal">
 
                 <div class="row" style="justify-content: center;">
-                    <v-checkbox label="가입 시 이름과 동일" class="shrink mr-2 footerText" color="teal"/>
-                    <input type="text" v-model="regName" required class="footerText" style="width: 300px; margin-left: 30px;"/> 
+                    <v-checkbox label="가입 시 이름과 동일" class="shrink mr-2 footerText" color="error" dark/>
+
+                    &emsp; &emsp;
+
+                    <input type="text" v-model="regName" required class="footerText" style="width: 300px;"/> 
                 </div>
 
                 <v-text-field v-model="artistName" required label="아티스트 이름을 입력해주세요."
-                class="footerText" style="width: 490px;"/>
+                class="footerText" style="width: 490px;" dark/>
 
                 <v-text-field v-model="venueName" required label="공연 장소를 입력해주세요."
-                class="footerText" style="width: 490px;"/>
+                class="footerText" style="width: 490px;" dark/>
 
                 <v-text-field v-model="concertName" required label="공연 이름을 입력해주세요."
-                class="footerText" style="width: 490px;"/>
+                class="footerText" style="width: 490px;" dark/>
+
+                <br/>
 
                 <div style="justify-content: center; margin-top: 10px;" class="row">
                     <label class="footerText" style="margin-left: 60px;">공연 날짜
-                        <input type="date" name="date" style="width: 300px; margin-right: 190px;" v-model="dateOfConcert">
+                        <input type="date" name="date" style="width: 300px; margin-right: 190px; color: white;" v-model="dateOfConcert">
                     </label>
                 </div>
 
                 <p class="footerText" style="text-align: center; margin-right: 280px; margin-top: 30px;">공연의 시작과 끝 시간을 설정해주세요.</p>
 
                 <div style="justify-content: center; margin-top: 10px;" class="row">
-                    <input type="time" v-model="timeOfConcert" style="width: 230px; margin-right: 30px;"/>
-                    <input type="time" v-model="timeOfEnd" style="width: 230px; margin-right: 0px;"/>
+                    <input type="time" v-model="timeOfConcert" style="width: 230px; margin-right: 30px; color: white;"/>
+                    <input type="time" v-model="timeOfEnd" style="width: 230px; margin-right: 0px; color: white;"/>
                 </div>
 
                 <p class="footerText" style="text-align: center; margin-top: 30px;">회원님의 공연을 홍보할 사진을 업로드해주세요 :) (파일 이름은 신청자 이름으로 해주세요!)</p>
@@ -38,15 +43,27 @@
                 </label>
                 
                 <br/>
+                <br/>
 
-                <div style="margin-top: 50px; margin-bottom: 20px;">
-                    <button type="submit" class="btn-flat red-text waves-effect waves-teal">업로드</button>
-                    <button @click="cancel" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 50px;">취소</button>
+                <div style=" float: right; width: 70%;">                   
+                    <v-btn class="ma-2" text color="error lighten-4" type="submit" style="font-size: 11px;">
+                        업로드
+                    </v-btn>
+
+                    <v-btn class="ma-2" text color="error lighten-2" @click="cancel" style="font-size: 11px;">
+                        취소
+                    </v-btn>
                 </div>
 
             </form>
 
         </v-container>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
     </div>
 </template>
 
@@ -72,6 +89,7 @@ export default {
             timeOfEnd: '00:00',
 
             files: '',
+            picSent: false
         }
     },
     methods: {
@@ -107,28 +125,38 @@ export default {
                                 let formData = new FormData()
                                 
                                 for(var idx=0; idx < this.files.length; idx++) {
-                                    formData.append("fileList", this.files[idx])
+                                    formData.append("concertPic", this.files[idx])
                                 }
 
-                                axios.post('http://localhost:8888/member/concertRegister/sendPic', formData, { //멀티 컨텐츠 날릴때는 무조건 헤더를 이 형식으로 맞춰야한다.
+                                let registerName = this.regName
+                                let conName = this.concertName
+
+                                formData.append("regName", registerName)
+                                formData.append("concertName", conName)
+
+                                axios.post('http://localhost:8888/member/concertRegister/sendConcertPic', formData, { //멀티 컨텐츠 날릴때는 무조건 헤더를 이 형식으로 맞춰야한다.
                                     headers: {
                                         'Content-Type': 'multipart/form-data' 
                                     }
                                 })
-                                .then (res => {
-                                    this.responser = res.data 
+                                .then (() => {
+                                   alert('사진 업로드 완료!')
+                                   this.picSent = true
                                 })
-                                .catch (res => {
-                                    this.response = res.message
+                                .catch (() => {
+                                    alert('사진 업로드 실패!')
+                                    this.picSent = false
                                 })
-                                //alert('사진 업로드 완료!')
 
-                                const concertRequestNo = this.concertRequest.concertRequestNo
-                                //const memberNo = this.$store.state.userProfile.memberNo
-                                const { regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd } = this
+                                setTimeout(() => {
+                                    if(this.picSent) {
+                                        const concertRequestNo = this.concertRequest.concertRequestNo
+                                        const { regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd } = this
 
-                                this.$emit('submit', { concertRequestNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd })
-
+                                        this.$emit('submit', { concertRequestNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd })
+                                    }
+                                }, 100)
+                                
                             } else {
                                 alert('사진을 두 장 이상 선택해주세요!')
                             }

@@ -1,18 +1,21 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%; padding-top: 60px;">
-        <p class="memberListTitle">Requested Concert List</p>
-        <p class="description">아티스트들이 요청한 콘서트의 목록입니다! 수락 또는 불가를 선택해주세요.
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">REQUESTED LIST</h3>
+        <p class="description" style="margin-right: 20px;">아티스트들이 요청한 콘서트의 목록입니다! 수락 또는 불가를 선택해주세요.
             <br/>
             <br/>
             내용을 자세히 확인하려면 요청자 이름을 클릭하세요.
         </p>
 
         <div style="width: 75%; margin-top: 40px;">
+
             <v-data-table :headers="headerTitle"
                             :items="concertRequestList"
                             :items-per-page="5"
                             :search="searchRequest"
-                            class="elevation-1">
+                            class="elevation-1"
+                            dark>
 
                         <template v-slot:item="{ item, index }"> <!-- v-data-table에서 index뽑는 법 * item * 얘는 고정된 이름 -->
                             <tr>
@@ -115,8 +118,10 @@
                             </tr>
                         </template>
             </v-data-table>
-       
-            <v-text-field v-model="searchRequest" style="width: 300px; float: right;" label="공연 요청 검색" class="footerText"/>
+
+            <br/>
+
+            <v-text-field v-model="searchRequest" style="width: 300px; float: right;" label="공연 요청 검색" class="footerText" color="error" dark/>
            
         </div>
         
@@ -182,7 +187,7 @@ export default {
         handleClick(concertRequestNo) {
             this.$router.push({
                 name: 'RequestReadPage',
-                params: { concertRequestNo: concertRequestNo }
+                params: { concertRequestNo: concertRequestNo.toString() }
             })
         }
     },

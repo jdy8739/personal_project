@@ -90,7 +90,8 @@ export default {
 
             useOriginalName: false,
 
-            files: ''
+            files: '',
+            picSent: false
         }
     },
     computed: {
@@ -147,7 +148,7 @@ export default {
                                 let formData = new FormData()
                                 
                                 for(var idx=0; idx < this.files.length; idx++) {
-                                    formData.append("concertRegInfo", this.files[idx])
+                                    formData.append("concertPic", this.files[idx])
                                 }
 
                                 let registerName = this.regName
@@ -161,34 +162,41 @@ export default {
                                         'Content-Type': 'multipart/form-data' 
                                     }
                                 })
-                                .then (res => {
-                                    this.responser = res.data 
+                                .then (() => {
+                                    alert('사진 업로드 완료!')
+                                     this.picSent = true
                                 })
-                                .catch (res => {
-                                    this.response = res.message
+                                .catch (() => {
+                                    alert('사진 업로드 실패!')
+                                     this.picSent = false
                                 })
-                                //alert('사진 업로드 완료!')
+                                
+                                setTimeout(() => {
+                                    if(this.picSent) {
+                                        
+                                        const memberNo = this.$store.state.userProfile.memberNo
+                                        const regName = this.regName
+                                        const artistName = this.artistName
+                                        const venueName = this.venueName
+                                        const concertName = this.concertName
+                                        const dateOfConcert = this.dateOfConcert
+                                        const timeOfConcert = this.timeOfConcert
+                                        const timeOfEnd = this.timeOfEnd
 
-                                const memberNo = this.$store.state.userProfile.memberNo
-                                const regName = this.regName
-                                const artistName = this.artistName
-                                const venueName = this.venueName
-                                const concertName = this.concertName
-                                const dateOfConcert = this.dateOfConcert
-                                const timeOfConcert = this.timeOfConcert
-                                const timeOfEnd = this.timeOfEnd
+                                        axios.post('http://localhost:8888/member/concertRegister/request', { memberNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd })
+                                            .then(() => {
+                                                alert('업로드가 완료되었습니다.')
 
-                                axios.post('http://localhost:8888/member/concertRegister/request', { memberNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd })
-                                    .then(() => {
-                                        alert('업로드가 완료되었습니다.')
+                                                this.$router.push({
+                                                    name: 'MainPage' //리스트 페이지로 바꿔줘야함, 안바꿔도 될듯?
+                                                })
+                                            })
+                                            .catch(() => {
+                                                alert('서버에 문제가 있습니다. 잠시후에 다시 시도해주세요!')
+                                            })
+                                    }
+                                }, 100)
 
-                                        this.$router.push({
-                                            name: 'MainPage' //리스트 페이지로 바꿔줘야함, 안바꿔도 될듯?
-                                        })
-                                    })
-                                    .catch(() => {
-                                        alert('서버에 문제가 있습니다. 잠시후에 다시 시도해주세요!')
-                                    })
                             } else {
                                 alert('사진을 두 장 이상 선택해주세요!')
                             }

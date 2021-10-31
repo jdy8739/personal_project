@@ -1,7 +1,5 @@
 <template>
     <div>
-    
-        <p style="font-size: 12px;">현재 등록된 회원 정보입니다.  회원을 탈퇴시키려면 해당 회원의 id를 클릭하세요.</p>
 
         <v-container style="width: 80%; margin-top: 30px;">
             <!-- <table border="1px">
@@ -35,12 +33,32 @@
                    <td style="text-align: right">{{ member.regDate }}</td>
                 </tr>
             </table> -->
+            <span style="float: left;">
+
+                <v-select
+                :items="auth"
+                dark
+                color="red"
+                v-model="authFilter"
+                style="width: 130px; display: inline-block;"/>
+
+                &nbsp; &nbsp;
+
+                <p style="display: inline-block;" class="description">회원 구분</p>
+
+            </span>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
             <v-data-table :headers="headerTitle"
-                        :items="members"
+                        :items="chkElem()"
                         :items-per-page="5"
                         :search="searchMember"
-                        class="elevation-1">
+                        class="elevation-1"
+                        dark>
 
                     <template v-slot:item="{ item, index }"> <!-- v-data-table에서 index뽑는 법 * item * 얘는 고정된 이름 -->
                         <tr>
@@ -57,8 +75,10 @@
 
             </v-data-table>
 
+            <br/>
+
             <v-text-field label="찾을 회원의 정보를 입력하세요." v-model="searchMember" class="footerText"
-            style="width: 300px; float: right;" color="error"/>
+            style="width: 300px; float: right;" color="error" dark/>
 
         </v-container>
     </div>
@@ -79,15 +99,20 @@ export default {
         return {
             headerTitle: [
                 { text: '회원 번호', value: 'memberNo' },
-                { text: 'ID', value: 'id', width: '15%'},
-                { text: '이름', value: 'name', width: '10%'},
-                { text: '지역', value: 'location', width: '10%'},
+                { text: 'ID', value: 'id', width: '12%'},
+                { text: '이름', value: 'name', width: '8%'},
+                { text: '지역', value: 'location', width: '20%'},
                 { text: 'Auth', value: 'identity', width: '5%'},
-                { text: '생일', value: 'birthDay', width: '20%'},
+                { text: '생일', value: 'birthDay', width: '15%'},
                 { text: '연락처', value: 'phoneNo', width: '10%'},
-                { text: '가입일자', value: 'regDate', width: '20%'}
+                { text: '가입일자', value: 'regDate', width: '15%'}
             ],
-            searchMember: ''
+            searchMember: '',
+
+            auth: [ 'individual', 'artist', '전체' ],
+            authFilter: '',
+
+            filteredMemberList: []
         }
     },
     methods: {
@@ -102,17 +127,38 @@ export default {
                 name:'MemberDeletePage',
                 params: { memberNo: memberNo }
             })
+        },
+
+        chkElem() {
+            if(this.authFilter == '' || this.authFilter == '전체') return this.members 
+            else return this.filteredMemberList
+        }
+    },
+    watch: {
+        authFilter() {
+            
+            this.filteredMemberList = []
+            
+            if(this.authFilter == 'individual') {
+
+                for(var i=0; i<this.members.length; i++) {
+                    
+                    if(this.members[i].memberIdentityList[0].identity == 'individual') this.filteredMemberList.push(this.members[i])
+                }
+
+            } else if(this.authFilter == 'artist') {
+
+                for(var j=0; j<this.members.length; j++) {
+                    
+                    if(this.members[j].memberIdentityList[0].identity == 'artist') this.filteredMemberList.push(this.members[j])
+                }
+            } 
         }
     }
 }
 </script>
 
 <style scoped>
-
-tr:hover {
-    border: 3px teal;
-    border-style: solid;
-}
 
 </style>
 

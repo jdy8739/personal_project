@@ -1,6 +1,9 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%;">
-        <p class="memberListTitle" style="padding-top: 60px;">Member List</p>
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">MEMBER LIST</h3>
+        <p class="description" style="margin-right: 30px;">현재 등록된 회원 정보입니다.  회원을 탈퇴시키려면 해당 회원의 id를 클릭하세요.</p>
+
         <member-list :members="members"/>
     </div>
 </template>

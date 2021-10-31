@@ -30,11 +30,11 @@ public class ArtistAuthController {
 
     @PostMapping("/sendConcertPic")
     @ResponseBody
-    public String requestUploadFile(@RequestParam("concertRegInfo") List<MultipartFile> fileList,
+    public String requestUploadFile(@RequestParam("concertPic") List<MultipartFile> fileList,
                                     @RequestParam("regName") String regName,
                                     @RequestParam("concertName") String concertName) {
 
-        log.info("requestUploadFile(): " + fileList);
+        log.info("requestUploadFile(): " + fileList + ", " + regName + ", " + concertName);
 
         int i = 1;
         try {
@@ -122,10 +122,9 @@ public class ArtistAuthController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @PostMapping("/requestModify")
+    @PutMapping("/requestModify")
     public ResponseEntity<Void> requestModify(@Validated @RequestBody ArtistAuthRequest artistAuthRequest) throws Exception {
-
-        //log.info("requestModify(): " + artistAuthRequest);
+        log.info("requestModify(): " + artistAuthRequest);
 
         concertRequestService.modifyConcertRequest(artistAuthRequest);
 

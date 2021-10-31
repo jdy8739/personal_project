@@ -1,16 +1,26 @@
 <template>
-    <div align="center">
-        <p class="memberListTitle" style="margin-top: 60px;">Member Delete</p>
-        <p class="subTitle" style="font-style: italic;">정말 이 회원의 정보를 삭제할까요?</p>
-        <p class="subTitle">한번 삭제한 회원정보는 복구할 수 없습니다! 신중하게 삭제해주세요.</p>
-        <div>
-            <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="btn_delete($event)" style="margin-right: 40px;">
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
+        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">MEMBER DELETE</h3>
+
+        <p class="description" style="margin-right: 20px;">정말 이 회원의 정보를 삭제할까요?
+        한번 삭제한 회원정보는 복구할 수 없습니다! 신중하게 삭제해주세요.</p>
+
+        <br/>
+        <br/>
+
+        <div style="width: 77%; float: right;">
+
+            <v-btn class="ma-2" text @click.native="btn_delete($event)" color="error lighten-4" style="font-size: 11px;">
                 삭제
             </v-btn>
-            <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="btn_cancel($event)">
+
+            <v-btn class="ma-2" text @click.native="btn_cancel($event)" color="error lighten-2" style="font-size: 11px;">
                 취소
             </v-btn>
+
         </div>
+
     </div>
 </template>
 

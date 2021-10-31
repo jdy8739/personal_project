@@ -1,34 +1,47 @@
 <template>
-    <div align="center" class="grey darken-0.1" style="height: 100%;">
+    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
+
         <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">SIGN UP</h3>
+
         <p class="description">MUSIC GHUETTO에 오신것을 환영합니다! 가입하셔서 다양한 공연 정보와 서비스를 사용해보세요. :)</p>
         
         <v-container style="width: 15%;" v-if="!signupSuccess">
             
             <form @submit.prevent="onSubmit">
-                <v-text-field label="ID(e-mail)" type="email" required v-model="user.id"></v-text-field>
+
+                <v-text-field label="ID(e-mail)" type="email" required v-model="user.id" dark/>
             
-                <v-text-field label="비밀번호(10자리 이상)" type="password" required v-model="user.password" class="cutTopMargin"></v-text-field>
+                <v-text-field label="비밀번호(10자리 이상)" type="password" required v-model="user.password" class="cutTopMargin" dark/>
                 
-                <v-text-field label="비밀번호 재확인" type="password" required v-model="user.passwordCheck" class="cutTopMargin"></v-text-field>
+                <v-text-field label="비밀번호 재확인" type="password" required v-model="user.passwordCheck" class="cutTopMargin" dark/>
                 
-                <v-text-field label="이름" type="text" required v-model="user.name" class="cutTopMargin"></v-text-field>
+                <v-text-field label="이름" type="text" required v-model="user.name" class="cutTopMargin" dark/>
 
-                <v-select required v-model="user.location" :items="locations" label="지역 선택" multiple class="cutTopMargin"></v-select>
+                <v-select required v-model="user.location" :items="locations" label="지역 선택" multiple class="cutTopMargin" dark/>
                 
-                <input type="date" name="date" style="width: 100%;" required v-model="user.birthDay">
+                <input type="date" name="date" style="width: 100%; color: white;" required v-model="user.birthDay">
 
-                <v-radio-group v-model="user.identity" row style="margin-top: 30px;">
-                    <v-radio label="개인" value="individual"></v-radio>
-                    <v-radio label="아티스트" value="artist"></v-radio>
+                <v-radio-group v-model="user.identity" row style="margin-top: 30px;" dark>
+
+                    <v-radio label="개인" value="individual" color="teal"/>
+                    <v-radio label="아티스트" value="artist" color="red"/>
                     <!-- <v-radio label="관리자" value="admin"></v-radio> -->
                 </v-radio-group>
                 
-                <v-text-field label="휴대전화" type="text" required v-model="user.phoneNo"></v-text-field>
+                <v-text-field label="휴대전화" type="text" required v-model="user.phoneNo" dark/>
+
+                <br/>
 
                 <div v-if="!allWritten || !signupSuccess">
-                    <v-btn type="submit" text="text" class="btn-flat red-text waves-effect waves-teal">제출</v-btn>
-                    <v-btn text="text" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 10px;" @click="goBack">뒤로가기</v-btn>
+
+                    <v-btn type="submit" text class="ma-2" color="error lighten-4" style="font-size: 11px;">
+                        제출
+                    </v-btn>
+
+                    <v-btn text class="ma-2" color="error lighten-2" @click="goBack" style="font-size: 11px;">
+                        뒤로가기
+                    </v-btn>
+
                 </div>
 
             </form>
@@ -39,8 +52,15 @@
         </v-container>
 
         <div v-if="allWritten && signupSuccess">
-            <v-btn text="text" class="btn-flat red-text waves-effect waves-teal" @click="addSetting">추가 설정</v-btn>
-            <v-btn text="text" class="btn-flat red-text waves-effect waves-teal" style="margin-left: 10px;" @click="goBack">다음에 할래요</v-btn>
+
+            <v-btn text class="btn-flat red-text waves-effect waves-teal" @click="addSetting">
+                추가 설정
+            </v-btn>
+
+            <v-btn text class="btn-flat red-text waves-effect waves-teal" style="margin-left: 10px;" @click="goBack">
+                다음에 할래요
+            </v-btn>
+            
         </div>
 
         <!-- <div style="margin-top: 5px;">
@@ -49,6 +69,10 @@
 
         <p class="description" style="font-size: 5px; margin-top: 30px;">이용약관 | 개인정보처리방침 | 책임의 한계와 법적고지 | 회원정보 고객센터<br>
         <br>MUSIC GHUETTO Copyright &copy; MUSIC GHUETTO</p>
+
+        <br/>
+        <br/>
+
     </div>
 </template>
 
