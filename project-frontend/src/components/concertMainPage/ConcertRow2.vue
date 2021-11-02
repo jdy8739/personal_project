@@ -82,25 +82,25 @@ export default {
         ...mapState(['concert', 'criteriaDateOfStart', 'criteriaDateOfEnd', 'isLoggedIn']),
 
         acoustic() {
-            if(this.taste == null || this.taste.chosenGenres.includes("ACOUSTIC")) { //taste가 null이면 비로그인 상태라는 뜻
+            if(!this.taste || this.taste.chosenGenres.includes("ACOUSTIC")) { //taste가 null이면 비로그인 상태라는 뜻
                 return true
             }
             return false
         },
         rock() {
-            if(this.taste == null || this.taste.chosenGenres.includes("ROCK")) {
+            if(!this.taste || this.taste.chosenGenres.includes("ROCK")) {
                 return true
             }
             return false
         },
         hip_hop() {
-            if(this.taste == null || this.taste.chosenGenres.includes("HIP-HOP")) {
+            if(!this.taste || this.taste.chosenGenres.includes("HIP-HOP")) {
                 return true
             }
             return false
         },
         jazz() {
-            if(this.taste == null || this.taste.chosenGenres.includes("JAZZ")) {
+            if(!this.taste || this.taste.chosenGenres.includes("JAZZ")) {
                 return true
             }
             return false

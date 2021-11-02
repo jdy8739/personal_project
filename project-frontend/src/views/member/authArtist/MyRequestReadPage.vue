@@ -73,7 +73,6 @@
                     </td>
 
                     <v-textarea v-if="concertRequest.approvedOrNot == 'N'"
-                        background-color="grey lighten-2"
                         color="teal"
                         label="등록을 못해드려 죄송합니다. :( 상기 이유는 다음과 같습니다."
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
@@ -83,6 +82,7 @@
                         height="10%;"
                         auto-grow
                         readonly
+                        dark
                     ></v-textarea> <!-- height조절이 안되는 버그??? -->
 
                     <div style="margin-top: 20px; float: right;">

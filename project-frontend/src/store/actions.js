@@ -162,13 +162,10 @@ export default {
     },
 
     fetchBookedOrNot({ commit }, payload) {
-        //console.log("payload: " + payload)
+        
+        // ** 원래 변수명을 bookedOrNotCheckNums라고 해줘야하지만 스프핑을 바꿔줘야해서 그냥 likedOrNotCheckNums로 간다.
 
-        const likedOrNotCheckNums = payload // ** 원래 변수명을 bookedOrNotCheckNums라고 해줘야하지만 스프핑을 바꿔줘야해서 그냥 likedOrNotCheckNums로 간다.
-
-        //alert(JSON.stringify({ likedOrNotCheckNums }))
-
-        return axios.post('http://localhost:8888/concert/fetchBookedOrNot', { likedOrNotCheckNums })
+        return axios.post('http://localhost:8888/concert/fetchBookedOrNot', payload)
             .then((res) => {
                 commit(FETCH_BOOKED_OR_NOT, res.data)
                 //console.log("This page's likedOrNot is: " + res.data)

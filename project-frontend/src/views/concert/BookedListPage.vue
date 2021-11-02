@@ -9,7 +9,6 @@
             <v-data-table :headers="headerTitle" dark
                             :items="bookedList"
                             :items-per-page="5"
-                            :search="searchRequest"
                             class="elevation-1">
 
                         <template v-slot:item="{ item, index }"> 

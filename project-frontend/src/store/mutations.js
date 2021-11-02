@@ -74,7 +74,8 @@ export default {
     },
 
     [FETCH_TASTE] (state, payload) {
-        state.taste = payload
+
+        if(payload) state.taste = payload
     },
 
     [FETCH_USER_NAME] (state, payload) {

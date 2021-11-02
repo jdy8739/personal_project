@@ -178,13 +178,23 @@
 
                     </div>
 
-                    <div style="margin-top: 50px;">
-                        
-                        <p align="left" class="footerText" style="margin-bottom: 20px;">공연 요청자의 아티스트 사진</p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
 
-                        <div class="row">
-                            <img :src="imgRequest()" style="margin-right: 20px;">
-                            <img :src="imgRequest2()" style="margin-left: 20px;">
+                    <div>      
+                        <p class="footerText" style="margin-bottom: 20px;">공연 요청자의 아티스트 사진</p>
+
+                        <div>
+
+                            <img :src="imgRequest()" style="width: 25%;">
+
+                            &emsp; &emsp;
+
+                            <img :src="imgRequest2()" style="width: 25%;">
+
                         </div>
                     </div>
 
@@ -221,7 +231,7 @@ export default {
 
         imgRequest() {
                 try {                
-                    return require(`c:/LectureContents/javascript/DoyoungJeong/personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}1.jpg`)
+                    return require(`../../../../../personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}1.jpg`)
 
                 } catch (e) {
                     return require(`@/assets/logo.png`)
@@ -230,7 +240,7 @@ export default {
 
         imgRequest2() {
                 try {                
-                    return require(`c:/LectureContents/javascript/DoyoungJeong/personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}2.jpg`)
+                    return require(`../../../../../personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}2.jpg`)
 
                 } catch (e) {
                     return require(`@/assets/logo.png`)
@@ -242,9 +252,10 @@ export default {
             this.tmpArr.push(concertRequestNo)
             this.tmpArr.push(tmpNum)
 
-            const numArr = this.tmpArr
+            let formData = new FormData()
+            formData.append("numArr", this.tmpArr)
 
-            axios.post('http://localhost:8888/member/concertRegister/approveOrNotRequest', { numArr })
+            axios.post('http://localhost:8888/member/concertRegister/approveOrNotRequest', formData)
                 .then(() => {
 
                     this.tmpArr = []

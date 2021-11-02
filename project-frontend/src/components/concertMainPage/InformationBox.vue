@@ -50,8 +50,7 @@ export default {
     name: 'InformationBox',
     props: {
         concert: {
-            type: Object,
-            required: true
+            type: Object
         }
     },
     data() {
@@ -61,7 +60,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['likedList', 'isLoggedIn', 'userProfile', 'notLikedYet', 'concert']) //, 'concert' <-- props에 이미 있음 , 'notLikedYet' 일단 빼둠 --> 다시 넣음
+        ...mapState(['likedList', 'isLoggedIn', 'userProfile', 'notLikedYet']) //, 'concert' <-- props에 이미 있음 , 'notLikedYet' 일단 빼둠 --> 다시 넣음
     },
     methods: {
          //...mapActions(['fetchLikedOrNot']),
@@ -73,7 +72,7 @@ export default {
         sendToDetailPage() {
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: this.concert.concertNo }
+                params: { concertNo: this.concert.concertNo.toString() }
             })
         },
         addLiked() {

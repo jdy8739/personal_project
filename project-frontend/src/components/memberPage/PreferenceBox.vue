@@ -87,7 +87,7 @@
 
                 </div>
 
-                <v-btn :loading="disabled" class="ma-1" x-large color="error" plain @click="$refs.first.previous()">
+                <v-btn :loading="false" class="ma-1" x-large color="error" plain @click="$refs.first.previous()">
                     BACK
                 </v-btn>
                 <v-btn :loading="loading" class="ma-1" x-large color="error" plain @click="confirm(1)">
@@ -114,7 +114,7 @@
                 </div>
             </div>
 
-            <v-btn :loading="disabled" class="ma-1" x-large color="error" plain @click="$refs.first.previous()">
+            <v-btn :loading="false" class="ma-1" x-large color="error" plain @click="$refs.first.previous()">
                 BACK
             </v-btn>
             <v-btn :loading="loading" class="ma-1" x-large color="error" plain @click="confirm">
@@ -132,7 +132,7 @@
             
             <p class="footerText">해당사항을 저장할까요? 이것은 회원님에게 더 좋은 추천을 해드리기위해 사용됩니다. :)</p>
 
-            <v-btn :loading="disabled" class="ma-1 footerText" x-large color="error" plain @click="$refs.first.previous()">
+            <v-btn :loading="false" class="ma-1 footerText" x-large color="error" plain @click="$refs.first.previous()">
                 BACK
             </v-btn>
             <v-btn :loading="loading" class="ma-1 footerText" x-large color="error" plain @click="complete">

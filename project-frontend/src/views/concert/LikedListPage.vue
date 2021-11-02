@@ -90,26 +90,28 @@ export default {
 
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: concertNo } //이렇게 해주니까 됨
+                params: { concertNo: concertNo.toString() } //이렇게 해주니까 됨
             })
         },
         deleteLikedConcert(conNo, index) { //conNo는 concertNo랑 같음
             
-            const memberNo = this.$store.state.userProfile.memberNo
-            const concertNo = conNo
-
             if(this.$store.state.isLoggedIn == true) {
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
                         if(res.data == true) {
-             
-                            this.$store.state.likedList.splice(index, 1)
 
-                            axios.post('http://localhost:8888/member/deleteLiked', { memberNo, concertNo })
-                                .then(alert('관심 목록에서 제거되었습니다!'))
+                            let formData = new FormData()
 
-                                //this.$store.state.concert.numberOfLikes --
-                                //this.$store.state.notLikedYet = true
+                            formData.append("memberNo", this.$store.state.userProfile.memberNo)
+                            formData.append("concertNo", conNo)
+
+                            axios.post('http://localhost:8888/member/deleteLiked', formData)
+                                .then(() => {
+
+                                    this.$store.state.likedList.splice(index, 1)
+
+                                    alert('관심 목록에서 제거되었습니다!')
+                                })
 
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')

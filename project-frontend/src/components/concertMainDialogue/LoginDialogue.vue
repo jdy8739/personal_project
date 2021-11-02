@@ -24,7 +24,7 @@
              
                     <v-text-field label="Email" type="text" required v-model="userInfo.id" dark color="teal"/>
             
-                    <v-text-field label="Password" type="password" required v-model="userInfo.password" dark color="red"/>
+                    <v-text-field label="Password" type="password" required v-model="userInfo.password" dark color="red" @keydown.enter="login"/>
 
                 </v-container>
             </v-card-text>
@@ -33,10 +33,10 @@
 
                 <v-spacer></v-spacer>
 
-                <v-btn color="error" text @click.native="btn_login($event)">
+                <v-btn color="error" text @click.native="login">
                     로그인
                 </v-btn>
-                <v-btn color="error" text @click.native="btn_login($event)">
+                <v-btn color="error" text @click.native="cancel">
                     취소
                 </v-btn>
 
@@ -72,47 +72,55 @@ export default {
     methods: {
         ...mapActions(['fetchTaste']),
 
-        btn_login($event) {
-            if($event.target.innerHTML == ' 취소 ') {
-                this.loginDialog = false
-                this.userInfo.id = ''
-                this.userInfo.password = ''
-           
-            } else if(this.userInfo.id == '' || this.userInfo.password == '') {
+        cancel() {
+            this.loginDialog = false
+            this.userInfo.id = ''
+            this.userInfo.password = ''
+        },
+
+        login() {
+            
+            if(this.userInfo.id == '' || this.userInfo.password == '') {
+                
                 alert('email 또는 비밀번호를 입력해주세요!')
          
-            } else if($event.target.innerHTML == ' 로그인 ') {
+            } else  {
+
                 const { id, password } = this.userInfo
 
                 axios.post('http://localhost:8888/member/login', { id, password }) //null값이 반환되면 무조건 콘솔창에 에러 메시지
-                .then(res => {
-                    if(res.data.id.length > 2) {
-                        alert(res.data.id + '으로 로그인되었습니다!')
-                    
-                        this.$store.state.isLoggedIn = true;
-         
-                        //this.$store.state.userIdentity = res.data.memberIdentityList[0].identity
-                        this.$store.state.userIdentity = res.data.identity
-                        this.$store.state.userProfile = res.data
-
-                        //this.currentUser.push( [ res.data.id ], [ res.data.memberNo ], [ res.data.memberIdentityList[0].identity ] )
-                        //this.currentUser.push(res.data.id, res.data.memberNo, res.data.memberIdentityList[0].identity)
-
-                        this.$cookies.set("currentUser", res.data, '120m') //처음에 서버에서 멤버의 모든 정보가 든 객체 전부를 받으려해서 안받아진듯?
-
-                        //alert(JSON.stringify(res.data)) // 값 들어옴
-                        //alert("currentUser: " + this.currentUser[2])
-                        alert('currentUser ' + JSON.stringify(this.$cookies.get("currentUser")))
-
-                        this.fetchTaste(this.$store.state.userProfile.memberNo)
+                    .then(res => {
+                        if(res.data.id.length > 2) {
+                            alert(res.data.id + '으로 로그인되었습니다!')
                         
-                    } else {
-                        alert('로그인 실패!')
-                    }
-                })
-                .catch(res => {
-                    alert(res.response.data.message + '로그인 실패!')
-                })
+                            this.$store.state.isLoggedIn = true;
+            
+                            //this.$store.state.userIdentity = res.data.memberIdentityList[0].identity
+                            this.$store.state.userIdentity = res.data.identity
+                            this.$store.state.userProfile = res.data
+
+                            //this.currentUser.push( [ res.data.id ], [ res.data.memberNo ], [ res.data.memberIdentityList[0].identity ] )
+                            //this.currentUser.push(res.data.id, res.data.memberNo, res.data.memberIdentityList[0].identity)
+
+                            this.$cookies.set("currentUser", res.data, '120m') //처음에 서버에서 멤버의 모든 정보가 든 객체 전부를 받으려해서 안받아진듯?
+                            // --> 필요한 정보만 조금 받으니까 문제 없음.
+
+                            //alert(JSON.stringify(res.data)) // 값 들어옴
+                            //alert("currentUser: " + this.currentUser[2])
+                            alert('currentUser ' + JSON.stringify(this.$cookies.get("currentUser")))
+
+                            this.fetchTaste(this.$store.state.userProfile.memberNo)
+                            
+                        } else {
+                            alert('로그인 실패!')
+                        }
+
+                    })
+
+                    .catch(res => {
+                        alert(res.response.data.message + '로그인 실패!')
+                    })
+
                 this.loginDialog = false
                 this.userInfo.id = ''
                 this.userInfo.password = ''   

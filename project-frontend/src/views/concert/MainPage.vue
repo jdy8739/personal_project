@@ -12,7 +12,7 @@
             <date-dialogue class="col xs4 sm4 md4 lg4"/>                        
         </div>
 
-        <concert-row-2 v-bind:taste="taste" :dateForFilter="dateForFilter"/>
+        <concert-row-2 :taste="taste" :dateForFilter="dateForFilter"/>
 
         <!-- <concert-row-1/>
         

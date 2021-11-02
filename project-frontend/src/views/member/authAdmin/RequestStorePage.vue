@@ -163,9 +163,10 @@ export default {
             this.tmpArr.push(concertRequestNo)
             this.tmpArr.push(tmpNum)
 
-            const numArr = this.tmpArr
+            let formData = new FormData()
+            formData.append("numArr", this.tmpArr)
 
-            axios.post('http://localhost:8888/member/concertRegister/approveOrNotRequest', { numArr })
+            axios.post('http://localhost:8888/member/concertRegister/approveOrNotRequest', formData)
                 .then(() => {
 
                     this.tmpArr = []

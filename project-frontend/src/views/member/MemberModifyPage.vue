@@ -50,7 +50,8 @@
     
         <p class="description" style="font-size: 5px;">이용약관 | 개인정보처리방침 | 책임의 한계와 법적고지 | 회원정보 고객센터
 
-        &emsp; &emsp;
+        <br/>
+        <br/> 
 
         MUSIC GHUETTO Copyright &copy; MUSIC GHUETTO</p>
 

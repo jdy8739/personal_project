@@ -96,14 +96,8 @@ export default {
     },
     computed: {
         ...mapState(['userProfile', 'userIdentity', 'isLoggedIn', 'member', 'taste']),
-
-        jazz() {
-            if(this.$store.state.taste.chosenGenres.includes("HIP-HOP")) {
-                return true
-            }
-            return false
-        }
     },
+    
     methods: {
         ...mapActions(['fetchMember', 'fetchTaste']),
 

@@ -168,7 +168,7 @@ export default {
                             const concertPrice = this.$store.state.concert.concertPrice
                             const concertDate = this.$store.state.concert.concertDate
                             const concertInfo = this.$store.state.concert.concertInfo
-                            
+
                             // console.log("{ memberNo }: " + memberNo)
                             // console.log("{ concert }: " + JSON.stringify(this.$store.state.concert))
 
@@ -196,10 +196,12 @@ export default {
                             // var index = this.concert.concertNo -1
                             // this.likedList.splice(index, 1, 0)
 
-                            const memberNo = this.$store.state.userProfile.memberNo
-                            const concertNo = this.$store.state.concert.concertNo
+                            let formData = new FormData()
 
-                            axios.post('http://localhost:8888/member/deleteLiked', { memberNo, concertNo })
+                            formData.append("memberNo", this.$store.state.userProfile.memberNo)
+                            formData.append("concertNo", this.$store.state.concert.concertNo)
+
+                            axios.post('http://localhost:8888/member/deleteLiked', formData)
                                 .then(alert('관심 목록에서 제거되었습니다!'))
 
                             this.$store.state.concert.numberOfLikes --

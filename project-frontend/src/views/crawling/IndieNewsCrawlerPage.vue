@@ -15,31 +15,31 @@
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="yellow" plain @click="update('인디밴드')">
+                        <v-btn class="ma-1" small color="yellow" plain @click="update('인디밴드')">
                             인디밴드
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="pink" plain @click="update('홍대')">
+                        <v-btn class="ma-1" small color="pink" plain @click="update('홍대')">
                             홍대
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="orange" plain @click="update('공연')">
+                        <v-btn class="ma-1" small color="orange" plain @click="update('공연')">
                             공연
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="purple" plain @click="update('콘서트')">
+                        <v-btn class="ma-1" small color="purple" plain @click="update('콘서트')">
                             콘서트
                         </v-btn>
                     </td>
 
                     <td>
-                        <v-btn :loading="disabled" class="ma-1" small color="teal" plain @click="update('래퍼')">
+                        <v-btn class="ma-1" small color="teal" plain @click="update('래퍼')">
                             래퍼
                         </v-btn>
                     </td>

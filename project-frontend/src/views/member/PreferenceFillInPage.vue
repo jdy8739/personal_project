@@ -11,10 +11,10 @@
         <p v-else-if="!notDecidedYet" class="footerText" style="margin-top: 50px; margin-right: 30px;">이미 이전에 취향을 정하셨어요! 다시 하실건가요???</p>
 
         <div v-if="!notDecidedYet && isLoggedIn" style="margin-right: 30px">
-            <v-btn :loading="loading" class="ma-1 footerText" x-large color="error" plain @click="confirm">
+            <v-btn class="ma-1 footerText" x-large color="error" plain @click="confirm">
                 네!
             </v-btn>
-            <v-btn :loading="disabled" class="ma-1 footerText" x-large color="error" plain @click="goBack">
+            <v-btn class="ma-1 footerText" x-large color="error" plain @click="goBack">
                 BACK
             </v-btn>
         </div>

@@ -125,7 +125,7 @@ export default {
         handleClick(memberNo) {
             this.$router.push({
                 name:'MemberDeletePage',
-                params: { memberNo: memberNo }
+                params: { memberNo: memberNo.toString() }
             })
         },
 
