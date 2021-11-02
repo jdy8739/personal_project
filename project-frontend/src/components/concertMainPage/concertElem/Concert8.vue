@@ -40,9 +40,7 @@ export default {
             //infoBar: false,
             wideColorChange: true,
             wideOffLetters: false,
-            nav_drawer: false,
-
-            memNoAndConNoArr:[]
+            nav_drawer: false
         }
     },
     methods: {
@@ -72,11 +70,15 @@ export default {
 
             this.fetchConcert(num)
 
-            this.memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            this.memNoAndConNoArr.push(num)    
-            this.fetchLikedOrNot(this.memNoAndConNoArr)
+            var memNoAndConNoArr = []
 
-            this.memNoAndConNoArr = [] //초기화 필요
+            memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
+            memNoAndConNoArr.push(num)    
+
+            let formData = new FormData()
+            formData.append("likedOrNotNumArr", memNoAndConNoArr)
+
+            this.fetchLikedOrNot(formData)
 
             //EventBus.$emit('removeInfoBarExceptRow2')
             this.onColor = true

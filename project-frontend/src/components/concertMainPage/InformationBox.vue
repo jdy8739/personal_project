@@ -113,16 +113,19 @@ export default {
         },
         unLiked() {
             if(this.$store.state.isLoggedIn == true) {
+                
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
                         if(res.data == true) {
                             // var index = this.concert.concertNo -1
                             // this.likedList.splice(index, 1, 0)
 
-                            const memberNo = this.$store.state.userProfile.memberNo
-                            const concertNo = this.$store.state.concert.concertNo
+                            let formData = new FormData()
 
-                            axios.post('http://localhost:8888/member/deleteLiked', { memberNo, concertNo })
+                            formData.append("memberNo", this.$store.state.userProfile.memberNo)
+                            formData.append("concertNo", this.$store.state.concert.concertNo)
+
+                            axios.post('http://localhost:8888/member/deleteLiked', formData)
                                 .then(alert('관심 목록에서 제거되었습니다!'))
 
                                 this.$store.state.concert.numberOfLikes --

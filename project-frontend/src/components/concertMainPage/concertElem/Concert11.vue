@@ -66,20 +66,27 @@ export default {
             } 
         },
         showInfoBar(num) {
-            this.infoBar = true
-            this.wideColorChange = false
+              EventBus.$emit('onInfoBar')
+            
+            let concertNum = this.concertNo
+            EventBus.$emit('makeOtherCompBlur', concertNum)
+
+            this.wideColorChange = false  
             this.wideOffLetters = true
 
             this.fetchConcert(num)
 
-            this.memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            this.memNoAndConNoArr.push(num)    
-            this.fetchLikedOrNot(this.memNoAndConNoArr)
+            var memNoAndConNoArr = []
 
-            this.memNoAndConNoArr = [] //초기화 필요
+            memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
+            memNoAndConNoArr.push(num)    
 
-            //EventBus.$emit('removeInfoBarExceptRow3')
-            //EventBus.$emit('removeInfoBarInOtherCom')
+            let formData = new FormData()
+            formData.append("likedOrNotNumArr", memNoAndConNoArr)
+
+            this.fetchLikedOrNot(formData)
+
+            //EventBus.$emit('removeInfoBarExceptRow2')
             this.onColor = true
         },
         removeInfoBar() {

@@ -15,7 +15,7 @@
                         <template v-slot:item="{ item, index }"> 
                             <tr>
                                 <td>{{ index + 1 }}</td>
-                                <td @click="handleClick(item.concertRequestNo)" class="footerText">{{ item.regName }}</td> 
+                                <td @click="handleClick(item.concertRequestNo)" class="changeColor">{{ item.regName }}</td> 
                                 <td>{{ item.artistName }}</td>
                                 <td>{{ item.venueName }}</td>
                                 <td>{{ item.concertName }}</td>
@@ -153,7 +153,7 @@ export default {
 
 <style scoped>
 
-.footerText:hover {
+.changeColor:hover {
   color: turquoise;
   font-size: 15px;
 }

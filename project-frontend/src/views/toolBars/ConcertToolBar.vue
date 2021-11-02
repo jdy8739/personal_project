@@ -261,7 +261,8 @@ export default {
 
         imgRequest() {
                 try {                
-                    return require(`c:/LectureContents/javascript/DoyoungJeong/personalProjectSpring/images/memberPic/${this.$store.state.userProfile.memberNo}_${this.$store.state.userProfile.id}.jpg`)
+                    return require(`../../../../../personalProjectSpring/images/memberPic/${this.$store.state.userProfile.memberNo}_${this.$store.state.userProfile.id}.jpg`)
+                    
                 } catch (e) {
                     return require(`@/assets/logo.png`)
                 }

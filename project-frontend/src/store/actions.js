@@ -76,13 +76,8 @@ export default {
     },
 
     fetchLikedOrNot({ commit }, payload) {
-        //console.log("payload: " + payload)
 
-        const likedOrNotCheckNums = payload //const로 꼭 받는 쪽과 이름을 같게 해줘야한다!
-
-        //console.log(likedOrNotCheckNums)
-
-        return axios.put('http://localhost:8888/member/fetchLikedOrNot', { likedOrNotCheckNums })
+        return axios.put('http://localhost:8888/member/fetchLikedOrNot', payload)
             .then((res) => {
                 commit(FETCH_LIKED_OR_NOT, res.data)
                 //console.log("This page's likedOrNot is: " + res.data)

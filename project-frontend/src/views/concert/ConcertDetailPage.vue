@@ -113,7 +113,6 @@ export default {
     data() {
         return {
             onColor: true,
-            memNoAndConNoArr: [],
 
             urlList: [
                 'https://ko-kr.facebook.com/bandflyingdog',
@@ -239,12 +238,17 @@ export default {
             this.$store.state.isLoggedIn = true
             this.$store.state.userIdentity = this.$store.state.userProfile.identity
 
-            this.memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            this.memNoAndConNoArr.push(this.concertNo) //얘가 this.$store.state.concert.concertNo에서 this.concertNo로 수정해주니까 잘됨 --> 위의 fetchConcert가 
+            var memNoAndConNoArr = []
+
+            memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
+            memNoAndConNoArr.push(parseInt(this.concertNo)) //얘가 this.$store.state.concert.concertNo에서 this.concertNo로 수정해주니까 잘됨 --> 위의 fetchConcert가 
             //db에서 concert를 가져와 concert.concertNo를 주기 전에 이 명령이 실행되니까 그런거였음. 그래서 애초에 props로 받은 this.concertNo를 사용해주니까 잘됨
-            this.fetchLikedOrNot(this.memNoAndConNoArr)
-            //alert(this.memNoAndConNoArr)
-            this.fetchBookedOrNot(this.memNoAndConNoArr)
+
+            let formData = new FormData()
+            formData.append("likedOrNotNumArr", memNoAndConNoArr)
+
+            this.fetchLikedOrNot(formData)
+            this.fetchBookedOrNot(formData)
 
             this.fetchMember(this.$store.state.userProfile.memberNo)
         }

@@ -61,9 +61,8 @@ export default {
             } 
         },
         showInfoBar(num) {
-            //this.infoBar = true
             EventBus.$emit('onInfoBar')
-
+            
             let concertNum = this.concertNo
             EventBus.$emit('makeOtherCompBlur', concertNum)
 
@@ -72,11 +71,15 @@ export default {
 
             this.fetchConcert(num)
 
-            this.memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            this.memNoAndConNoArr.push(num)    
-            this.fetchLikedOrNot(this.memNoAndConNoArr)
+            var memNoAndConNoArr = []
 
-            this.memNoAndConNoArr = [] //초기화 필요
+            memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
+            memNoAndConNoArr.push(num)    
+
+            let formData = new FormData()
+            formData.append("likedOrNotNumArr", memNoAndConNoArr)
+
+            this.fetchLikedOrNot(formData)
 
             //EventBus.$emit('removeInfoBarExceptRow2')
             this.onColor = true

@@ -103,12 +103,19 @@
 
                     <br/>
                     <br/>
+                    <br/>
+                    <br/>
+                    <br/>
 
-                    <div style="margin-top: 50px;">
-                        <p align="left" class="footerText" style="margin-bottom: 20px;">공연 요청자의 아티스트 사진</p>
-                        <div class="row">
-                            <img :src="imgRequest()" style="margin-right: 20px;">
-                            <img :src="imgRequest2()" style="margin-left: 20px;">
+                    <div>
+                        <p class="footerText" style="margin-bottom: 20px;">공연 요청자의 아티스트 사진</p>
+
+                        <div>
+                            <img :src="imgRequest()" style="width: 25%;">
+
+                            &emsp; &emsp;
+
+                            <img :src="imgRequest2()" style="width: 25%;">
                         </div>
                     </div>
 
@@ -140,18 +147,18 @@ export default {
 
         imgRequest() {
                 try {                
-                    return require(`c:/LectureContents/javascript/DoyoungJeong/personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}1.jpg`)
+                    return require(`../../../../../personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}1.jpg`)
 
-                } catch (e) {
+                } catch(e) {
                     return require(`@/assets/logo.png`)
                 }
         },
 
         imgRequest2() {
                 try {                
-                    return require(`c:/LectureContents/javascript/DoyoungJeong/personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}2.jpg`)
+                    return require(`../../../../../personalProjectSpring/images/concertRequestPic/${this.$store.state.concertRequest.regName}_${this.$store.state.concertRequest.concertName}2.jpg`)
 
-                } catch (e) {
+                } catch(e) {
                     return require(`@/assets/logo.png`)
                 }
         },
@@ -162,6 +169,7 @@ export default {
                 params: { concertRequestNo: this.concertRequestNo }
             })
         },
+
         deletee() {
             
             axios.delete(`http://localhost:8888/member/concertRegister/requestDelete/${this.concertRequestNo}`)
