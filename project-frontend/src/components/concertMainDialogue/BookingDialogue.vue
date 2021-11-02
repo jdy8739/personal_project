@@ -19,42 +19,57 @@
             @click="notLoggedIn">예약하기!</v-btn> -->
         </template>
 
-        <v-card>
+        <v-card class="grey darken-3">
+
             <v-card-title class="headLine">
+
                 <p id="headline" style="margin-bottom: 20px;">Booking Receipt</p>
+
             </v-card-title>
+
             <v-card-text>
                 <v-container style="width: 80%">
+
                     <v-layout wrap>
+
                         <form>
                             <v-flex xs12>
-                                <v-text-field label="휴대폰 번호" type="text" required v-model="phoneNo"></v-text-field>
+                                <v-text-field label="휴대폰 번호" type="text" required v-model="phoneNo" dark/>
                             </v-flex>
+                            
                             <v-flex xs12>
-                                <v-text-field label="이름" type="text" style="width: 70%" required v-model="name"></v-text-field>
+                                <v-text-field label="이름" type="text" style="width: 70%" required v-model="name" dark/>
                             </v-flex>
+                            
                             <v-flex xs12>
-                                <v-text-field label="예약 인원" type="number" style="width: 40%" required v-model="numOfVisitors"></v-text-field>
+                                <v-text-field label="예약 인원" type="number" style="width: 40%" required v-model="numOfVisitors" dark/>
                             </v-flex>
+
                             <v-flex xs12>
                                 <input type="text" id="message" label="메시지" @click="resetText" v-model="message"/>
                             </v-flex>
-                            <p align="center" id="description">확인을 누르시면 예약정보가 문자로 전송됩니다!<br>
+
+                            <p id="description" style="color: white;">확인을 누르시면 예약정보가 문자로 전송됩니다!<br>
                             본 예약 서비스는 로그인 정보를 기반으로 해당 공연장소로 전달됩니다 :)</p>
                         </form>
+
                     </v-layout>
                 </v-container>
             
             </v-card-text>
             
             <v-card-actions>
+
                 <v-spacer></v-spacer>
+
                 <v-btn color="teal darken-1" text @click.native="confirm($event)">
                     확인!
                 </v-btn>
-                <v-btn color="teal darken-1" text @click.native="cancel($event)">
+
+                <v-btn color="pink" text @click.native="cancel($event)">
                     취소
                 </v-btn>
+
             </v-card-actions>
 
         </v-card>

@@ -72,18 +72,18 @@
                         </v-btn>
                     </td>
 
-                    <v-textarea v-if="concertRequest.approvedOrNot == 'N'"
+                    <v-textarea v-if="concertRequest.approvedOrNot == 'N'" 
                         color="teal"
                         label="등록을 못해드려 죄송합니다. :( 상기 이유는 다음과 같습니다."
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
                         class="footerText"
                         outlined
-                        v-model="concertRequest.requestReply"
+                        :value="concertRequest.requestReply[0].requestReply" 
                         height="10%;"
                         auto-grow
                         readonly
                         dark
-                    ></v-textarea> <!-- height조절이 안되는 버그??? -->
+                    ></v-textarea> <!-- height조절이 안되는 버그??? --> <!-- 수정 중 -->
 
                     <div style="margin-top: 20px; float: right;">
 

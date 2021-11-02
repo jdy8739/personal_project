@@ -34,7 +34,7 @@ export default {
 
     notBookedYet: false,
     bookedList: [],
-    bookedConcert: null,
+    bookedConcert: '',
 
     criteriaDateOfStart: '',
     criteriaDateOfEnd: '',

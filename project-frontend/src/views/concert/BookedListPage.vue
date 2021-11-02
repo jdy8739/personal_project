@@ -14,7 +14,7 @@
                         <template v-slot:item="{ item, index }"> 
                             <tr>
                                 <td>{{ index + 1 }}</td>
-                                <td @click="handleClick(item.concertNo)" class="footerText">{{ item.name }}</td> 
+                                <td class="footerText">{{ item.name }}</td> 
                                 <td>{{ item.phoneNumber }}</td>
                                 <td>{{ item.concertName }}</td>
                                 <td>{{ item.numOfVisitors }}</td>
@@ -67,13 +67,13 @@ export default {
 
             this.$router.push({
                 name: 'BookedAlterPage',
-                params: { bookedConcertNo: bookedConcertNo }
+                params: { bookedConcertNo: bookedConcertNo.toString() }
             })
         },
         goToDetailPage(concertNo) {
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: concertNo }
+                params: { concertNo: concertNo.toString() }
             })
         }
     },

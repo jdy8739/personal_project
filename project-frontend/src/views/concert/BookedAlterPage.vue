@@ -23,7 +23,7 @@ export default {
     },
     props: {
         bookedConcertNo: {
-            type: Number,
+            type: String,
             required: true
         }
     },

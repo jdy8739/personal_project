@@ -180,10 +180,9 @@ export default {
                                         const venueName = this.venueName
                                         const concertName = this.concertName
                                         const dateOfConcert = this.dateOfConcert
-                                        const timeOfConcert = this.timeOfConcert
-                                        const timeOfEnd = this.timeOfEnd
-
-                                        axios.post('http://localhost:8888/member/concertRegister/request', { memberNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd })
+                                        const timeOfConcert = this.timeOfConcert + " 부터 " + this.timeOfEnd + " 까지 ";
+                                        
+                                        axios.post('http://localhost:8888/member/concertRegister/request', { memberNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert })
                                             .then(() => {
                                                 alert('업로드가 완료되었습니다.')
 
