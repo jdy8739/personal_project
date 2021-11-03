@@ -107,7 +107,9 @@ export default {
         },
         confirm() {
             if(this.$store.state.isLoggedIn == true) {
+                
                 axios.post('http://localhost:8888/member/needSession')
+
                     .then(res => {
                         if(res.data == true) {
 

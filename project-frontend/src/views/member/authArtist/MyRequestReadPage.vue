@@ -44,7 +44,7 @@
                     <br/>
                     <br/>
 
-                    <td v-if="concertRequest.approvedOrNot == null || concertRequest.approvedOrNot == 'A'" class="footerText">
+                    <td v-if="!concertRequest.approvedOrNot || concertRequest.approvedOrNot == 'A'" class="footerText">
                         게시 요청 대기 중
                         <v-btn class="ma-2" text icon color="primary lighten-1">
                             <v-icon>crop_square</v-icon>
@@ -72,13 +72,14 @@
                         </v-btn>
                     </td>
 
-                    <v-textarea v-if="concertRequest.approvedOrNot == 'N'" 
+                    <v-textarea v-if="concertRequest.approvedOrNot == 'N'"
+                        v-show="ifRepliedOrNot"
                         color="teal"
                         label="등록을 못해드려 죄송합니다. :( 상기 이유는 다음과 같습니다."
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
                         class="footerText"
                         outlined
-                        :value="concertRequest.requestReply[0].requestReply" 
+                        :value="concertRequest.requestReplies[0].requestReply" 
                         height="10%;"
                         auto-grow
                         readonly
@@ -144,6 +145,11 @@ export default {
     },
     methods: {
         ...mapActions(['fetchConcertRequest']),
+
+        ifRepliedOrNot() {
+            if(!this.$store.state.concertRequest.requestReplies[0].requestReply) return false
+            else return true
+        },
 
         imgRequest() {
                 try {                

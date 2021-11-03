@@ -136,22 +136,20 @@
                     
                     <v-textarea v-if="concertRequest.approvedOrNot == 'N'"
                         dark
-            
                         color="teal"
                         label="거절하신다면 사유를 입력해주세요."
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
                         class="footerText"
                         outlined
-                        v-model="writeRequestReply"
+                        v-model="tmpRequestReply"
                         height="10%;"
-                        auto-grow
-                        @click="updateReply"
+                        auto-grow        
+                        @click="fetchReply"
                     ></v-textarea> <!-- height조절이 안되는 버그??? -->
 
-                    <v-textarea v-else-if="concertRequest.approvedOrNot == 'Y' || concertRequest.approvedOrNot == 'A' || concertRequest.approvedOrNot == 'R' || concertRequest.approvedOrNot == null"
+                    <v-textarea v-else-if="concertRequest.approvedOrNot == 'Y' || concertRequest.approvedOrNot == 'A' || concertRequest.approvedOrNot == 'R' || !concertRequest.approvedOrNot"
                         dark
                         disabled
-              
                         color="teal"
                         label=""
                         style="width: 400px; margin-top: 30px; margin-left: 10px;"
@@ -220,11 +218,11 @@ export default {
     data() {
         return {
             tmpArr: [],
-            writeRequestReply: ''
+            tmpRequestReply: ''
         }
     },
     computed: {
-        ...mapState(['userProfile', 'isLoggedIn', 'concertRequest', 'requestReply'])
+        ...mapState(['userProfile', 'isLoggedIn', 'concertRequest'])
     },
     methods: {
         ...mapActions(['fetchConcertRequest', 'fetchRequestReply']),
@@ -245,6 +243,11 @@ export default {
                 } catch (e) {
                     return require(`@/assets/logo.png`)
                 }
+        },
+
+        fetchReply() {
+
+            this.tmpRequestReply = this.$store.state.concertRequest.requestReplies[0].requestReply
         },
 
         approveOrNotConcert(concertRequestNo, tmpNum) {
@@ -281,7 +284,7 @@ export default {
                         if(res.data == true) {
                             
                             const concertRequestNo = this.concertRequestNo
-                            const requestReply = this.writeRequestReply
+                            const requestReply = this.tmpRequestReply
 
                             axios.post('http://localhost:8888/member/concertRegister/leaveReply', { concertRequestNo, requestReply })
                                 .then(() => {
@@ -322,11 +325,6 @@ export default {
             this.$router.push({
                 name: 'RequestStorePage'
             })
-        },
-        updateReply() {
-            if(this.writeRequestReply == '') {
-                this.writeRequestReply = this.$store.state.concertRequest.requestReply
-            }
         }
     },
     mounted() {

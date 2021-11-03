@@ -186,6 +186,7 @@ export default {
                 })
         },
         handleClick(concertRequestNo) {
+            
             this.$router.push({
                 name: 'RequestReadPage',
                 params: { concertRequestNo: concertRequestNo.toString() }

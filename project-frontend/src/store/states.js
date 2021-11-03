@@ -28,7 +28,7 @@ export default {
     userName: '',
 
     concertRequestList: [],
-    concertRequest: null,
+    concertRequest: '', //reqly가 잘 안받아지는걸 보면 배열이라서??
 
     myRequestList: [],
 

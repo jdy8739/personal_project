@@ -89,7 +89,7 @@ export default {
         goToDetailPage(concertNo) {
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: concertNo }
+                params: { concertNo: concertNo.toString() }
             })
         }
     },
