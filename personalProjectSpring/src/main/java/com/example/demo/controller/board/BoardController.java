@@ -1,8 +1,5 @@
 package com.example.demo.controller.board;
 
-import com.example.demo.controller.board.request.BoardRequest;
-import com.example.demo.controller.board.request.ReplyModifyRequest;
-import com.example.demo.controller.board.request.ReplyRequest;
 import com.example.demo.entity.board.Board;
 import com.example.demo.entity.board.BoardReply;
 import com.example.demo.service.board.BoardService;
@@ -26,10 +23,10 @@ public class BoardController {
     BoardService service;
 
     @PostMapping("/upload")
-    public ResponseEntity<Void> upload(@Validated @RequestBody BoardRequest boardRequest) throws Exception {
-        log.info("upload(): " + boardRequest);
+    public ResponseEntity<Void> upload(@Validated @RequestBody Board board) throws Exception {
+        log.info("upload(): " + board);
 
-        service.upload(boardRequest);
+        service.upload(board);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
@@ -63,19 +60,19 @@ public class BoardController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<Void> modify(@Validated @RequestBody BoardRequest boardRequest) throws Exception {
-        log.info("modify(): " + boardRequest);
+    public ResponseEntity<Void> modify(@Validated @RequestBody Board board) throws Exception {
+        log.info("modify(): " + board);
 
-        service.modify(boardRequest);
+        service.modify(board);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PostMapping("/addReply")
-    public ResponseEntity<Void> addReply(@Validated @RequestBody ReplyRequest replyRequest) throws Exception {
-        log.info("addReply(): " + replyRequest);
+    public ResponseEntity<Void> addReply(@Validated @RequestBody BoardReply boardReply) throws Exception {
+        log.info("addReply(): " + boardReply);
 
-        service.addReply(replyRequest);
+        service.addReply(boardReply);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
@@ -99,10 +96,10 @@ public class BoardController {
     }
 
     @PutMapping("/modifyReply")
-    public ResponseEntity<Void> modifyReply(@Validated @RequestBody ReplyModifyRequest replyModifyRequest) throws Exception {
-        log.info("modifyReply(): " + replyModifyRequest);
+    public ResponseEntity<Void> modifyReply(@Validated @RequestBody BoardReply boardReply) throws Exception {
+        log.info("modifyReply(): " + boardReply);
 
-        service.modifyReply(replyModifyRequest);
+        service.modifyReply(boardReply);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

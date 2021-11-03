@@ -32,10 +32,10 @@ public class LikedConcert { //extends Concert해도 될것같음.
     @Column(length = 20, nullable = false)
     private String concertArtist;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 50, nullable = false)
     private String concertVenue;
 
-    @Column(length = 25, nullable = false)
+    @Column(length = 50, nullable = false)
     private String concertPrice;
 
     @Column(length = 20, nullable = false)

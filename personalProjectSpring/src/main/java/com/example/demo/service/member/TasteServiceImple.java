@@ -1,13 +1,11 @@
 package com.example.demo.service.member;
 
-import com.example.demo.controller.member.request.TasteRequest;
 import com.example.demo.entity.member.MemberTaste;
 import com.example.demo.repository.member.MemberTasteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -18,18 +16,18 @@ public class TasteServiceImple implements TasteService{
     MemberTasteRepository memberTasteRepository;
 
     @Override
-    public void addTaste(TasteRequest tasteRequest) throws Exception {
+    public void addTaste(MemberTaste memberTaste) throws Exception {
 
-        String chosenGenres = tasteRequest.getChosenGenres().replaceAll("\\[", "").replaceAll("\\]","").
+        String chosenGenres = memberTaste.getChosenGenres().replaceAll("\\[", "").replaceAll("\\]","").
                 replaceAll("\"", "");
 
-        String chosenArtists = tasteRequest.getChosenArtists().replaceAll("\\[", "").replaceAll("\\]","").
+        String chosenArtists = memberTaste.getChosenArtists().replaceAll("\\[", "").replaceAll("\\]","").
                 replaceAll("\"", "");
 
-        MemberTaste memberTaste = new MemberTaste(chosenGenres, tasteRequest.getSpeedTaste(), tasteRequest.getAtmosphereTaste(), chosenArtists);
-        memberTaste.setMemberNo(new Long(tasteRequest.getMemberNo()));
+        memberTaste.setChosenGenres(chosenGenres);
+        memberTaste.setChosenArtists(chosenArtists);
 
-        memberTasteRepository.deleteDefault(new Long(tasteRequest.getMemberNo())); //굳이?
+        //memberTasteRepository.deleteDefault(new Long(tasteRequest.getMemberNo())); //굳이?
         memberTasteRepository.save(memberTaste);
     }
 
@@ -47,24 +45,24 @@ public class TasteServiceImple implements TasteService{
     }
 
     @Override
-    public void updateTaste(TasteRequest tasteRequest) throws Exception {
+    public void updateTaste(MemberTaste memberTaste) throws Exception {
 
 //        String chosenGenres = tasteRequest.getChosenGenres().replace("[", "");
 //        chosenGenres = chosenGenres.replace("]", "");
 //        chosenGenres = chosenGenres.replace("\"", "");
 
-        String chosenGenres = tasteRequest.getChosenGenres().replaceAll("\\[", "").replaceAll("\\]","").
+        String chosenGenres = memberTaste.getChosenGenres().replaceAll("\\[", "").replaceAll("\\]","").
                 replaceAll("\"", "");
 
 //        String chosenArtists = tasteRequest.getChosenArtists().replace("[", "");
 //        chosenArtists = chosenArtists.replace("]", "");
 //        chosenArtists = chosenArtists.replace("\"", "");
 
-        String chosenArtists = tasteRequest.getChosenArtists().replaceAll("\\[", "").replaceAll("\\]","").
+        String chosenArtists = memberTaste.getChosenArtists().replaceAll("\\[", "").replaceAll("\\]","").
                 replaceAll("\"", "");
 
-        memberTasteRepository.updateTaste(chosenGenres, tasteRequest.getSpeedTaste(), tasteRequest.getAtmosphereTaste(), chosenArtists,
-                new Long(tasteRequest.getMemberNo()));
+        memberTasteRepository.updateTaste(chosenGenres, memberTaste.getSpeedTaste(), memberTaste.getAtmosphereTaste(), chosenArtists,
+                new Long(memberTaste.getMemberNo()));
     }
 
     @Override

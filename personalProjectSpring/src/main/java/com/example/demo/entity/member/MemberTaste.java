@@ -17,7 +17,7 @@ public class MemberTaste {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_taste_no")
-    private Long memberIdentityNo;
+    private Long memberTasteNo;
 
     @Column(name = "member_no")
     private Long memberNo;

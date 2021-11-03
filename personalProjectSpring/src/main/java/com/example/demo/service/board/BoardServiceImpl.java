@@ -1,8 +1,5 @@
 package com.example.demo.service.board;
 
-import com.example.demo.controller.board.request.BoardRequest;
-import com.example.demo.controller.board.request.ReplyModifyRequest;
-import com.example.demo.controller.board.request.ReplyRequest;
 import com.example.demo.entity.board.Board;
 import com.example.demo.entity.board.BoardReply;
 import com.example.demo.repository.board.BoardReplyRepository;
@@ -24,12 +21,7 @@ public class BoardServiceImpl implements BoardService{
     BoardReplyRepository boardReplyRepository;
 
     @Override
-    public void upload(BoardRequest boardRequest) throws Exception {
-
-        Board board = new Board(boardRequest.getId(), boardRequest.getTitle(), boardRequest.getContent());
-
-//        BoardReply boardReply = new BoardReply("default", "default"); //해줄 필요 없음
-//        board.addBoardReply(boardReply);
+    public void upload(Board board) throws Exception {
         boardRepository.save(board);
     }
 
@@ -50,24 +42,18 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void modify(BoardRequest boardRequest) throws Exception {
+    public void modify(Board board) throws Exception {
 
-        String title = boardRequest.getTitle();
-        String content = boardRequest.getContent();
-        Long boardNo = new Long(boardRequest.getBoardNo());
+        String title = board.getTitle();
+        String content = board.getContent();
+        String category = board.getCategory();
+        Long boardNo = new Long(board.getBoardNo());
 
-        boardRepository.modify(title, content, boardNo);
+        boardRepository.modify(title, content, category, boardNo);
     }
 
     @Override
-    public void addReply(ReplyRequest replyRequest) throws Exception {
-
-        String id = replyRequest.getId();
-        String content = replyRequest.getContent();
-        Long boardNo = new Long(replyRequest.getBoardNo());
-
-        BoardReply boardReply =  new BoardReply(id, content);
-        boardReply.setBoardNo(boardNo);
+    public void addReply(BoardReply boardReply) throws Exception {
 
         boardReplyRepository.save(boardReply);
     }
@@ -84,10 +70,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void modifyReply(ReplyModifyRequest replyModifyRequest) throws Exception {
+    public void modifyReply(BoardReply boardReply) throws Exception {
 
-        String content = replyModifyRequest.getContent();
-        Long boardReplyNo = new Long(replyModifyRequest.getReplyNo());
+        String content = boardReply.getContent();
+        Long boardReplyNo = new Long(boardReply.getBoardReplyNo());
 
         boardReplyRepository.modifyReply(content, boardReplyNo);
     }

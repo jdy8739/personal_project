@@ -1,12 +1,9 @@
 package com.example.demo.service.member;
 
-import com.example.demo.controller.concert.request.ConcertDeleteRequest;
-import com.example.demo.controller.concert.request.ConcertRequest;
 import com.example.demo.controller.member.request.MemberRequest;
 import com.example.demo.controller.member.response.MemberResponse;
+import com.example.demo.entity.member.LikedConcert;
 import com.example.demo.entity.member.Member;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,11 +23,11 @@ public interface MemberService {
 
     public boolean checkSessionValidation(String memberId) throws Exception;
 
-    public void addLiked(ConcertRequest concertRequest) throws Exception;
+    public void addLiked(LikedConcert likedConcert) throws Exception;
 
     public boolean isNotAlreadyLiked(Long memberNo, Long concertNo) throws Exception;
 
-    public void deleteLiked(ConcertDeleteRequest concertDeleteRequest) throws Exception;
+    public void deleteLiked(int[] intArrForDelete) throws Exception;
 
     public boolean checkPassword(MemberRequest memberRequest) throws Exception;
 }

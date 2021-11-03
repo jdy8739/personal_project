@@ -1,11 +1,9 @@
 package com.example.demo.controller.member;
 
-import com.example.demo.controller.concert.request.ConcertDeleteRequest;
-import com.example.demo.controller.concert.request.ConcertRequest;
-import com.example.demo.controller.member.request.LikedOrNotRequest;
 import com.example.demo.controller.member.request.MemberRequest;
 import com.example.demo.controller.member.response.MemberResponse;
 import com.example.demo.controller.session.MemberInfo;
+import com.example.demo.entity.member.LikedConcert;
 import com.example.demo.entity.member.Member;
 import com.example.demo.repository.member.MemberIdentityRepository;
 import com.example.demo.service.member.MemberService;
@@ -153,34 +151,37 @@ public class MemberController {
     }
 
     @PostMapping("/addLiked")
-    public ResponseEntity<Void> addLiked(@Validated @RequestBody ConcertRequest concertRequest) throws Exception {
-        log.info("addLiked(): concertRequest - " + concertRequest);
+    public ResponseEntity<Void> addLiked(@Validated @RequestBody LikedConcert likedConcert) throws Exception {
+        log.info("addLiked(): concertRequest - " + likedConcert);
 
-        service.addLiked(concertRequest);
+        service.addLiked(likedConcert);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PostMapping("/deleteLiked")
-    public ResponseEntity<Void> deleteLiked(@Validated @RequestBody ConcertDeleteRequest concertDeleteRequest) throws Exception {
+    public ResponseEntity<Void> deleteLiked(@RequestParam("memberNo") Integer memberNo,
+                                            @RequestParam("concertNo") Integer concertNo) throws Exception {
 
-        log.info("deleteLiked(): concertNo - " + concertDeleteRequest.getConcertNo() + ", memberNo - " + concertDeleteRequest.getMemberNo());
+        log.info("deleteLiked(): concertNo - " + concertNo + ", memberNo - " + memberNo);
 
-        service.deleteLiked(concertDeleteRequest);
+        int[] intArrForDelete = { concertNo, memberNo };
+
+        service.deleteLiked(intArrForDelete);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PutMapping("/fetchLikedOrNot") //ConcertDetailPage로 들어갈 때 이 공연이 이미 찜된건지 아닌건지를 판별해서 true또는 false를 반환, 그리고 화면에서 찜하기버튼이 나올지 취소버튼이 나올지를 결정
-    public ResponseEntity<Boolean> fetchLikedOrNot(@Validated @RequestBody LikedOrNotRequest likedOrNotRequest) throws Exception {
+    public ResponseEntity<Boolean> fetchLikedOrNot(@RequestParam("likedOrNotNumArr") Integer[] likedOrNotNumArr) throws Exception {
 
-        log.info("likedOrNotCheckNums: " + likedOrNotRequest);
+        log.info("likedOrNotNumArr: " + likedOrNotNumArr[0] + ", " + likedOrNotNumArr[1]);
 
         boolean isAlreadyLiked = false;
 
         try {
-            Long memberNo = new Long(likedOrNotRequest.getLikedOrNotCheckNums()[0]);
-            Long concertNo = new Long(likedOrNotRequest.getLikedOrNotCheckNums()[1]);
+            Long memberNo = new Long(likedOrNotNumArr[0]);
+            Long concertNo = new Long(likedOrNotNumArr[1]);
 
             isAlreadyLiked = service.isNotAlreadyLiked(memberNo, concertNo);
 

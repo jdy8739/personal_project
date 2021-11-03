@@ -25,8 +25,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("update Board bo set bo.title = :title, bo.content = :content where bo.boardNo = :boardNo")
-    void modify(String title, String content, Long boardNo);
+    @Query("update Board bo set bo.title = :title, bo.content = :content, bo.category = :category where bo.boardNo = :boardNo")
+    void modify(String title, String content, String category, Long boardNo);
 
     @Transactional
     @Modifying(clearAutomatically = true)

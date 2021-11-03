@@ -1,8 +1,5 @@
 package com.example.demo.controller.concert;
 
-import com.example.demo.controller.concert.request.BookingRequest;
-import com.example.demo.controller.concert.response.BookedConcertResponse;
-import com.example.demo.controller.member.request.LikedOrNotRequest;
 import com.example.demo.entity.concert.Concert;
 import com.example.demo.entity.member.BookedConcert;
 import com.example.demo.entity.member.LikedConcert;
@@ -11,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -62,10 +58,10 @@ public class ConcertController {
     }
 
     @PostMapping("/fetchBookedOrNot")
-    public ResponseEntity<Boolean> fetchBookedOrNot(@Validated @RequestBody LikedOrNotRequest likedOrNotRequest) throws Exception {
+    public ResponseEntity<Boolean> fetchBookedOrNot(@RequestParam("likedOrNotNumArr") Integer[] likedOrNotNumArr) throws Exception {
 
-        Long memberNo = new Long(likedOrNotRequest.getLikedOrNotCheckNums()[0]);
-        Long concertNo = new Long(likedOrNotRequest.getLikedOrNotCheckNums()[1]);
+        Long memberNo = new Long(likedOrNotNumArr[0]);
+        Long concertNo = new Long(likedOrNotNumArr[1]);
 
         boolean isNotAlreadyBooked = concertService.isNotAlreadyBooked(memberNo, concertNo);
 
@@ -75,21 +71,17 @@ public class ConcertController {
     }
 
     @GetMapping("/fetchBookedList/{memberNo}")
-    public ResponseEntity<List<BookedConcertResponse>> fetchBookedList(@PathVariable("memberNo") Integer memberNo) throws Exception {
-        //log.info("fetchBookedList(): " + memberNo);
+    public ResponseEntity<List<BookedConcert>> fetchBookedList(@PathVariable("memberNo") Integer memberNo) throws Exception {
+        log.info("fetchBookedList(): " + memberNo);
 
-        List<BookedConcertResponse> bookedConcertResponseList = concertService.getBookedConcertList(new Long(memberNo));
-
-        return new ResponseEntity<List<BookedConcertResponse>>(bookedConcertResponseList, HttpStatus.OK);
+        return new ResponseEntity<List<BookedConcert>>(concertService.getBookedConcertList(new Long(memberNo)), HttpStatus.OK);
     }
 
     @GetMapping("/fetchBookedConcert/{memberNo}")
-    public ResponseEntity<BookedConcertResponse> fetchBookedConcert(@PathVariable("memberNo") Integer bookedConcertNo) throws Exception {
-        //log.info("fetchBookedConcert(): " + memberNo);
+    public ResponseEntity<BookedConcert> fetchBookedConcert(@PathVariable("memberNo") Integer memberNo) throws Exception {
+        log.info("fetchBookedConcert(): " + memberNo);
 
-        BookedConcertResponse bookedConcertResponse = concertService.getBookedConcert(new Long(bookedConcertNo));
-
-        return new ResponseEntity<BookedConcertResponse>(bookedConcertResponse, HttpStatus.OK);
+        return new ResponseEntity<BookedConcert>(concertService.getBookedConcert(new Long(memberNo)), HttpStatus.OK);
     }
 
     @PutMapping("/alterBooking")

@@ -1,7 +1,5 @@
 package com.example.demo.service.concert;
 
-import com.example.demo.controller.concert.request.BookingRequest;
-import com.example.demo.controller.concert.response.BookedConcertResponse;
 import com.example.demo.entity.concert.Concert;
 import com.example.demo.entity.member.BookedConcert;
 import com.example.demo.entity.member.LikedConcert;
@@ -19,9 +17,9 @@ public interface ConcertService {
 
     public boolean isNotAlreadyBooked(Long memberNo, Long concertNo);
 
-    public List<BookedConcertResponse> getBookedConcertList(Long memberNo);
+    public List<BookedConcert> getBookedConcertList(Long memberNo);
 
-    public BookedConcertResponse getBookedConcert(Long memberNo);
+    public BookedConcert getBookedConcert(Long memberNo);
 
     public void alterBooking(BookedConcert bookedConcert);
 

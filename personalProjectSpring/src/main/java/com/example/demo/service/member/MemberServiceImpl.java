@@ -1,10 +1,7 @@
 package com.example.demo.service.member;
 
-import com.example.demo.controller.concert.request.ConcertDeleteRequest;
-import com.example.demo.controller.concert.request.ConcertRequest;
 import com.example.demo.controller.member.request.MemberRequest;
 import com.example.demo.controller.member.response.MemberResponse;
-import com.example.demo.entity.board.Board;
 import com.example.demo.entity.member.*;
 import com.example.demo.repository.artistAuth.ConcertRequestRepository;
 import com.example.demo.repository.board.BoardReplyRepository;
@@ -18,9 +15,6 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -71,13 +65,12 @@ public class MemberServiceImpl implements MemberService{
         } else {
 
             String encodedPassword = passwordEncoder.encode(memberRequest.getPassword());
-            memberRequest.setPassword(encodedPassword);
 
             String location = memberRequest.getLocation().replaceAll("\\[", "").replaceAll("\\]","").
                     replaceAll("\"", "");
 
             MemberIdentity memberIdentity = new MemberIdentity(memberRequest.getIdentity());
-            Member member = new Member(memberRequest.getId(), memberRequest.getPassword(), memberRequest.getName(),
+            Member member = new Member(memberRequest.getId(), encodedPassword, memberRequest.getName(),
                     location, memberRequest.getBirthDay(), memberRequest.getPhoneNo());
 
 //            LikedConcert likedConcert = new LikedConcert();
@@ -238,17 +231,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void addLiked(ConcertRequest concertRequest) throws Exception {
-
-        LikedConcert likedConcert = new LikedConcert(concertRequest.getConcertNo(), concertRequest.getConcertName(),
-                concertRequest.getConcertArtist(), concertRequest.getConcertVenue(), concertRequest.getConcertPrice(), concertRequest.getConcertDate(),
-                concertRequest.getConcertInfo());
-
-        likedConcert.setMemberNo(concertRequest.getMemberNo());
+    public void addLiked(LikedConcert likedConcert) throws Exception {
 
         if(isNotAlreadyLiked(likedConcert.getMemberNo(), likedConcert.getConcertNo())) {
+
             likedConcertRepository.save(likedConcert);
-            concertRepository.plusNumberOfLikes(new Long(concertRequest.getConcertNo()));
+            concertRepository.plusNumberOfLikes(new Long(likedConcert.getConcertNo()));
+
         } else {
             log.info("isAlreadyLiked!");
         }
@@ -260,9 +249,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void deleteLiked(ConcertDeleteRequest concertDeleteRequest) throws Exception {
-        likedConcertRepository.deleteByConcertNo(new Long(concertDeleteRequest.getConcertNo()), new Long(concertDeleteRequest.getMemberNo()));
-        concertRepository.minusNumberOfLikes(new Long(concertDeleteRequest.getConcertNo())); //concert테이블에 number_of_likes가 1씩 감소
+    public void deleteLiked(int[] intArrForDelete) throws Exception {
+        likedConcertRepository.deleteByConcertNo(new Long(intArrForDelete[0]), new Long(intArrForDelete[1]));
+        concertRepository.minusNumberOfLikes(new Long(intArrForDelete[0])); //concert테이블에 number_of_likes가 1씩 감소
     }
 
     @Override

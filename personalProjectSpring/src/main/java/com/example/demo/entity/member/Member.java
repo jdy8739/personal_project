@@ -34,8 +34,8 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String location;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    @Column(length = 20, nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @Column(length = 30, nullable = false)
     private Date birthDay;
 
     @Column(nullable = false)

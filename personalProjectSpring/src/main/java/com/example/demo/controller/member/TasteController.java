@@ -1,6 +1,5 @@
 package com.example.demo.controller.member;
 
-import com.example.demo.controller.member.request.TasteRequest;
 import com.example.demo.entity.member.MemberTaste;
 import com.example.demo.service.member.TasteService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,11 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -27,16 +22,18 @@ public class TasteController {
     TasteService tasteService;
 
     @PostMapping("/postTaste")
-    public ResponseEntity<Void> postTaste(@Validated @RequestBody TasteRequest tasteRequest) throws Exception {
-        log.info("postTaste(): " + tasteRequest);
+    public ResponseEntity<Void> postTaste(@Validated @RequestBody MemberTaste memberTaste) throws Exception {
+        log.info("postTaste(): " + memberTaste);
 
-        boolean isNotDecidedYet = tasteService.isDecidedOrNot(tasteRequest.getMemberNo());
+        boolean isNotDecidedYet = tasteService.isDecidedOrNot(memberTaste.getMemberNo().intValue());
 
         if(isNotDecidedYet) {
-            tasteService.addTaste(tasteRequest);
+            tasteService.addTaste(memberTaste);
+
         } else if(!isNotDecidedYet) {
-            tasteService.updateTaste(tasteRequest);
+            tasteService.updateTaste(memberTaste);
         }
+
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

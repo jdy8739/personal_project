@@ -1,9 +1,5 @@
 package com.example.demo.service.artistAuth;
 
-import com.example.demo.controller.concert.response.BookedConcertResponse;
-import com.example.demo.controller.member.request.ApproveOrNotRequest;
-import com.example.demo.controller.member.request.ArtistAuthRequest;
-import com.example.demo.controller.member.response.ConcertRequestResponse;
 import com.example.demo.entity.artistAuth.ConcertRequest;
 import com.example.demo.entity.artistAuth.RequestReply;
 import com.example.demo.repository.artistAuth.ConcertRequestRepository;
@@ -13,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -30,16 +25,10 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     RequestReplyRepository requestReplyRepository;
 
     @Override
-    public void regRequest(ArtistAuthRequest artistAuthRequest) {
+    public void regRequest(ConcertRequest concertRequest) {
 
-        Long memberNo = new Long(artistAuthRequest.getMemberNo());
-        String timeOfConcert = artistAuthRequest.getTimeOfConcert() + " 부터 " + artistAuthRequest.getTimeOfEnd() + " 까지 ";
-
-        ConcertRequest concertRequest = new ConcertRequest(memberNo, artistAuthRequest.getRegName(), artistAuthRequest.getArtistName(),
-                artistAuthRequest.getVenueName(), artistAuthRequest.getConcertName(), artistAuthRequest.getDateOfConcert(), timeOfConcert);
-
-        RequestReply requestReply = new RequestReply("");
-        concertRequest.addRequestReply(requestReply);
+//        RequestReply requestReply = new RequestReply("");
+//        concertRequest.addRequestReply(requestReply);
 
         concertRequestRepository.save(concertRequest);
     }
@@ -53,70 +42,44 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     }
 
     @Override
-    public List<ConcertRequestResponse> getConcertRequestList(Integer memberNo) {
+    public List<ConcertRequest> getConcertRequestList(Integer memberNo) {
 
-        List<ConcertRequest> tmpConcertRequestList;
+        List<ConcertRequest> concertRequestList;
 
-        if(memberNo == 0) {
-            tmpConcertRequestList = concertRequestRepository.getList();
-        } else {
-            tmpConcertRequestList = concertRequestRepository.findByMemberNo(new Long(memberNo));
+        if(memberNo == 0) { //코드 재활용 --> 관리자용 전체 리스트 보기
+            concertRequestList = concertRequestRepository.getList();
+        } else { // --> 개인이 스스로 요청한 리스트 보기
+            concertRequestList = concertRequestRepository.findByMemberNo(new Long(memberNo)); 
         }
 
-        //log.info("tmpConcertRequestList: " + tmpConcertRequestList);
-
-        List<ConcertRequestResponse> concertRequestResponses = new ArrayList<>(Arrays.asList());
-        ConcertRequestResponse concertRequestResponse;
-
-        String dateOfCon;
-        String regDate;
-
-        SimpleDateFormat conDateFormat = new SimpleDateFormat("20yy년 MM월 dd일");
-        SimpleDateFormat regDateFormat = new SimpleDateFormat("20yy-MM-dd hh:mm");
-
-        for(int i=0; i< tmpConcertRequestList.size(); i++) {
-
-            dateOfCon = conDateFormat.format(tmpConcertRequestList.get(i).getDateOfConcert());
-            regDate = regDateFormat.format(tmpConcertRequestList.get(i).getRegDate());
-
-            concertRequestResponse = new ConcertRequestResponse(tmpConcertRequestList.get(i).getConcertRequestNo(), tmpConcertRequestList.get(i).getRegName(),
-                    tmpConcertRequestList.get(i).getArtistName(), tmpConcertRequestList.get(i).getVenueName(), tmpConcertRequestList.get(i).getConcertName(), dateOfCon,
-                    tmpConcertRequestList.get(i).getTimeOfConcert(), tmpConcertRequestList.get(i).getApprovedOrNot(), null, regDate);
-            //log.info("concertRequestResponse: " + concertRequestResponse);
-
-            concertRequestResponses.add(concertRequestResponse);
-        }
-        //log.info("concertRequestResponses: " + concertRequestResponses);
-        return concertRequestResponses;
+        return concertRequestList;
     }
 
     @Override
-    public ConcertRequestResponse getConcertRequest(Integer concertRequestNo) {
+    public ConcertRequest getConcertRequest(Integer concertRequestNo) {
 
         Optional<ConcertRequest> tmpConcertRequest = concertRequestRepository.findByConcertRequestNo(new Long(concertRequestNo));
 
-        SimpleDateFormat conDateFormat = new SimpleDateFormat("20yy년 MM월 dd일");
-        SimpleDateFormat regDateFormat = new SimpleDateFormat("20yy-MM-dd hh:mm");
+        ConcertRequest concertRequest = tmpConcertRequest.get();
 
-        String requestReply = requestReplyRepository.findByConcertRequestNo(new Long(concertRequestNo));
+        try {
+            RequestReply requestReply = requestReplyRepository.findByConcertRequestNo(new Long(concertRequestNo)).get();
 
-        String dateOfCon = conDateFormat.format(tmpConcertRequest.get().getDateOfConcert());
-        String regDate = regDateFormat.format(tmpConcertRequest.get().getRegDate());
+            concertRequest.addRequestReply(requestReply);
 
-        ConcertRequestResponse concertRequestResponse = new ConcertRequestResponse(tmpConcertRequest.get().getConcertRequestNo(),
-                tmpConcertRequest.get().getRegName(), tmpConcertRequest.get().getArtistName(),
-                tmpConcertRequest.get().getVenueName(), tmpConcertRequest.get().getConcertName(), dateOfCon,
-                tmpConcertRequest.get().getTimeOfConcert(), tmpConcertRequest.get().getApprovedOrNot(), requestReply, regDate);
+        } catch (NoSuchElementException noSuchElementException) {
 
-        //log.info("concertRequestResponse: " + concertRequestResponse);
-        return concertRequestResponse;
+            concertRequest.addRequestReply(new RequestReply(" "));
+        }
+
+        return concertRequest;
     }
 
     @Override
-    public void approveOrNotRequest(ApproveOrNotRequest approveOrNotRequest) {
+    public void approveOrNotRequest(Integer[] numArr) {
 
-        int concertRequestNo = approveOrNotRequest.getNumArr()[0];
-        int statusNum = approveOrNotRequest.getNumArr()[1];
+        int concertRequestNo = numArr[0];
+        int statusNum = numArr[1];
 
         if(statusNum == 1) {
             concertRequestRepository.approveConcertRequest(new Long(concertRequestNo));
@@ -130,10 +93,18 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     @Override
     public void inputReply(RequestReply requestReply) {
 
-        Long concertRequestNo = requestReply.getConcertRequestNo();
-        String replyContent = requestReply.getRequestReply();
+        boolean isNotRepliedYet = requestReplyRepository.findByConcertRequestNo(requestReply.getConcertRequestNo()).isEmpty();
 
-        requestReplyRepository.saveReply(replyContent, concertRequestNo);
+        log.info("isNotRepliedYet: " + isNotRepliedYet);
+
+        if(isNotRepliedYet) requestReplyRepository.save(requestReply);
+        else {
+
+            Long concertRequestNo = requestReply.getConcertRequestNo();
+            String reply = requestReply.getRequestReply();
+
+            requestReplyRepository.updateReply(reply, concertRequestNo);
+        }
     }
 
 //    @Override
@@ -146,15 +117,15 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
 //    }
 
     @Override
-    public void modifyConcertRequest(ArtistAuthRequest artistAuthRequest) {
+    public void modifyConcertRequest(ConcertRequest concertRequest) {
 
-        Long concertRequestNo = new Long(artistAuthRequest.getConcertRequestNo());
-        String regName = artistAuthRequest.getRegName();
-        String artistName = artistAuthRequest.getRegName();
-        String venueName = artistAuthRequest.getVenueName();
-        String concertName = artistAuthRequest.getConcertName();
-        Date dateOfConcert = artistAuthRequest.getDateOfConcert();
-        String timeOfConcert = artistAuthRequest.getTimeOfConcert() + " 부터 " + artistAuthRequest.getTimeOfEnd() + " 까지 ";
+        Long concertRequestNo = new Long(concertRequest.getConcertRequestNo());
+        String regName = concertRequest.getRegName();
+        String artistName = concertRequest.getRegName();
+        String venueName = concertRequest.getVenueName();
+        String concertName = concertRequest.getConcertName();
+        Date dateOfConcert = concertRequest.getDateOfConcert();
+        String timeOfConcert = concertRequest.getTimeOfConcert();
 
         concertRequestRepository.modifyConcertRequest(regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, concertRequestNo);
     }

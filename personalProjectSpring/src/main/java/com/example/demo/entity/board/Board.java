@@ -34,6 +34,9 @@ public class Board {
     @Column(length = 300, nullable = false)
     private String content;
 
+    @Column(length = 20, nullable = false)
+    private String category;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "board_no")
     private Set<BoardReply> boardReplyList = new HashSet<BoardReply>();
@@ -52,6 +55,7 @@ public class Board {
     @CreationTimestamp
     private Date regDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @UpdateTimestamp
     private Date updDate;
 }
