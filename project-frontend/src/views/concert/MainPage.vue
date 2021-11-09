@@ -1,5 +1,5 @@
 <template>
-    <div class="grey darken-4" style="height: 100%;">
+    <div class="grey darken-4" style="height: 100%; position: relative;">
         <br>
         
         <div align="center" style="margin-top: -20px;">
@@ -24,7 +24,7 @@
 
         <!-- <concerts v-if="taste" v-bind:taste="taste"/> -->
       
-        <div :class="['box', 'grey darken-4', {'dragged': dragged}]"
+        <div :class="['box', 'grey darken-4', {'dragged': dragged}]" v-if="taste || dateForFilter"
             v-dragged="onDragged"
             style="width: 170px; color: red;">
 
@@ -264,13 +264,15 @@ export default {
 
 .box {
     position: fixed;
+    bottom: 50px;
+    right: 50px;
+
     width: 200px;
     height: 50px;
     box-sizing: border-box;
     padding: 15px;
     background: white;
     display: inline-block;
-    position: relative;
     user-select: none;
     text-align: left;
     cursor: pointer;

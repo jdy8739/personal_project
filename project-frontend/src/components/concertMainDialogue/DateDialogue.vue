@@ -25,13 +25,13 @@
                                 from
                             </p>
 
-                            <input type="date" name="date" style="width: 270px; color: white;" v-model="startDate">
+                            <input type="date" name="date" style="width: 270px; color: white;" v-model="startDate"/>
 
                             <p style="font-size: 15px; margin-top: 13px; margin-right: 40px; color: white;">
                                 to
                             </p>
 
-                            <input type="date" name="date" style="width: 288px; color: white;" v-model="endDate" c>
+                            <input type="date" name="date" style="width: 288px; color: white;" v-model="endDate"/>
                         </div>
                     </v-card-text>
 
