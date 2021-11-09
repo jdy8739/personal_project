@@ -4,10 +4,10 @@
         <div style="position: relative;" v-on:mouseover="turnOnColor(10)" v-on:mouseout="turnOffColor" @click="showInfoBar(10)">
 
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/이준형.jpeg">
+            src="@/assets/img/concert_pics/이준형.jpeg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/이준형.jpeg">
+            src="@/assets/img/concert_pics/이준형.jpeg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
                 <div class="imgTitle d-none d-lg-block">Lee Jun Hyung</div>
@@ -34,7 +34,7 @@ export default {
     name: 'ConcertRow2',
     data() {
         return {
-            concertNo: 8,
+            concertNo: 10,
             onColor: false,
             //imgNum: 0,
             //infoBar: false,

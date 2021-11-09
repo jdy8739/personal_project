@@ -4,10 +4,10 @@
         <div style="position: relative;" v-on:mouseover="turnOnColor(6)" v-on:mouseout="turnOffColor"  @click="showInfoBar(6)">
 
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/RollingQuartz.jpeg">
+            src="@/assets/img/concert_pics/RollingQuartz.jpeg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/RollingQuartz.jpeg">
+            src="@/assets/img/concert_pics/RollingQuartz.jpeg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
                 <div class="imgTitle d-none d-lg-block">Rolling Quartz</div>

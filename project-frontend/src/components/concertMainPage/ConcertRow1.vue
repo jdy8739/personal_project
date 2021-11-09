@@ -1,196 +1,127 @@
 <template>
-    <div>
-            <div class="row" style="width: 101%;"> <!-- style에 width: 25%" 걸어두니까 화면 크기대로 작아짐 -->
-                <div style="position: relative; width: 25%" v-on:mouseover="turnOnColor(1)" v-on:mouseout="turnOffColor"  @click="showInfoBar(1)"> 
-                    <img v-if="onColor == false || imgNum != 1" class="responsive-img bigImg"
-                    src="@/assets/img/flyingDog.jpg">
+    <div style="margin-top: 5px;">
+        <div class="row" style="width: 101%;">
 
-                    <img v-else-if="onColor == true && imgNum == 1" class="responsive-img bigColorImg"
-                    src="@/assets/img/flyingDog.jpg">
+            <concert-1 v-if="acoustic && filterDate('2021-08-20')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/FlyingDog.jpg"
+                @click="noticeFiltered"/>
 
-                    <div v-if="(onColor == false || imgNum != 1) && !wideOffLetters">
-                        <div class="imgTitle d-none d-lg-block">Flying-Dog</div>
-                        <div class="location d-none d-lg-block">Club FF</div>
-                        <div class="date d-none d-lg-block">08-20-2021</div>                 
-                    </div>   
-                    <div v-else-if="onColor == true && imgNum == 1">
-                        <div class="imgTitleBlur d-none d-lg-block">Flying-Dog</div>
-                        <div class="locationBlur d-none d-lg-block">Club FF</div>
-                        <div class="dateBlur d-none d-lg-block">08-20-2021</div>                 
-                    </div>                    
-                </div>
-                <div style="position: relative; width: 25%" v-on:mouseover="turnOnColor(2)" v-on:mouseout="turnOffColor"  @click="showInfoBar(2)">
-                    <img v-if="onColor == false || imgNum != 2" class="responsive-img bigImg"
-                     src="@/assets/img/kidmili.jpg">
+            <concert-2 v-if="rock && filterDate('2021-08-18')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/KidMilli.jpg"
+            @click="noticeFiltered"/>
 
-                    <img v-else-if="onColor == true && imgNum == 2" class="responsive-img bigColorImg"
-                     src="@/assets/img/kidmili.jpg">
+            <concert-3 v-if="hip_hop && filterDate('2021-08-19')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/Messgram.jpg"
+            @click="noticeFiltered"/>
 
-                    <div v-if="(onColor == false || imgNum != 2) && !wideOffLetters">
-                        <div class="imgTitle d-none d-lg-block">Kid Milli</div>
-                        <div class="location d-none d-lg-block">NB2</div>
-                        <div class="date d-none d-lg-block">08-18-2021</div> 
-                    </div>    
-                    <div v-else-if="onColor == true && imgNum == 2">
-                        <div class="imgTitleBlur d-none d-lg-block">Kid Milli</div>
-                        <div class="locationBlur d-none d-lg-block">NB2</div>
-                        <div class="dateBlur d-none d-lg-block">08-18-2021</div> 
-                    </div>    
-                </div>
-                <div style="position: relative; width: 25%" v-on:mouseover="turnOnColor(3)" v-on:mouseout="turnOffColor" @click="showInfoBar(3)">
-                    <img v-if="onColor == false || imgNum != 3" class="responsive-img bigImg" 
-                    src="@/assets/img/messgram.jpg">
-
-                    <img v-else-if="onColor == true && imgNum == 3" class="responsive-img bigColorImg"
-                     src="@/assets/img/messgram.jpg">
-
-                    <div v-if="(onColor == false || imgNum != 3) && !wideOffLetters">
-                        <div class="imgTitle d-none d-lg-block">Mess<br>Gram</div>
-                        <div class="location d-none d-lg-block">RollingStones</div>
-                        <div class="date d-none d-lg-block">08-19-2021</div> 
-                    </div>
-                    <div v-else-if="onColor == true && imgNum == 3">
-                        <div class="imgTitleBlur d-none d-lg-block">Mess<br>Gram</div>
-                        <div class="locationBlur d-none d-lg-block">RollingStones</div>
-                        <div class="dateBlur d-none d-lg-block">08-19-2021</div> 
-                    </div>
-                </div>
-                <div style="position: relative; width: 25%" v-on:mouseover="turnOnColor(4)" v-on:mouseout="turnOffColor" @click="showInfoBar(4)">
-                    <img v-if="onColor == false || imgNum != 4" class="responsive-img bigImg"
-                    src="@/assets/img/crackshot.jpg">
-
-                    <img v-else-if="onColor == true || imgNum != 4" class="responsive-img bigColorImg" 
-                    src="@/assets/img/crackshot.jpg">
-
-                    <div v-if="(onColor == false || imgNum != 4) && !wideOffLetters">
-                        <div class="imgTitle d-none d-lg-block">Crack<br>Shot</div>
-                        <div class="location d-none d-lg-block">RollingStones</div>
-                        <div class="date d-none d-lg-block">08-19-2021</div> 
-                    </div>
-                    <div v-else-if="onColor == true && imgNum == 4">
-                        <div class="imgTitleBlur d-none d-lg-block">Crack<br>Shot</div>
-                        <div class="locationBlur d-none d-lg-block">RollingStones</div>
-                        <div class="dateBlur d-none d-lg-block">08-19-2021</div> 
-                    </div>
-                </div>
-            </div>
-
-            <!-- 원래 div:hover로 구현하면 더 편하게 구현할 수 있을것 같았는데, 한 이미지를 클릭했을 때 다른 이미지들에 커서를 올리면 그 사진이 컬러가 되면안되기에
-            div:hover말고 이렇게 하드코딩을 해봤습니다. -->
-
-        <hr>
-        <information-box v-if="concert" v-bind:infoBar="infoBar" v-bind:concert="concert" v-on:offInfoBox="removeInfoBar"/>
+            <concert-4 v-if="jazz && filterDate('2021-08-19')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/CrackShot.jpg"
+            @click="noticeFiltered"/>
             
         </div>
+        
+        <hr>
+        <information-box v-show="showInfoBar" v-bind:concert="concert"/>
+        <!-- <p v-else-if="!concert">공연 정보를 불러오는데 오류가 있습니다.</p> -->
+
+    </div>
 </template>
 
 <script>
-import cookies from 'vue-cookies'
-import Vue from 'vue'
-Vue.use(cookies)
-
 import EventBus from '@/eventBus.js'
-import InformationBox from '@/components/concertMainPage/InformationBox'
+import { mapState } from 'vuex'
 
-import { mapActions, mapState } from 'vuex'
+import Concert1 from '@/components/concertMainPage/concertElem/Concert1'
+import Concert2 from '@/components/concertMainPage/concertElem/Concert2'
+import Concert3 from '@/components/concertMainPage/concertElem/Concert3'
+import Concert4 from '@/components/concertMainPage/concertElem/Concert4'
+
+import InformationBox from '@/components/concertMainPage/InformationBox'
 
 export default {
     name: 'ConcertRow2',
     components: {
+        Concert1,
+        Concert2,
+        Concert3,
+        Concert4,
         InformationBox
+    },
+    props: {
+        taste: {
+            type: Object
+        },
+        dateForFilter: {
+            type: Boolean
+        }
     },
     data() {
         return {
-            onColor: false,
-            imgNum: 0,
-            infoBar: false,
-            wideColorChange: true,
-            wideOffLetters: false,
-            nav_drawer: false,
-
-            memNoAndConNoArr:[]
+            showInfoBar: true
         }
     },
     methods: {
-        ...mapActions(['fetchConcert', 'fetchLikedOrNot', 'isLoggedIn']),
-
-        turnOnColor(num) {
-            if(this.wideColorChange) {
-                this.onColor = true
-                this.imgNum = num
-            }
+        noticeFiltered() {
+            alert('필터처리된 공연입니다.')
         },
-        turnOffColor() {
-            if (this.wideColorChange) { 
-                this.onColor = false
-                this.imgNum = 0
+
+        filterDate(date) { //필터처리를 하는데 computed에는 안되고 왜 method에만 되는건지???
+
+            if(this.$store.state.criteriaDateOfEnd == '' || this.dateForFilter) {
+                return true
+            }
+            if(this.$store.state.criteriaDateOfStart <= date && this.$store.state.criteriaDateOfEnd >= date) {
+                return true
             } 
-        },
-        showInfoBar(num) {
-            this.infoBar = true
-
-            if(this.imgNum == num) {
-                this.wideColorChange = false
-            } else if(this.imgNum != num) {
-                this.imgNum = num
-            }
-            this.wideOffLetters = true
-            this.fetchConcert(num)
-
-            this.memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            this.memNoAndConNoArr.push(num)    
-            this.fetchLikedOrNot(this.memNoAndConNoArr)
-
-            this.memNoAndConNoArr = [] //초기화 필요
-
-            EventBus.$emit('removeInfoBarExceptRow1')
-            this.onColor = true
-        },
-        removeInfoBar() {
-            this.infoBar = false
-            this.wideColorChange = true
-            this.wideOffLetters = false
-
-            this.imgNum = 0
-
-            EventBus.$emit('removeException')
+            return false
         }
     },
     computed: {
-        ...mapState(['concert', 'userProfile'])
+        ...mapState(['concert', 'criteriaDateOfStart', 'criteriaDateOfEnd', 'isLoggedIn']),
+
+        acoustic() {
+            if(!this.taste || this.taste.chosenGenres.includes("ACOUSTIC")) { //taste가 null이면 비로그인 상태라는 뜻
+                return true
+            }
+            return false
+        },
+        rock() {
+            if(!this.taste || this.taste.chosenGenres.includes("ROCK")) {
+                return true
+            }
+            return false
+        },
+        hip_hop() {
+            if(!this.taste || this.taste.chosenGenres.includes("HIP-HOP")) {
+                return true
+            }
+            return false
+        },
+        jazz() {
+            if(!this.taste || this.taste.chosenGenres.includes("JAZZ")) {
+                return true
+            }
+            return false
+        }
     },
-    updated() {
-        EventBus.$on('removeInfoBarExceptRow2', () => {
-            this.infoBar = false
 
-            this.wideColorChange = false
-            this.wideOffLetters = true
-            this.onColor = false
-        })
-
-        EventBus.$on('removeInfoBarExceptRow3', () => {
-            this.infoBar = false
-
-            this.wideColorChange = false
-            this.wideOffLetters = true
-            this.onColor = false
-        })
-
-        EventBus.$on('removeException', () => {
-
-            this.wideColorChange = true
-            this.wideOffLetters = false
+    created() {
+        EventBus.$on('makeOtherCompBlur', (concertNum) => {
+            if(concertNum > 4) this.showInfoBar = false
+            else this.showInfoBar = true
         })
     }
 }
 </script>
 
-<style scoped>
+<style>
 
-div:hover {
-
-
+.bigImgBlured {
+    filter: blur(2px) grayscale(100%); 
+    opacity: 0.6;
+    width: 25%;
 }
 
-
 </style>
+
+

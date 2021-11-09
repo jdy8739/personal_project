@@ -134,7 +134,7 @@ export default {
                 {
                     text: 'ABOUT US',
                     icon: 'people',
-                    route: '/aboutUsPage',
+                    route: '/aboutUs',
                 },
                 {
                     text: 'LOG IN',
@@ -143,22 +143,22 @@ export default {
                 {
                     text: 'SIGN UP',
                     icon: 'people',
-                    route: '/signupPage',
+                    route: '/signup',
                 },
                 {
                     text: 'SUPPORT',
                     icon: 'people',
-                    route: '/preferenceFillInPage',
+                    route: '/preference',
                 },
                 {
                     text: 'COMMUNITY',
                     icon: 'people',
-                    route: '/Community',
+                    route: '/community',
                 },
                 {
                     text: 'MORE',
                     icon: 'people',
-                    route: '/indieNewsCrawlerPage',
+                    route: '/indieNewsCrawler',
                 }
             ],
             loggedInlinks: [
@@ -169,22 +169,22 @@ export default {
                 {
                     text: 'ABOUT US',
                     icon: 'people',
-                    route: '/aboutUsPage',
+                    route: '/aboutUs',
                 },
                 {
                     text: 'SUPPORT',
                     icon: 'people',
-                    route: '/preferenceFillInPage',
+                    route: '/preference',
                 },
                 {
                     text: 'COMMUNITY',
                     icon: 'people',
-                    route: '/Community',
+                    route: '/community',
                 },
                 {
                     text: 'MORE',
                     icon: 'people',
-                    route: '/indieNewsCrawlerPage',
+                    route: '/indieNewsCrawler',
                 }
             ],
             managerLinks: [
@@ -195,22 +195,22 @@ export default {
                 {
                     text: 'ABOUT US',
                     icon: 'people',
-                    route: '/aboutUsPage',
+                    route: '/aboutUs',
                 },
                 {
                     text: 'REQUEST STORE', 
                     icon: 'people',
-                    route: '/requestStorePage', 
+                    route: '/request/store', 
                 },
                 {
                     text: 'COMMUNITY',
                     icon: 'people',
-                    route: '/Community',
+                    route: '/community',
                 },
                 {
                     text: 'ADMIN',
                     icon: 'people',
-                    route: '/memberListPage',
+                    route: '/memberList',
                 }
             ],
             artistLinks: [
@@ -221,22 +221,22 @@ export default {
                 {
                     text: 'ABOUT US',
                     icon: 'people',
-                    route: '/aboutUsPage',
+                    route: '/aboutUs',
                 },
                 {
                     text: 'SUPPORT',
                     icon: 'people',
-                    route: '/preferenceFillInPage',
+                    route: '/preference',
                 },
                 {
                     text: 'COMMUNITY',
                     icon: 'people',
-                    route: '/Community',
+                    route: '/community',
                 },
                 {
                     text: 'ConcertReg',
                     icon: 'people',
-                    route: '/registerRequestPage',
+                    route: '/register/request',
                 }
             ],
             navLinks: [

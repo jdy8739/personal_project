@@ -4,10 +4,10 @@
         <div style="position: relative;" v-on:mouseover="turnOnColor(8)" v-on:mouseout="turnOffColor"  @click="showInfoBar(8)">
 
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/김심야1.jpg">
+            src="@/assets/img/concert_pics/김심야.jpg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/김심야1.jpg">
+            src="@/assets/img/concert_pics/김심야.jpg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
                 <div class="imgTitle d-none d-lg-block">Kim-Sim-Yah</div>

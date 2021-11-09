@@ -1,36 +1,35 @@
-<template>
+<template>  
     <div style="margin-top: 40px;">
 
-        <div>
-            <div class="row" style="width: 101%;">
+        <div class="row" style="width: 101%;">
 
-                <concert-5 v-if="acoustic && filterDate('2021-09-03')"/>
-                <img v-else class="responsive-img bigImgBlured" src="@/assets/img/박소은.jpeg"
-                 @click="noticeFiltered"/>
-
-                <concert-6 v-if="rock && filterDate('2021-09-03')"/>
-                <img v-else class="responsive-img bigImgBlured" src="@/assets/img/RollingQuartz.jpeg"
+            <concert-5 v-if="acoustic && filterDate('2021-09-03')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/박소은.jpeg"
                 @click="noticeFiltered"/>
 
-                <concert-7 v-if="hip_hop && filterDate('2021-09-10')"/>
-                <img v-else class="responsive-img bigImgBlured" src="@/assets/img/OceanFromTheBlue.jpeg"
-                @click="noticeFiltered"/>
+            <concert-6 v-if="rock && filterDate('2021-09-03')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/RollingQuartz.jpeg"
+            @click="noticeFiltered"/>
 
-                <concert-8 v-if="jazz && filterDate('2021-09-11')"/>
-                <img v-else class="responsive-img bigImgBlured" src="@/assets/img/김심야1.jpg"
-                @click="noticeFiltered"/>
-                
-            </div>
+            <concert-7 v-if="hip_hop && filterDate('2021-09-10')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/OceanFromTheBlue.jpeg"
+            @click="noticeFiltered"/>
+
+            <concert-8 v-if="jazz && filterDate('2021-09-11')"/>
+            <img v-else class="responsive-img bigImgBlured" src="@/assets/img/concert_pics/김심야.jpg"
+            @click="noticeFiltered"/>
+            
         </div>
-
+      
         <hr>
-        <information-box v-bind:concert="concert"/>
+        <information-box v-show="showInfoBar" v-bind:concert="concert"/>
         <!-- <p v-else-if="!concert">공연 정보를 불러오는데 오류가 있습니다.</p> -->
 
     </div>
 </template>
 
 <script>
+import EventBus from '@/eventBus.js'
 import { mapState } from 'vuex'
 
 import Concert5 from '@/components/concertMainPage/concertElem/Concert5'
@@ -59,7 +58,7 @@ export default {
     },
     data() {
         return {
-            infoBar: true
+            showInfoBar: true
         }
     },
     methods: {
@@ -105,6 +104,13 @@ export default {
             }
             return false
         }
+    },
+
+    created() {
+        EventBus.$on('makeOtherCompBlur', (concertNum) => {
+            if(concertNum < 5 || concertNum > 8) this.showInfoBar = false
+            else this.showInfoBar = true
+        })
     }
 }
 </script>

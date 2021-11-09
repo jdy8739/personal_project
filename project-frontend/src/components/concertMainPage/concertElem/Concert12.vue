@@ -4,10 +4,10 @@
         <div style="position: relative;" v-on:mouseover="turnOnColor(12)" v-on:mouseout="turnOffColor" @click="showInfoBar(12)">
 
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/Net Gala1.jpg">
+            src="@/assets/img/concert_pics/Net Gala.jpg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/Net Gala1.jpg">
+            src="@/assets/img/concert_pics/Net Gala.jpg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
                 <div class="imgTitle d-none d-lg-block">Net Gala</div>
@@ -34,7 +34,7 @@ export default {
     name: 'ConcertRow2',
     data() {
         return {
-            concertNo: 8,
+            concertNo: 12,
             onColor: false,
             //imgNum: 0,
             //infoBar: false,

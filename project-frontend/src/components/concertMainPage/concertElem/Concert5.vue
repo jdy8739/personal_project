@@ -4,10 +4,10 @@
         <div style="position: relative;" v-on:mouseover="turnOnColor(5)" v-on:mouseout="turnOffColor"  @click="showInfoBar(5)">
 
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/박소은.jpeg">
+            src="@/assets/img/concert_pics/박소은.jpeg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/박소은.jpeg">
+            src="@/assets/img/concert_pics/박소은.jpeg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
                 <div class="imgTitle d-none d-lg-block">Park So-Eun</div>

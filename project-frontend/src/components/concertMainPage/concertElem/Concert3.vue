@@ -1,25 +1,25 @@
 <template>
     <div style="width: 25%;">
         
-        <div style="position: relative;" v-on:mouseover="turnOnColor(7)" v-on:mouseout="turnOffColor"  @click="showInfoBar(7)">
+        <div style="position: relative;" v-on:mouseover="turnOnColor(3)" v-on:mouseout="turnOffColor" @click="showInfoBar(3)">
 
-            <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/concert_pics/OceanFromTheBlue.jpeg">
+            <img v-if="onColor == false" class="responsive-img bigImg" 
+            src="@/assets/img/concert_pics/Messgram.jpg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/concert_pics/OceanFromTheBlue.jpeg">
+            src="@/assets/img/concert_pics/Messgram.jpg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
-                <div class="imgTitle d-none d-lg-block" style="font-size: 70px; line-height: 75px;">Ocean From The Blue</div>
-                <div class="location d-none d-lg-block">Jammers</div>
-                <div class="date d-none d-lg-block">09-10-2021</div>                 
-            </div>   
+                <div class="imgTitle d-none d-lg-block">Mess<br>Gram</div>
+                <div class="location d-none d-lg-block">RollingStones</div>
+                <div class="date d-none d-lg-block">08-19-2021</div> 
+            </div>
 
             <div v-else-if="onColor == true">
-                <div class="imgTitleBlur d-none d-lg-block" style="font-size: 70px; line-height: 75px;">Ocean From The Blue</div>
-                <div class="locationBlur d-none d-lg-block">Jammers</div>
-                <div class="dateBlur d-none d-lg-block">09-10-2021</div>                
-            </div>  
+                <div class="imgTitleBlur d-none d-lg-block">Mess<br>Gram</div>
+                <div class="locationBlur d-none d-lg-block">RollingStones</div>
+                <div class="dateBlur d-none d-lg-block">08-19-2021</div> 
+            </div>
 
         </div>
     </div>
@@ -31,10 +31,10 @@ import EventBus from '@/eventBus.js'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    name: 'ConcertRow2',
+    name: 'ConcertRow3',
     data() {
         return {
-            concertNo: 7,
+            concertNo: 3,
             onColor: false,
             //imgNum: 0,
             //infoBar: false,
@@ -89,7 +89,6 @@ export default {
         ...mapState(['concert', 'userProfile'])
     },
     updated() {
-
         EventBus.$on('hideInfoBar', () => {
             this.wideColorChange = true
             this.wideOffLetters = false
@@ -101,7 +100,7 @@ export default {
             if(concertNum != this.concertNo) {
                 this.wideColorChange = false
                 this.wideOffLetters = true
-                this.onColor = false
+                this.onColor = false 
             } else {
                 this.onColor = true
             }

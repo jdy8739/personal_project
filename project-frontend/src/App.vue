@@ -56,8 +56,8 @@
 
 <script>
 
-import ConcertToolBar from '@/views/toolBars/ConcertToolBar'
-import BottomToolBar from '@/views/toolBars/BottomToolBar'
+import ConcertToolBar from '@/components/toolBars/ConcertToolBar'
+import BottomToolBar from '@/components/toolBars/BottomToolBar'
 
 export default {
   name: 'App',

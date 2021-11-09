@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 import MainPage from '../views/concert/MainPage.vue'
-import ConcertToolBar from '../views/toolBars/ConcertToolBar.vue'
-import BottomToolBar from '../views/toolBars/BottomToolBar.vue'
 import ConcertDetailPage from '../views/concert/ConcertDetailPage.vue'
 import LikedListPage from '../views/concert/LikedListPage.vue'
 import AboutUsPage from '../views/concert/AboutUsPage.vue'
@@ -46,22 +44,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/mainPage',
+    path: '/main',
     name: 'MainPage',
     component: MainPage
   },
   {
-    path: '/concertToolBar',
-    name: 'ConcertToolBar',
-    component: ConcertToolBar
-  },
-  {
-    path: '/bottomToolBar',
-    name: 'BottomToolBar',
-    component: BottomToolBar
-  },
-  {
-    path: '/concertDetailPage/:concertNo',
+    path: '/concertDetail/:concertNo',
     name: 'ConcertDetailPage',
     components: {
       default: ConcertDetailPage //default쓸거면 components --> s를 붙여줘야된다! props받는데 필요한듯
@@ -71,24 +59,24 @@ const routes = [
     }
   },
   {
-    path: '/likedListPage',
+    path: '/likedList',
     name: 'LikedListPage',
     component: LikedListPage
   },
   {
-    path: '/signupPage',
+    path: '/signup',
     name: 'SignupPage',
     component: SignupPage
   },
   {
-    path: '/preferenceFillInPage',
+    path: '/preference',
     name: 'PreferenceFillInPage',
     components: {
       default: PreferenceFillInPage
     }
   },
   {
-    path: '/memberListPage',
+    path: '/memberList',
     name: 'MemberListPage',
     component: MemberListPage
   },
@@ -103,17 +91,17 @@ const routes = [
     }
   },
   {
-    path: '/myProfilePage',
+    path: '/myProfile',
     name: 'MyProfilePage',
     component: MyProfilePage
   },
   {
-    path: '/memberModifyPage',
+    path: '/member/modify',
     name: 'MemberModifyPage',
     component: MemberModifyPage
   },
   {
-    path: '/memberWithdrawalPage',
+    path: '/member/withdrawal',
     name: 'MemberWithdrawalPage',
     components: {
       default: MemberWithdrawalPage
@@ -123,7 +111,7 @@ const routes = [
     }
   },
   {
-    path: '/indieNewsCrawlerPage',
+    path: '/indieNewsCrawler',
     name: 'IndieNewsCrawlerPage',
     component: IndieNewsCrawlerPage
   },
@@ -140,7 +128,7 @@ const routes = [
     }
   },
   {
-    path: '/community/:boardNo',
+    path: '/community/read/:boardNo',
     name: 'CommunityReadPage',
     components: {
       default: CommunityReadPage
@@ -150,7 +138,7 @@ const routes = [
     }
   },
   {
-    path: '/community/:boardNo/modify', // /:boardNo을 붙이면 그 화면에서 다른 화면으로 가는 버튼이 안먹히고.. 무조건 나중에 수정하자
+    path: '/community/modify/:boardNo', // /:boardNo을 붙이면 그 화면에서 다른 화면으로 가는 버튼이 안먹히고.. 무조건 나중에 수정하자
     name: 'CommunityModifyPage',
     components: {
       default: CommunityModifyPage
@@ -160,22 +148,22 @@ const routes = [
     }
   },
   {
-    path: '/aboutUsPage',
+    path: '/aboutUs',
     name: 'AboutUsPage',
     component: AboutUsPage
   },
   {
-    path: '/registerRequestPage',
+    path: '/register/request',
     name: 'RegisterRequestPage',
     component: RegisterRequestPage
   },
   {
-    path: '/requestStorePage',
+    path: '/request/store',
     name: 'RequestStorePage',
     component: RequestStorePage
   },
   {
-    path: '/requestReadPage/:concertRequestNo',
+    path: '/request/read/:concertRequestNo',
     name: 'RequestReadPage',
     components: {
       default: RequestReadPage,
@@ -185,12 +173,12 @@ const routes = [
     }
   },
   {
-    path: '/myRequestListPage',
+    path: '/myRequest/list',
     name: 'MyRequestListPage',
     component: MyRequestListPage
   },
   {
-    path: '/myRequestReadPage/:concertRequestNo',
+    path: '/myRequest/read/:concertRequestNo',
     name: 'MyRequestReadPage',
     components: {
       default: MyRequestReadPage
@@ -200,7 +188,7 @@ const routes = [
     }
   },
   {
-    path: '/myRequestModifyPage/:concertRequestNo',
+    path: '/myRequest/modify/:concertRequestNo',
     name: 'MyRequestModifyPage',
     components: {
       default: MyRequestModifyPage
@@ -210,12 +198,12 @@ const routes = [
     }
   },
   {
-    path: '/bookedListPage',
+    path: '/bookedList',
     name: 'BookedListPage',
     component: BookedListPage
   },
   {
-    path: '/bookedAlterPage/:bookedConcertNo',
+    path: '/bookedAlter/:bookedConcertNo',
     name: 'BookedAlterPage',
     components: {
       default: BookedAlterPage
@@ -225,7 +213,7 @@ const routes = [
     }
   },
   {
-    path: '/searchPage',
+    path: '/search',
     name: 'SearchPage',
     components: {
       default: SearchPage

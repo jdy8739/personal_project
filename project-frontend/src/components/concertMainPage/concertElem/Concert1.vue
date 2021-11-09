@@ -1,25 +1,25 @@
 <template>
     <div style="width: 25%;">
         
-        <div style="position: relative;" v-on:mouseover="turnOnColor(7)" v-on:mouseout="turnOffColor"  @click="showInfoBar(7)">
+        <div style="position: relative;" v-on:mouseover="turnOnColor(1)" v-on:mouseout="turnOffColor"  @click="showInfoBar(1)"> 
 
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/concert_pics/OceanFromTheBlue.jpeg">
+            src="@/assets/img/concert_pics/FlyingDog.jpg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/concert_pics/OceanFromTheBlue.jpeg">
+            src="@/assets/img/concert_pics/FlyingDog.jpg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
-                <div class="imgTitle d-none d-lg-block" style="font-size: 70px; line-height: 75px;">Ocean From The Blue</div>
-                <div class="location d-none d-lg-block">Jammers</div>
-                <div class="date d-none d-lg-block">09-10-2021</div>                 
+                <div class="imgTitle d-none d-lg-block">Flying-Dog</div>
+                <div class="location d-none d-lg-block">Club FF</div>
+                <div class="date d-none d-lg-block">08-20-2021</div>                 
             </div>   
 
             <div v-else-if="onColor == true">
-                <div class="imgTitleBlur d-none d-lg-block" style="font-size: 70px; line-height: 75px;">Ocean From The Blue</div>
-                <div class="locationBlur d-none d-lg-block">Jammers</div>
-                <div class="dateBlur d-none d-lg-block">09-10-2021</div>                
-            </div>  
+                <div class="imgTitleBlur d-none d-lg-block">Flying-Dog</div>
+                <div class="locationBlur d-none d-lg-block">Club FF</div>
+                <div class="dateBlur d-none d-lg-block">08-20-2021</div>                 
+            </div>   
 
         </div>
     </div>
@@ -31,10 +31,10 @@ import EventBus from '@/eventBus.js'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    name: 'ConcertRow2',
+    name: 'ConcertRow1',
     data() {
         return {
-            concertNo: 7,
+            concertNo: 1,
             onColor: false,
             //imgNum: 0,
             //infoBar: false,
@@ -61,7 +61,7 @@ export default {
             } 
         },
         showInfoBar(num) {
-            EventBus.$emit('onInfoBar')
+              EventBus.$emit('onInfoBar')
             
             let concertNum = this.concertNo
             EventBus.$emit('makeOtherCompBlur', concertNum)

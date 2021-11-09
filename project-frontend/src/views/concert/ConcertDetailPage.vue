@@ -5,13 +5,13 @@
 
         <div style="width: 25%; margin: 0px auto; padding-top: 10px;" class="circle responsive-img" v-on:mouseover="turnOffColor" v-on:mouseout="turnOnColor">
 
-            <img v-if="onColor == true" class="circle responsive-img" :src="imgRequest()" >
+            <img v-if="onColor" class="circle responsive-img" :src="imgRequest()" >
 
-            <a :href="urlRequest(concert.concertNo)" target="_blank" v-else-if="onColor == false">
+            <a :href="urlRequest(concert.concertNo)" target="_blank" v-else-if="!onColor">
                 <img :src="imgRequest()" class="circle responsive-img bluredImg" style="position: relative">
             </a>
 
-            <div v-if="onColor == false" class="hide-on-med-and-down search">사진을 클릭하시면 해당 아티스트의 관련 페이지로 이동합니다!</div>
+            <div v-if="!onColor" class="hide-on-med-and-down search">사진을 클릭하시면 해당 아티스트의 관련 페이지로 이동합니다!</div>
         </div>
          
         <div style="margin-top: 10px;">
@@ -145,7 +145,7 @@ export default {
 
         imgRequest() {
                 try {                
-                    return require(`@/assets/img/${this.concert.concertArtist}.jpg`)
+                    return require(`@/assets/img/artist_pics/${this.concert.concertArtist}.jpg`)
                 } catch (e) {
                     return require(`@/assets/logo.png`)
                 }

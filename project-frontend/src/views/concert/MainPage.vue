@@ -12,6 +12,8 @@
             <date-dialogue class="col xs4 sm4 md4 lg4"/>                        
         </div>
 
+        <concert-row-1 :taste="taste" :dateForFilter="dateForFilter"/>
+
         <concert-row-2 :taste="taste" :dateForFilter="dateForFilter"/>
 
         <concert-row-3 :taste="taste" :dateForFilter="dateForFilter"/>
@@ -28,14 +30,16 @@
 
             <div v-if="!isFilterOff" style="margin-top: -5px;">
                 FILTER OFF
-                <v-btn icon color="red lighten-1" @click="offFilter">
+                &emsp;
+                <v-btn icon color="red lighten-1" @click="offFilter" small>
                     <v-icon>remove</v-icon>
                 </v-btn>
             </div>
 
             <div v-if="isFilterOff" style="margin-top: -5px; color: teal;">
                 FILTER ON
-                <v-btn icon color="teal lighten-1" @click="onFilter">
+                &emsp;
+                <v-btn icon color="teal lighten-1" @click="onFilter" small>
                     <v-icon>done</v-icon>
                 </v-btn>
             </div>
@@ -59,7 +63,7 @@ import GenreDialogue from '@/components/concertMainDialogue/GenreDialogue'
 import ArtistDialogue from '@/components/concertMainDialogue/ArtistDialogue'
 import DateDialogue from '@/components/concertMainDialogue/DateDialogue'
 
-// import ConcertRow1 from '@/components/concertMainPage/ConcertRow1'
+import ConcertRow1 from '@/components/concertMainPage/ConcertRow1'
 import ConcertRow2 from '@/components/concertMainPage/ConcertRow2'
 import ConcertRow3 from '@/components/concertMainPage/ConcertRow3'
 
@@ -74,7 +78,7 @@ export default {
         ArtistDialogue,
         DateDialogue,
 
-        // ConcertRow1,
+        ConcertRow1,
         ConcertRow2,
         ConcertRow3,
 
@@ -156,7 +160,6 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
-
 
 .topBar {
     font-style: italic;
@@ -260,6 +263,7 @@ export default {
 }
 
 .box {
+    position: fixed;
     width: 200px;
     height: 50px;
     box-sizing: border-box;
