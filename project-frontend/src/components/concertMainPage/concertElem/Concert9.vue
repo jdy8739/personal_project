@@ -1,26 +1,26 @@
 <template>
     <div style="width: 25%;">
    
-        <div style="position: relative;" v-on:mouseover="turnOnColor(11)" v-on:mouseout="turnOffColor" @click="showInfoBar(11)">
-            
+        <div style="position: relative;" v-on:mouseover="turnOnColor(9)" v-on:mouseout="turnOffColor" @click="showInfoBar(9)">
+
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/Surl1.jpg">
+            src="@/assets/img/DJ팁토.jpg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/Surl1.jpg">
+            src="@/assets/img/DJ팁토.jpg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
-                <div class="imgTitle d-none d-lg-block">Surl</div>
-                <div class="location d-none d-lg-block">Prism-Hall</div>
+                <div class="imgTitle d-none d-lg-block">DJ TipToe</div>
+                <div class="location d-none d-lg-block">Cakeshop</div>
                 <div class="date d-none d-lg-block">09-12-2021</div>                 
             </div>   
 
             <div v-else-if="onColor == true">
-                <div class="imgTitleBlur d-none d-lg-block">Surl</div>
-                <div class="locationBlur d-none d-lg-block">Prism-Hall</div>
+                <div class="imgTitleBlur d-none d-lg-block">DJ TipToe</div>
+                <div class="locationBlur d-none d-lg-block">Cakeshop</div>
                 <div class="dateBlur d-none d-lg-block">09-12-2021</div>                
-            </div>                    
-   
+            </div>  
+
         </div>
     </div>
 </template>

@@ -14,6 +14,8 @@
 
         <concert-row-2 :taste="taste" :dateForFilter="dateForFilter"/>
 
+        <concert-row-3 :taste="taste" :dateForFilter="dateForFilter"/>
+
         <!-- <concert-row-1/>
         
         <concert-row-3/> -->
@@ -59,7 +61,7 @@ import DateDialogue from '@/components/concertMainDialogue/DateDialogue'
 
 // import ConcertRow1 from '@/components/concertMainPage/ConcertRow1'
 import ConcertRow2 from '@/components/concertMainPage/ConcertRow2'
-// import ConcertRow3 from '@/components/concertMainPage/ConcertRow3'
+import ConcertRow3 from '@/components/concertMainPage/ConcertRow3'
 
 //import Concerts from '@/components/concertMainPage/Concerts'
 import MainPageFooter from '@/components/concertMainPage/MainPageFooter'
@@ -74,7 +76,7 @@ export default {
 
         // ConcertRow1,
         ConcertRow2,
-        // ConcertRow3,
+        ConcertRow3,
 
         //Concerts,
 

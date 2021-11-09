@@ -175,8 +175,8 @@ export default {
                             axios.post('http://localhost:8888/member/addLiked', { memberNo, concertNo, concertName, concertArtist, concertVenue, concertPrice, concertDate, concertInfo })
                                 .then(alert('관심 목록에 추가되었습니다!'))
 
-                               this.$store.state.concert.numberOfLikes ++
-                               this.$store.state.notLikedYet = false
+                                this.$store.state.concert.numberOfLikes ++
+                                this.$store.state.notLikedYet = false
 
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
@@ -204,8 +204,8 @@ export default {
                             axios.post('http://localhost:8888/member/deleteLiked', formData)
                                 .then(alert('관심 목록에서 제거되었습니다!'))
 
-                            this.$store.state.concert.numberOfLikes --
-                            this.$store.state.notLikedYet = true
+                                this.$store.state.concert.numberOfLikes --
+                                this.$store.state.notLikedYet = true
 
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')

@@ -1,26 +1,26 @@
 <template>
     <div style="width: 25%;">
    
-        <div style="position: relative;" v-on:mouseover="turnOnColor(11)" v-on:mouseout="turnOffColor" @click="showInfoBar(11)">
-            
+        <div style="position: relative;" v-on:mouseover="turnOnColor(12)" v-on:mouseout="turnOffColor" @click="showInfoBar(12)">
+
             <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/Surl1.jpg">
+            src="@/assets/img/Net Gala1.jpg">
 
             <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/Surl1.jpg">
+            src="@/assets/img/Net Gala1.jpg">
 
             <div v-if="(onColor == false) && !wideOffLetters">
-                <div class="imgTitle d-none d-lg-block">Surl</div>
-                <div class="location d-none d-lg-block">Prism-Hall</div>
-                <div class="date d-none d-lg-block">09-12-2021</div>                 
+                <div class="imgTitle d-none d-lg-block">Net Gala</div>
+                <div class="location d-none d-lg-block">Voful</div>
+                <div class="date d-none d-lg-block">09-18-2021</div>                 
             </div>   
 
             <div v-else-if="onColor == true">
-                <div class="imgTitleBlur d-none d-lg-block">Surl</div>
-                <div class="locationBlur d-none d-lg-block">Prism-Hall</div>
-                <div class="dateBlur d-none d-lg-block">09-12-2021</div>                
-            </div>                    
-   
+                <div class="imgTitleBlur d-none d-lg-block">Net Gala</div>
+                <div class="locationBlur d-none d-lg-block">Voful</div>
+                <div class="dateBlur d-none d-lg-block">09-18-2021</div>                
+            </div>              
+
         </div>
     </div>
 </template>

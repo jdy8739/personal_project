@@ -22,38 +22,31 @@
             </div>                    
 
         </div>
-        <information-box v-if="concert" v-bind:infoBar="infoBar" v-bind:concert="concert" v-on:offInfoBox="removeInfoBar"/>
-
     </div>
 </template>
 
 <script>
 import EventBus from '@/eventBus.js'
+
 import { mapActions, mapState } from 'vuex'
 
-import InformationBox from '@/components/concertMainPage/InformationBox'
-
 export default {
-    name: 'Concert10',
-    components: {
-        InformationBox
-    },
+    name: 'ConcertRow2',
     data() {
         return {
+            concertNo: 8,
             onColor: false,
             //imgNum: 0,
-            infoBar: false,
+            //infoBar: false,
             wideColorChange: true,
             wideOffLetters: false,
-            nav_drawer: false,
-
-            memNoAndConNoArr:[]
+            nav_drawer: false
         }
     },
     methods: {
         ...mapActions(['fetchConcert', 'fetchLikedOrNot']),
 
-        turnOnColor() { // 임의적으로 수정을 위해 num을 없앰
+        turnOnColor() {
             if(this.wideColorChange) {
                 this.onColor = true
                 //this.imgNum = num
@@ -66,6 +59,7 @@ export default {
             } 
         },
         showInfoBar(num) {
+            //this.infoBar = true
             EventBus.$emit('onInfoBar')
             
             let concertNum = this.concertNo
@@ -88,29 +82,28 @@ export default {
 
             //EventBus.$emit('removeInfoBarExceptRow2')
             this.onColor = true
-        },
-        removeInfoBar() {
-            this.infoBar = false
-
-            this.onColor = false
-            this.wideColorChange = true
-            this.wideOffLetters = false
-
-            //this.imgNum = 0
-
-            //EventBus.$emit('removeException')
         }
     },
     computed: {
         ...mapState(['concert', 'userProfile'])
     },
     updated() {
-        EventBus.$on('removeInfoBarInOtherCom', () => {
-            this.infoBar = false
 
-            this.wideColorChange = false
-            this.wideOffLetters = true
+        EventBus.$on('hideInfoBar', () => {
+            this.wideColorChange = true
+            this.wideOffLetters = false
             this.onColor = false
+        })
+    },
+    created() {
+        EventBus.$on('makeOtherCompBlur', (concertNum) => {
+            if(concertNum != this.concertNo) {
+                this.wideColorChange = false
+                this.wideOffLetters = true
+                this.onColor = false
+            } else {
+                this.onColor = true
+            }
         })
     }
 }
