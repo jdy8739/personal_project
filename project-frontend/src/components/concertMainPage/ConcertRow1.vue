@@ -1,7 +1,7 @@
 <template>
     <div>
         <Concert6 v-for="(concert, i) in concerts" :key="i" :concert="concert" class="mb-5"/>
-        <InformationBox v-if="isInfoBoxCalled"/>
+        <InformationBox v-if="isInfoBoxCalled" :concertIdx="concertIdx"/>
     </div>
 </template>
 
@@ -18,7 +18,8 @@ export default {
     },
     data() {
         return {
-            isInfoBoxCalled: false
+            isInfoBoxCalled: false,
+            concertIdx: 0
         }
     },
     props: {
@@ -29,6 +30,7 @@ export default {
     },
     mounted() {
         EventBus.$on('offColors', (idx) => {
+            this.concertIdx = (idx - 1);
             this.isInfoBoxCalled = false;
 
             let start = this.concerts[0].concertNo;
@@ -39,7 +41,10 @@ export default {
                 this.isInfoBoxCalled = true;
             }
         });
+
+        EventBus.$on('offBox', () => {
+            this.isInfoBoxCalled = false;
+        });
     }
 }
 </script>
-

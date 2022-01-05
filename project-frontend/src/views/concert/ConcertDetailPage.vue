@@ -106,7 +106,7 @@ export default {
     },
     props: {
         concertNo: {
-            type: String,
+            type: Number,
             required: true
         }
     },
@@ -230,6 +230,7 @@ export default {
         }
     },
     mounted() {
+        alert(this.concertNo)
         this.fetchConcert(this.concertNo) //이상하네.. 이게 맨 뒤에 있을 때는 실행이 안되다가 왜 지금처럼 위에 놓으면 실행되지?
         //alert(this.concertNo)
 

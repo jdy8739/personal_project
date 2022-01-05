@@ -38,7 +38,7 @@ export default {
         },
 
         focusOnThisConcert() {
-            const id = `${ this.concert.concertNo }`;
+            const id = this.concert.concertNo;
             const focusedConcert = document.getElementById(id);
 
             focusedConcert.classList.remove('concert-box');
@@ -55,7 +55,7 @@ export default {
     },
     mounted() {
         EventBus.$on('offColors', (idx) => {
-            const id = `${ this.concert.concertNo }`;
+            const id = this.concert.concertNo;
 
             if(id !== idx) {
                 
@@ -70,6 +70,21 @@ export default {
                 const textToBlur = concertToBlur.querySelector('.text-box');
                 textToBlur.classList.add('hide');
             }
+        });
+
+        EventBus.$on('offBox', () => {
+            const id = this.concert.concertNo;
+
+            const concertToBlur = document.getElementById(id);
+
+            concertToBlur.classList.add('concert-box');
+
+            const imgToBlur = concertToBlur.getElementsByTagName('img')[0];
+            imgToBlur.classList.add('bigColorImg');
+            imgToBlur.classList.remove('blurImg');
+
+            const textToBlur = concertToBlur.querySelector('.text-box');
+            textToBlur.classList.remove('hide');
         });
     }
 }
