@@ -1,5 +1,5 @@
 export default {
-    concert: null,
+    //concert: null,
     //likedList: [0, 0, 0, 0], 필요 없음
 
     members: [],
@@ -40,5 +40,7 @@ export default {
     criteriaDateOfEnd: '',
 
     searchedResults: [],
-    searchedArtists: []
+    searchedArtists: [],
+
+    concertList: []
 }

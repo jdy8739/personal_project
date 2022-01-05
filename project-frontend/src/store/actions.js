@@ -23,7 +23,9 @@ import {
     FETCH_BOOKED_CONCERT,
 
     FETCH_SEARCHED_RESULTS,
-    FETCH_SEARCHED_ARTISTS
+    FETCH_SEARCHED_ARTISTS,
+
+    FETCH_CONCERT_LIST
 
 } from './mutation-types'
 
@@ -207,6 +209,16 @@ export default {
             })
             .catch(() => {
                 alert('검색기능이 원활하지 않습니다. 잠시후에 다시 시도해주세요.')
+            })
+    },
+
+    fetchConcertList({ commit }) {
+        return axios.get('http://localhost:8888/concert/list')
+            .then((res) => {
+                commit(FETCH_CONCERT_LIST, res.data);
+            })
+            .catch((err) => {
+                console.log(err);
             })
     }
 }

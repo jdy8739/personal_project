@@ -1,26 +1,15 @@
 <template>
-    <div style="width: 25%;">
-        
-        <div style="position: relative;" v-on:mouseover="turnOnColor(6)" v-on:mouseout="turnOffColor"  @click="showInfoBar(6)">
+    <div class="col-sm-3 concert-box" :id='`${ concert.concertNo }`' @click="focusOnThisConcert">
+        <div style="position: relative;">
 
-            <img v-if="onColor == false" class="responsive-img bigImg"
-            src="@/assets/img/concert_pics/RollingQuartz.jpeg">
-
-            <img v-else-if="onColor == true" class="responsive-img bigColorImg"
-            src="@/assets/img/concert_pics/RollingQuartz.jpeg">
-
-            <div v-if="(onColor == false) && !wideOffLetters">
-                <div class="imgTitle d-none d-lg-block">Rolling Quartz</div>
-                <div class="location d-none d-lg-block">RollingStones</div>
-                <div class="date d-none d-lg-block">09-03-2021</div>                 
-            </div>   
-
-            <div v-else-if="onColor == true">
-                <div class="imgTitleBlur d-none d-lg-block">Rolling Quartz</div>
-                <div class="locationBlur d-none d-lg-block">RollingStones</div>
-                <div class="dateBlur d-none d-lg-block">09-03-2021</div>                
-            </div>             
-
+            <img class="responsive-img bigColorImg"
+            :src="require(`../../../../../project-backend/images/concert_pics/${ concert.concertArtist }.jpg`)">
+            <div class="text-box">
+                <div v-if="cntArtistName()" class="imgTitle d-lg-block">{{ concert.concertArtist }}</div>
+                <div v-else class="imgTitle d-lg-block long-text">{{ concert.concertArtist }}</div>
+                <div class="location d-none d-lg-block">{{ concert.concertVenue }}</div>
+                <div class="date d-none d-lg-block">{{ concert.concertDate }}</div>  
+            </div>
         </div>
     </div>
 </template>
@@ -28,84 +17,120 @@
 <script>
 import EventBus from '@/eventBus.js'
 
-import { mapActions, mapState } from 'vuex'
-
 export default {
-    name: 'ConcertRow2',
+    name: 'ConcertElement',
+    props: {
+        concert: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
-            concertNo: 6,
-            onColor: false,
-            //imgNum: 0,
-            //infoBar: false,
-            wideColorChange: true,
-            wideOffLetters: false,
-            nav_drawer: false,
-
-            memNoAndConNoArr:[]
+           
         }
     },
     methods: {
-        ...mapActions(['fetchConcert', 'fetchLikedOrNot']),
-
-        turnOnColor() {
-            if(this.wideColorChange) {
-                this.onColor = true
-                //this.imgNum = num
-            }
+        cntArtistName() {
+            if(this.concert.concertArtist.length > 14) {
+                return false;
+            } else return true;
         },
-        turnOffColor() {
-            if(this.wideColorChange) { 
-                this.onColor = false
-                //this.imgNum = 0
-            } 
-        },
-        showInfoBar(num) {
-              EventBus.$emit('onInfoBar')
-            
-            let concertNum = this.concertNo
-            EventBus.$emit('makeOtherCompBlur', concertNum)
 
-            this.wideColorChange = false  
-            this.wideOffLetters = true
+        focusOnThisConcert() {
+            const id = `${ this.concert.concertNo }`;
+            const focusedConcert = document.getElementById(id);
 
-            this.fetchConcert(num)
+            focusedConcert.classList.remove('concert-box');
 
-            var memNoAndConNoArr = []
+            const focusedImg = focusedConcert.getElementsByTagName('img')[0];
+            focusedImg.classList.remove('bigColorImg');
+            focusedImg.classList.remove('blurImg');
 
-            memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            memNoAndConNoArr.push(num)    
+            const focusedText = focusedConcert.querySelector('.text-box');
+            focusedText.classList.remove('hide');
 
-            let formData = new FormData()
-            formData.append("likedOrNotNumArr", memNoAndConNoArr)
-
-            this.fetchLikedOrNot(formData)
-
-            //EventBus.$emit('removeInfoBarExceptRow2')
-            this.onColor = true
+            EventBus.$emit('offColors', id)
         }
     },
-    computed: {
-        ...mapState(['concert', 'userProfile'])
-    },
-    updated() {
+    mounted() {
+        EventBus.$on('offColors', (idx) => {
+            const id = `${ this.concert.concertNo }`;
 
-        EventBus.$on('hideInfoBar', () => {
-            this.wideColorChange = true
-            this.wideOffLetters = false
-            this.onColor = false
-        })
-    },
-    created() {
-        EventBus.$on('makeOtherCompBlur', (concertNum) => {
-            if(concertNum != this.concertNo) {
-                this.wideColorChange = false
-                this.wideOffLetters = true
-                this.onColor = false
-            } else {
-                this.onColor = true
+            if(id !== idx) {
+                
+                const concertToBlur = document.getElementById(id);
+
+                concertToBlur.classList.add('concert-box');
+
+                const imgToBlur = concertToBlur.getElementsByTagName('img')[0];
+                imgToBlur.classList.remove('bigColorImg');
+                imgToBlur.classList.add('blurImg');
+
+                const textToBlur = concertToBlur.querySelector('.text-box');
+                textToBlur.classList.add('hide');
             }
-        })
+        });
     }
 }
 </script>
+
+<style scoped>
+
+.hide {
+    display: none;
+}
+
+.concert-box {
+    padding: 3px;
+}
+
+.text-box {
+    opacity: 0.75;
+    width: 200px;
+}
+
+.long-text {
+    font-size: 60px; 
+    line-height: 60px;
+}
+
+.concert-box:hover .text-box {
+    opacity: 0.95;
+}
+
+.bigColorImg {
+    filter: grayscale(100%), blur(20px);
+    opacity: 0.3;
+}
+
+.concert-box:hover .bigColorImg {
+    filter: grayscale(0%), blur(0px);
+    opacity: 1.0;
+}
+
+.blurImg {
+    filter: grayscale(100%), blur(70px);
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 1200px) {
+    .imgTitle, .long-text {
+        font-size: 40px;
+        line-height: 40px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .imgTitle {
+        font-size: 80px;
+        line-height: 100px;
+    }
+
+    .long-text {
+        font-size: 75px;
+        line-height: 80px;
+    }
+}
+</style>

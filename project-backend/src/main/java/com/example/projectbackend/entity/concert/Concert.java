@@ -39,6 +39,9 @@ public class Concert {
     @Column(length = 20, nullable = false)
     private String concertDate;
 
+    @Column(length = 20, nullable = false)
+    private String concertTime;
+
     @Column(nullable = false)
     private String concertInfo;
 

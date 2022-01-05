@@ -12,11 +12,16 @@
             <date-dialogue class="col xs4 sm4 md4 lg4"/>                        
         </div>
 
-        <concert-row-1 :taste="taste" :dateForFilter="dateForFilter"/>
+        <div>
+          <!-- <Concert6 v-for="(concert, i) in concertList" :key="i" :concert="concert" :id="i" class="mb-5"/> -->
+          <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :concerts="concerts" class="concert-wrapper"/>
+        </div>
+
+        <!-- <concert-row-1 :taste="taste" :dateForFilter="dateForFilter"/>
 
         <concert-row-2 :taste="taste" :dateForFilter="dateForFilter"/>
 
-        <concert-row-3 :taste="taste" :dateForFilter="dateForFilter"/>
+        <concert-row-3 :taste="taste" :dateForFilter="dateForFilter"/> -->
 
         <!-- <concert-row-1/>
         
@@ -43,11 +48,8 @@
                     <v-icon>done</v-icon>
                 </v-btn>
             </div>
-
-        </div>
-        
+        </div>   
         <main-page-footer/>
-     
     </div>
 </template>
 
@@ -64,8 +66,9 @@ import ArtistDialogue from '@/components/concertMainDialogue/ArtistDialogue'
 import DateDialogue from '@/components/concertMainDialogue/DateDialogue'
 
 import ConcertRow1 from '@/components/concertMainPage/ConcertRow1'
-import ConcertRow2 from '@/components/concertMainPage/ConcertRow2'
-import ConcertRow3 from '@/components/concertMainPage/ConcertRow3'
+// import ConcertRow2 from '@/components/concertMainPage/ConcertRow2'
+// import ConcertRow3 from '@/components/concertMainPage/ConcertRow3'
+//import Concert6 from '@/components/concertMainPage/concertElem/Concert6'
 
 //import Concerts from '@/components/concertMainPage/Concerts'
 import MainPageFooter from '@/components/concertMainPage/MainPageFooter'
@@ -79,8 +82,9 @@ export default {
         DateDialogue,
 
         ConcertRow1,
-        ConcertRow2,
-        ConcertRow3,
+        // ConcertRow2,
+        // ConcertRow3,
+        //Concert6,
 
         //Concerts,
 
@@ -102,10 +106,10 @@ export default {
         }
     },
     computed: {
-        ...mapState(['isLoggedIn', 'userProfile', 'userIdentity', 'taste', 'dateForFilter'])
+        ...mapState(['isLoggedIn', 'userProfile', 'userIdentity', 'taste', 'dateForFilter', 'concertList'])
     },
     methods: {
-        ...mapActions(['fetchTaste']),
+        ...mapActions(['fetchTaste', 'fetchConcertList']),
 
         offFilter() {
             this.tmpChosenGenres = this.$store.state.taste
@@ -144,14 +148,15 @@ export default {
       }
     },
     mounted() {
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
+        this.fetchConcertList();
 
-        if(this.$store.state.userProfile.id != '') {
+        if(this.userProfile.id != '') {
 
             this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
+            this.$store.state.userIdentity = this.$store.state.userProfile.identity //state 직접적으로 건드리는 얘네 다 뮤테이션 메소드로 정리
+            this.$store.state.userProfile = this.$cookies.get("currentUser")
 
-            this.fetchTaste(this.$store.state.userProfile.memberNo)
+            this.fetchTaste(this.userProfile.memberNo);
         } 
     }
 }
@@ -196,7 +201,7 @@ export default {
     font-family: 'Roboto', sans-serif;
     font-style: italic;
     font-size: 30px;
-    line-height: 120px;
+    line-height: 40px;
 }
 
 .date {
@@ -209,53 +214,9 @@ export default {
     font-family: 'Roboto', sans-serif;
     font-style: italic;
     font-size: 30px;
-    line-height: 120px;
+    line-height: 40px;
 }
 
-.imgTitleBlur {
-    position: absolute; 
-    text-align: center; 
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    color: #EAEAEA;
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    font-size: 85px;
-    line-height: 90px;
-    filter: blur(5px);
-    color: rgba(0, 0, 0, 0.3);
-}
-
-.locationBlur {
-    position: absolute; 
-    text-align: center; 
-    left: 50%;
-    top: 75%;
-    transform: translate(-50%, -50%);
-    color: #EAEAEA;
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    font-size: 30px;
-    line-height: 120px;
-    filter: blur(5px);
-    color: rgba(0, 0, 0, 0.3);
-}
-
-.dateBlur {
-    position: absolute; 
-    text-align: center; 
-    left: 50%;
-    top: 82%;
-    transform: translate(-50%, -50%);
-    color: #EAEAEA;
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    font-size: 30px;
-    line-height: 120px;
-    filter: blur(5px);
-    color: rgba(0, 0, 0, 0.3);
-}
 
 .bigImg {
     filter: blur(1px) grayscale(100%); 
@@ -288,6 +249,20 @@ export default {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+.concert-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+@media screen and (max-width: 1580px) {
+    .location {
+        font-size: 20px;
+    }
+    .date {
+        font-size: 20px;
+    }
+}
 </style>
 
 

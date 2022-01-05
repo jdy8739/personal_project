@@ -133,4 +133,9 @@ public class ConcertServiceImpl implements ConcertService {
 
         return searchedList;
     }
+
+    @Override
+    public List<Concert> getList() {
+        return concertRepository.findAll();
+    }
 }

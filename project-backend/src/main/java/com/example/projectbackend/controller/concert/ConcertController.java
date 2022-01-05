@@ -118,4 +118,11 @@ public class ConcertController {
 
         return new ResponseEntity<List<Concert>>(SearchedList, HttpStatus.OK);
     }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Concert>> getList() {
+        log.info("getList(): ");
+
+        return new ResponseEntity<List<Concert>>(concertService.getList(), HttpStatus.OK);
+    }
 }

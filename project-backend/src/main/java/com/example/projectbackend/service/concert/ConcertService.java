@@ -28,4 +28,6 @@ public interface ConcertService {
     public List<Concert> searchText(String searchedText);
 
     public List<Concert> searchArtist(String searchedArtist);
+
+    public List<Concert> getList();
 }

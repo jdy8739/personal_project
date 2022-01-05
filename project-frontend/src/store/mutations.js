@@ -28,7 +28,9 @@ import {
     FETCH_BOOKED_CONCERT,
 
     FETCH_SEARCHED_RESULTS,
-    FETCH_SEARCHED_ARTISTS
+    FETCH_SEARCHED_ARTISTS,
+
+    FETCH_CONCERT_LIST
 
 } from './mutation-types'
 
@@ -112,5 +114,24 @@ export default {
 
     [FETCH_SEARCHED_ARTISTS] (state, payload) {
         state.searchedArtists = payload
+    },
+
+    [FETCH_CONCERT_LIST] (state, payload) {
+
+        const arr = [];
+        let deposit = [];
+        let cnt = 1;
+
+        for(let i=0; i<payload.length; i++) {
+
+            deposit.push(payload[i]);
+
+            if(cnt % 4 == 0) {
+                arr.push(deposit);
+                deposit = [];
+            }
+            cnt ++;
+        }
+        state.concertList = arr;
     }
 }

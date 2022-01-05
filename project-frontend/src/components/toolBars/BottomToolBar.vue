@@ -1,6 +1,6 @@
 <template>
     <div align="center">
-        <v-toolbar dense color="black" height="90px;" class="d-flex justify-space-around"> <!-- 가운데 정렬 -->
+        <v-toolbar dense color="black" height="90px;" class="d-flex justify-space-around bottom-bar"> <!-- 가운데 정렬 -->
             <div align="center"> 
                 <v-toolbar-items>      
                     <p class="content" v-for="content in contents" :key="content.text" style="color: grey;">
@@ -54,6 +54,10 @@ export default {
     text-align: center;
     float: center;
     margin: auto;
+}
+
+.bottom-bar {
+    min-width: 650px;
 }
 
 </style>
