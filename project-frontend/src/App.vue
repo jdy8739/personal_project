@@ -1,17 +1,6 @@
 <template>
   <v-app>
-    <concert-tool-bar/>
-    <v-main>
-      <!-- <router-view/> -->
-      <router-view :key="$route.fullPath"/>
-    </v-main>
-    <bottom-tool-bar/>
-  </v-app>
-</template>
-
-<!-- <template>
-  <v-app>
-    <v-app-bar
+    <!-- <v-app-bar
       app
       color="primary"
       dark
@@ -46,24 +35,25 @@
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
-    </v-app-bar>
+    </v-app-bar> -->
 
     <v-main>
-      <router-view/>
+      <concert-tool-bar/>
+        <router-view/>
+      <bottom-tool-bar/>
     </v-main>
   </v-app>
-</template> -->
+</template>
 
 <script>
-
-import ConcertToolBar from '@/components/toolBars/ConcertToolBar'
-import BottomToolBar from '@/components/toolBars/BottomToolBar'
+import BottomToolBar from './components/toolBars/BottomToolBar.vue';
+import ConcertToolBar from './components/toolBars/ConcertToolBar.vue';
 
 export default {
   name: 'App',
   components: {
-    ConcertToolBar,
-    BottomToolBar
+    BottomToolBar,
+    ConcertToolBar
   },
 
   data: () => ({

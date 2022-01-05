@@ -4,8 +4,9 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
-import 'materialize-css/dist/css/materialize.min.css'
-import 'material-design-icons/iconfont/material-icons.css'
+// import "materialize-css/dist/css/materialize.css"; 
+// import "material-design-icons/iconsfont/material-icons.css";
+
 
 import VueAgile from 'vue-agile' 
 Vue.use(VueAgile)

@@ -3,7 +3,7 @@
             <v-dialog v-model="dialog" persistent max-width="470">
 
                 <template v-slot:activator="{ on }">
-                    <div class="col s4 m4 l4 xl4 gray darken-5 btn-flat waves-effect waves-teal" align="center" v-on="on" style="color: white;">
+                    <div class="col s4 m4 l4 xl4 gray darken-5 btn-flat waves-effect waves-teal btn-dial" align="center" v-on="on" style="color: white;">
                         Genre
                     </div>
                 </template>
@@ -196,4 +196,11 @@ export default {
     margin-top: -20px;
 }
 
+</style>
+
+<style scoped>
+
+.btn-dial {
+    margin-bottom: 28px;
+}
 </style>
