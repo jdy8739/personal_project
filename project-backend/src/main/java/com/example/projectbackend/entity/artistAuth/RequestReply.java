@@ -1,4 +1,4 @@
-package com.example.demo.entity.artistAuth;
+package com.example.projectbackend.entity.artistAuth;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

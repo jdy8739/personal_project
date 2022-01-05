@@ -1,6 +1,6 @@
-package com.example.demo.repository.crawling;
+package com.example.projectbackend.repository.crawling;
 
-import com.example.demo.entity.crawling.IndieNews;
+import com.example.projectbackend.entity.crawling.IndieNews;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IndieNewsRepository extends JpaRepository<IndieNews, Long> {

@@ -1,7 +1,7 @@
-package com.example.demo.service.artistAuth;
+package com.example.projectbackend.service.artistAuth;
 
-import com.example.demo.entity.artistAuth.ConcertRequest;
-import com.example.demo.entity.artistAuth.RequestReply;
+import com.example.projectbackend.entity.artistAuth.ConcertRequest;
+import com.example.projectbackend.entity.artistAuth.RequestReply;
 
 import java.util.List;
 

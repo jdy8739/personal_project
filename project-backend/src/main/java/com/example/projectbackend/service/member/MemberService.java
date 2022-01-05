@@ -1,9 +1,9 @@
-package com.example.demo.service.member;
+package com.example.projectbackend.service.member;
 
-import com.example.demo.controller.member.request.MemberRequest;
-import com.example.demo.controller.member.response.MemberResponse;
-import com.example.demo.entity.member.LikedConcert;
-import com.example.demo.entity.member.Member;
+import com.example.projectbackend.controller.member.request.MemberRequest;
+import com.example.projectbackend.controller.member.response.MemberResponse;
+import com.example.projectbackend.entity.member.LikedConcert;
+import com.example.projectbackend.entity.member.Member;
 
 import java.util.List;
 

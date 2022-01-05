@@ -1,7 +1,7 @@
-package com.example.demo.service.board;
+package com.example.projectbackend.service.board;
 
-import com.example.demo.entity.board.Board;
-import com.example.demo.entity.board.BoardReply;
+import com.example.projectbackend.entity.board.Board;
+import com.example.projectbackend.entity.board.BoardReply;
 
 import java.util.List;
 

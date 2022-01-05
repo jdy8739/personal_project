@@ -1,8 +1,8 @@
-package com.example.demo.controller.member;
+package com.example.projectbackend.controller.member;
 
-import com.example.demo.entity.artistAuth.ConcertRequest;
-import com.example.demo.entity.artistAuth.RequestReply;
-import com.example.demo.service.artistAuth.ConcertRequestService;
+import com.example.projectbackend.entity.artistAuth.ConcertRequest;
+import com.example.projectbackend.entity.artistAuth.RequestReply;
+import com.example.projectbackend.service.artistAuth.ConcertRequestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

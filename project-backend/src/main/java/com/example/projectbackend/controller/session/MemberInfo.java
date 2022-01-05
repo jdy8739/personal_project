@@ -1,4 +1,4 @@
-package com.example.demo.controller.session;
+package com.example.projectbackend.controller.session;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

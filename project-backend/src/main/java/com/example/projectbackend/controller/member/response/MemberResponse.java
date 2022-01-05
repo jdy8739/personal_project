@@ -1,4 +1,4 @@
-package com.example.demo.controller.member.response;
+package com.example.projectbackend.controller.member.response;
 
 import lombok.Getter;
 import lombok.Setter;

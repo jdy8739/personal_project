@@ -1,6 +1,6 @@
-package com.example.demo.repository.concert;
+package com.example.projectbackend.repository.concert;
 
-import com.example.demo.entity.concert.Concert;
+import com.example.projectbackend.entity.concert.Concert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

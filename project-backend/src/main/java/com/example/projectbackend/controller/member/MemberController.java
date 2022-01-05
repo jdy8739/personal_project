@@ -1,12 +1,12 @@
-package com.example.demo.controller.member;
+package com.example.projectbackend.controller.member;
 
-import com.example.demo.controller.member.request.MemberRequest;
-import com.example.demo.controller.member.response.MemberResponse;
-import com.example.demo.controller.session.MemberInfo;
-import com.example.demo.entity.member.LikedConcert;
-import com.example.demo.entity.member.Member;
-import com.example.demo.repository.member.MemberIdentityRepository;
-import com.example.demo.service.member.MemberService;
+import com.example.projectbackend.controller.member.request.MemberRequest;
+import com.example.projectbackend.controller.member.response.MemberResponse;
+import com.example.projectbackend.controller.session.MemberInfo;
+import com.example.projectbackend.entity.member.LikedConcert;
+import com.example.projectbackend.entity.member.Member;
+import com.example.projectbackend.repository.member.MemberIdentityRepository;
+import com.example.projectbackend.service.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,7 +66,7 @@ public class MemberController {
             Member member = service.login(memberRequest);
 
             MemberResponse memberResponse = new MemberResponse(member.getMemberNo(), member.getId(),
-                    memberIdentityRepository.findIdentityByMemberNo(new Long(member.getMemberNo())).get().getIdentity());
+                    memberIdentityRepository.findIdentityByMemberNo(member.getMemberNo().longValue()).get().getIdentity());
                     // * memberNo, id, identity 3가지만 login에 대한 응답으로 보내줌 *
 
             log.info("response: " + memberResponse.getMemberNo(), memberResponse.getId(), memberResponse.getIdentity());
@@ -74,8 +74,8 @@ public class MemberController {
 
         } else {
             log.info("Login Failure");
-
-            MemberResponse memberResponse = new MemberResponse(new Long(0), "no", "no");
+            Integer num = 0;
+            MemberResponse memberResponse = new MemberResponse(num.longValue(), "no", "no");
             return new ResponseEntity<MemberResponse>(memberResponse, HttpStatus.OK);
         }
     }
@@ -127,9 +127,9 @@ public class MemberController {
 
     @GetMapping("/read/{memberNo}")
     public ResponseEntity<Member> read(@PathVariable("memberNo") Integer memberNo) throws Exception {
-        log.info("getRead(): " + service.read(new Long(memberNo)));
+        log.info("getRead(): " + service.read(memberNo.longValue()));
 
-        return new ResponseEntity<Member>(service.read(new Long(memberNo)), HttpStatus.OK);
+        return new ResponseEntity<Member>(service.read(memberNo.longValue()), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{memberNo}")

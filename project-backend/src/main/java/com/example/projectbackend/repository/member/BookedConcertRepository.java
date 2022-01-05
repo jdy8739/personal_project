@@ -1,6 +1,6 @@
-package com.example.demo.repository.member;
+package com.example.projectbackend.repository.member;
 
-import com.example.demo.entity.member.BookedConcert;
+import com.example.projectbackend.entity.member.BookedConcert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

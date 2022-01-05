@@ -1,7 +1,5 @@
-package com.example.demo.entity.artistAuth;
+package com.example.projectbackend.entity.artistAuth;
 
-import com.example.demo.entity.member.MemberIdentity;
-import com.example.demo.entity.member.MemberTaste;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;

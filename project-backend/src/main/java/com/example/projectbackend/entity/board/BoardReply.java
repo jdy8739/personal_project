@@ -1,4 +1,4 @@
-package com.example.demo.entity.board;
+package com.example.projectbackend.entity.board;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

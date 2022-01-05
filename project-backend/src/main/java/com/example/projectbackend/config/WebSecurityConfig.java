@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.projectbackend.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

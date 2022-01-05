@@ -1,6 +1,6 @@
-package com.example.demo.service.member;
+package com.example.projectbackend.service.member;
 
-import com.example.demo.entity.member.MemberTaste;
+import com.example.projectbackend.entity.member.MemberTaste;
 
 import java.util.Optional;
 

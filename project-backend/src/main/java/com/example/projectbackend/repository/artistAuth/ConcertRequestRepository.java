@@ -1,6 +1,6 @@
-package com.example.demo.repository.artistAuth;
+package com.example.projectbackend.repository.artistAuth;
 
-import com.example.demo.entity.artistAuth.ConcertRequest;
+import com.example.projectbackend.entity.artistAuth.ConcertRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

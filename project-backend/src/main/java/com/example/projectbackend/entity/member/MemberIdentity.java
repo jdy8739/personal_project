@@ -1,4 +1,4 @@
-package com.example.demo.entity.member;
+package com.example.projectbackend.entity.member;
 
 import lombok.Data;
 import lombok.Getter;

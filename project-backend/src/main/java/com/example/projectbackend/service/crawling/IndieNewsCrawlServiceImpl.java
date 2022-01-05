@@ -1,7 +1,7 @@
-package com.example.demo.service.crawling;
+package com.example.projectbackend.service.crawling;
 
-import com.example.demo.entity.crawling.IndieNews;
-import com.example.demo.repository.crawling.IndieNewsRepository;
+import com.example.projectbackend.entity.crawling.IndieNews;
+import com.example.projectbackend.repository.crawling.IndieNewsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

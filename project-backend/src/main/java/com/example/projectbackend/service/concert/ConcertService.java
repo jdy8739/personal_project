@@ -1,8 +1,8 @@
-package com.example.demo.service.concert;
+package com.example.projectbackend.service.concert;
 
-import com.example.demo.entity.concert.Concert;
-import com.example.demo.entity.member.BookedConcert;
-import com.example.demo.entity.member.LikedConcert;
+import com.example.projectbackend.entity.concert.Concert;
+import com.example.projectbackend.entity.member.BookedConcert;
+import com.example.projectbackend.entity.member.LikedConcert;
 
 import java.util.List;
 import java.util.Optional;

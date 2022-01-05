@@ -1,4 +1,4 @@
-package com.example.demo.entity.member;
+package com.example.projectbackend.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.example.demo.entity.member;
+package com.example.projectbackend.entity.member;
 
-import com.example.demo.entity.concert.Concert;
+import com.example.projectbackend.entity.concert.Concert;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,11 +1,11 @@
-package com.example.demo.service.concert;
+package com.example.projectbackend.service.concert;
 
-import com.example.demo.entity.concert.Concert;
-import com.example.demo.entity.member.BookedConcert;
-import com.example.demo.entity.member.LikedConcert;
-import com.example.demo.repository.concert.ConcertRepository;
-import com.example.demo.repository.member.BookedConcertRepository;
-import com.example.demo.repository.member.LikedConcertRepository;
+import com.example.projectbackend.entity.concert.Concert;
+import com.example.projectbackend.entity.member.BookedConcert;
+import com.example.projectbackend.entity.member.LikedConcert;
+import com.example.projectbackend.repository.concert.ConcertRepository;
+import com.example.projectbackend.repository.member.BookedConcertRepository;
+import com.example.projectbackend.repository.member.LikedConcertRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

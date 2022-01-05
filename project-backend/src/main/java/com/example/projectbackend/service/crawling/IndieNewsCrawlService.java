@@ -1,6 +1,6 @@
-package com.example.demo.service.crawling;
+package com.example.projectbackend.service.crawling;
 
-import com.example.demo.entity.crawling.IndieNews;
+import com.example.projectbackend.entity.crawling.IndieNews;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 

@@ -1,8 +1,8 @@
-package com.example.demo.controller.board;
+package com.example.projectbackend.controller.board;
 
-import com.example.demo.entity.board.Board;
-import com.example.demo.entity.board.BoardReply;
-import com.example.demo.service.board.BoardService;
+import com.example.projectbackend.entity.board.Board;
+import com.example.projectbackend.entity.board.BoardReply;
+import com.example.projectbackend.service.board.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

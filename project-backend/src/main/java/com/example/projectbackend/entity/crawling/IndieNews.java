@@ -1,4 +1,4 @@
-package com.example.demo.entity.crawling;
+package com.example.projectbackend.entity.crawling;
 
 import lombok.Builder;
 import lombok.Data;

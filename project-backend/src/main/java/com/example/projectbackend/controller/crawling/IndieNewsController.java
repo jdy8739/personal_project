@@ -1,7 +1,7 @@
-package com.example.demo.controller.crawling;
+package com.example.projectbackend.controller.crawling;
 
-import com.example.demo.entity.crawling.IndieNews;
-import com.example.demo.service.crawling.IndieNewsCrawlService;
+import com.example.projectbackend.entity.crawling.IndieNews;
+import com.example.projectbackend.service.crawling.IndieNewsCrawlService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

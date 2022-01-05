@@ -1,10 +1,10 @@
-package com.example.demo.service.artistAuth;
+package com.example.projectbackend.service.artistAuth;
 
-import com.example.demo.entity.artistAuth.ConcertRequest;
-import com.example.demo.entity.artistAuth.RequestReply;
-import com.example.demo.repository.artistAuth.ConcertRequestRepository;
-import com.example.demo.repository.artistAuth.RequestReplyRepository;
-import com.example.demo.repository.member.MemberRepository;
+import com.example.projectbackend.entity.artistAuth.ConcertRequest;
+import com.example.projectbackend.entity.artistAuth.RequestReply;
+import com.example.projectbackend.repository.artistAuth.ConcertRequestRepository;
+import com.example.projectbackend.repository.artistAuth.RequestReplyRepository;
+import com.example.projectbackend.repository.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,12 +81,14 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
         int concertRequestNo = numArr[0];
         int statusNum = numArr[1];
 
+        Integer conReqNo = concertRequestNo;
+
         if(statusNum == 1) {
-            concertRequestRepository.approveConcertRequest(new Long(concertRequestNo));
+            concertRequestRepository.approveConcertRequest(conReqNo.longValue());
         } else if(statusNum == 2) {
-            concertRequestRepository.denyConcertRequest(new Long(concertRequestNo));
+            concertRequestRepository.denyConcertRequest(conReqNo.longValue());
         } else if(statusNum == 3) {
-            concertRequestRepository.deferConcertRequest(new Long(concertRequestNo));
+            concertRequestRepository.deferConcertRequest(conReqNo.longValue());
         }
     }
 
@@ -119,7 +121,7 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     @Override
     public void modifyConcertRequest(ConcertRequest concertRequest) {
 
-        Long concertRequestNo = new Long(concertRequest.getConcertRequestNo());
+        Long concertRequestNo = concertRequest.getConcertRequestNo().longValue();
         String regName = concertRequest.getRegName();
         String artistName = concertRequest.getRegName();
         String venueName = concertRequest.getVenueName();
@@ -133,7 +135,9 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     @Override
     public void deleteConcertRequest(Integer concertRequestNo) {
 
-        requestReplyRepository.deleteByConcertRequestNo(new Long(concertRequestNo));
-        concertRequestRepository.deleteByConcertRequestNo(new Long(concertRequestNo));
+        Long conReqNo = concertRequestNo.longValue();
+
+        requestReplyRepository.deleteByConcertRequestNo(conReqNo);
+        concertRequestRepository.deleteByConcertRequestNo(conReqNo);
     }
 }

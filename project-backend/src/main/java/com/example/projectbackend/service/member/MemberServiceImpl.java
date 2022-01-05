@@ -1,13 +1,13 @@
-package com.example.demo.service.member;
+package com.example.projectbackend.service.member;
 
-import com.example.demo.controller.member.request.MemberRequest;
-import com.example.demo.controller.member.response.MemberResponse;
-import com.example.demo.entity.member.*;
-import com.example.demo.repository.artistAuth.ConcertRequestRepository;
-import com.example.demo.repository.board.BoardReplyRepository;
-import com.example.demo.repository.concert.ConcertRepository;
-import com.example.demo.repository.board.BoardRepository;
-import com.example.demo.repository.member.*;
+import com.example.projectbackend.controller.member.request.MemberRequest;
+import com.example.projectbackend.controller.member.response.MemberResponse;
+import com.example.projectbackend.entity.member.*;
+import com.example.projectbackend.repository.artistAuth.ConcertRequestRepository;
+import com.example.projectbackend.repository.board.BoardReplyRepository;
+import com.example.projectbackend.repository.concert.ConcertRepository;
+import com.example.projectbackend.repository.board.BoardRepository;
+import com.example.projectbackend.repository.member.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

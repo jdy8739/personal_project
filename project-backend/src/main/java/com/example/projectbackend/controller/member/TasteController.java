@@ -1,7 +1,7 @@
-package com.example.demo.controller.member;
+package com.example.projectbackend.controller.member;
 
-import com.example.demo.entity.member.MemberTaste;
-import com.example.demo.service.member.TasteService;
+import com.example.projectbackend.entity.member.MemberTaste;
+import com.example.projectbackend.service.member.TasteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

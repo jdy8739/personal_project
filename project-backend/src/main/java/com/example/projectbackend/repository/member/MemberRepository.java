@@ -1,15 +1,10 @@
-package com.example.demo.repository.member;
+package com.example.projectbackend.repository.member;
 
-import com.example.demo.entity.member.Member;
+import com.example.projectbackend.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

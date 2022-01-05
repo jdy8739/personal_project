@@ -1,9 +1,9 @@
-package com.example.demo.controller.concert;
+package com.example.projectbackend.controller.concert;
 
-import com.example.demo.entity.concert.Concert;
-import com.example.demo.entity.member.BookedConcert;
-import com.example.demo.entity.member.LikedConcert;
-import com.example.demo.service.concert.ConcertService;
+import com.example.projectbackend.entity.concert.Concert;
+import com.example.projectbackend.entity.member.BookedConcert;
+import com.example.projectbackend.entity.member.LikedConcert;
+import com.example.projectbackend.service.concert.ConcertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

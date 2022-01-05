@@ -1,4 +1,4 @@
-package com.example.demo.controller.member.request;
+package com.example.projectbackend.controller.member.request;
 
 import lombok.Getter;
 import lombok.Setter;

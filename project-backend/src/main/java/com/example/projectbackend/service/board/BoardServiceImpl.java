@@ -1,9 +1,9 @@
-package com.example.demo.service.board;
+package com.example.projectbackend.service.board;
 
-import com.example.demo.entity.board.Board;
-import com.example.demo.entity.board.BoardReply;
-import com.example.demo.repository.board.BoardReplyRepository;
-import com.example.demo.repository.board.BoardRepository;
+import com.example.projectbackend.entity.board.Board;
+import com.example.projectbackend.entity.board.BoardReply;
+import com.example.projectbackend.repository.board.BoardReplyRepository;
+import com.example.projectbackend.repository.board.BoardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,13 +32,13 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public Board read(Integer boardNo) throws Exception {
-        return boardRepository.getRead(new Long(boardNo));
+        return boardRepository.getRead(boardNo.longValue());
     }
 
     @Override
     public void delete(Integer boardNo) throws Exception {
-        boardReplyRepository.delete(new Long(boardNo));
-        boardRepository.delete(new Long(boardNo));
+        boardReplyRepository.delete(boardNo.longValue());
+        boardRepository.delete(boardNo.longValue());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class BoardServiceImpl implements BoardService{
         String title = board.getTitle();
         String content = board.getContent();
         String category = board.getCategory();
-        Long boardNo = new Long(board.getBoardNo());
+        Long boardNo = board.getBoardNo().longValue();
 
         boardRepository.modify(title, content, category, boardNo);
     }
@@ -73,7 +73,7 @@ public class BoardServiceImpl implements BoardService{
     public void modifyReply(BoardReply boardReply) throws Exception {
 
         String content = boardReply.getContent();
-        Long boardReplyNo = new Long(boardReply.getBoardReplyNo());
+        Long boardReplyNo = boardReply.getBoardReplyNo().longValue();
 
         boardReplyRepository.modifyReply(content, boardReplyNo);
     }

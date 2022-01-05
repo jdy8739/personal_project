@@ -1,7 +1,7 @@
-package com.example.demo.service.member;
+package com.example.projectbackend.service.member;
 
-import com.example.demo.entity.member.MemberTaste;
-import com.example.demo.repository.member.MemberTasteRepository;
+import com.example.projectbackend.entity.member.MemberTaste;
+import com.example.projectbackend.repository.member.MemberTasteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
