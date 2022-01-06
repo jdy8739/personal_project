@@ -126,7 +126,6 @@ export default {
     }
 }
 
-
 @media screen and (max-width: 600px) {
     .imgTitle {
         font-size: 80px;

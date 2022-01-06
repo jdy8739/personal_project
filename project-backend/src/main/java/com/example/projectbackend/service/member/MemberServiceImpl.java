@@ -231,21 +231,24 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void addLiked(LikedConcert likedConcert) throws Exception {
+    public String addLiked(LikedConcert likedConcert) throws Exception {
 
-        if(isNotAlreadyLiked(likedConcert.getMemberNo(), likedConcert.getConcertNo())) {
+        if(!isNotAlreadyLiked(likedConcert.getMemberNo(), likedConcert.getConcertNo())) {
 
             likedConcertRepository.save(likedConcert);
             concertRepository.plusNumberOfLikes(new Long(likedConcert.getConcertNo()));
 
+            return "";
+
         } else {
             log.info("isAlreadyLiked!");
+            return "이미 좋아요한 공연이에요!";
         }
     }
 
     @Override
     public boolean isNotAlreadyLiked(Long memberNo, Long concertNo) {
-        return likedConcertRepository.findByMemberNoAndConcertNo(memberNo, concertNo).isEmpty();
+        return !likedConcertRepository.findByMemberNoAndConcertNo(memberNo, concertNo).isEmpty();
     }
 
     @Override

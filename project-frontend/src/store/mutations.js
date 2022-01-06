@@ -133,5 +133,19 @@ export default {
             cnt ++;
         }
         state.concertList = [...arr];
+    },
+
+    handleUserLogin(state, payload) {
+        if(payload) {
+            state.isLoggedIn = true;
+            state.userIdentity = payload.identity;
+            state.userProfile = payload;
+        }
+        else {
+            state.isLoggedIn = false;
+            state.userIdentity = '';
+            state.userProfile = '';
+            state.userTaste = '';
+        }
     }
 }

@@ -151,12 +151,12 @@ public class MemberController {
     }
 
     @PostMapping("/addLiked")
-    public ResponseEntity<Void> addLiked(@Validated @RequestBody LikedConcert likedConcert) throws Exception {
+    public ResponseEntity<String> addLiked(@Validated @RequestBody LikedConcert likedConcert) throws Exception {
         log.info("addLiked(): concertRequest - " + likedConcert);
 
-        service.addLiked(likedConcert);
+        String res = service.addLiked(likedConcert);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<String>(res, HttpStatus.OK);
     }
 
     @PostMapping("/deleteLiked")
@@ -172,7 +172,7 @@ public class MemberController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @PutMapping("/fetchLikedOrNot") //ConcertDetailPage로 들어갈 때 이 공연이 이미 찜된건지 아닌건지를 판별해서 true또는 false를 반환, 그리고 화면에서 찜하기버튼이 나올지 취소버튼이 나올지를 결정
+    @PostMapping("/fetchLikedOrNot") //ConcertDetailPage로 들어갈 때 이 공연이 이미 찜된건지 아닌건지를 판별해서 true또는 false를 반환, 그리고 화면에서 찜하기버튼이 나올지 취소버튼이 나올지를 결정
     public ResponseEntity<Boolean> fetchLikedOrNot(@RequestParam("likedOrNotNumArr") Integer[] likedOrNotNumArr) throws Exception {
 
         log.info("likedOrNotNumArr: " + likedOrNotNumArr[0] + ", " + likedOrNotNumArr[1]);

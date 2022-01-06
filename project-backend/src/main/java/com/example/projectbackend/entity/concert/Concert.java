@@ -45,8 +45,8 @@ public class Concert {
     @Column(nullable = false)
     private String concertInfo;
 
-    @Column(nullable = true)
-    private String numberOfLikes;
+    @Column(columnDefinition = "integer default 0")
+    private Integer numberOfLikes;
 
     @CreationTimestamp
     private Date regDate;

@@ -23,7 +23,7 @@ public interface MemberService {
 
     public boolean checkSessionValidation(String memberId) throws Exception;
 
-    public void addLiked(LikedConcert likedConcert) throws Exception;
+    public String addLiked(LikedConcert likedConcert) throws Exception;
 
     public boolean isNotAlreadyLiked(Long memberNo, Long concertNo) throws Exception;
 

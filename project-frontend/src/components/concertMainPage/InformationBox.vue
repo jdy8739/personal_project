@@ -14,11 +14,12 @@
             </span>
         </div>
         <div class="col-md-4 com-sm-12">
+            {{ notLikedYet }}
             <h5>입장료 {{ getChosenConcert.concertPrice }}</h5>
             <h5>{{ getChosenConcert.concertInfo }}</h5>
         </div>
         <div class="col-md-3 com-sm-12 btn-section">
-            <v-btn>좋아요</v-btn>
+            <v-btn @click="addLiked">찜하기</v-btn>
             <v-btn @click="sendToDetailPage">바로가기</v-btn>
             <v-btn @click="closeInfoBox">닫기</v-btn>
             <p>MUSIC GHUETTO</p>
@@ -29,7 +30,7 @@
 <script>
 import EventBus from '@/eventBus.js'
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: 'InformationBox',
@@ -41,7 +42,7 @@ export default {
     },
     data() {
         return {
-            date: '일시 :'
+        
         }
     },
     computed: {
@@ -55,79 +56,37 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['fetchLikedOrNot']),
         sendToDetailPage() {
             this.$router.push({
                 name: 'ConcertDetailPage',
                 params: { concertNo: (this.concertIdx + 1).toString() }
             });
         },
-
         closeInfoBox() {
             EventBus.$emit('offBox');
         },
-
         addLiked() {
-            if(this.$store.state.isLoggedIn == true) {
+            if(this.isLoggedIn) {
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-                        if(res.data == true) {
-                            // var index = this.concert.concertNo -1
-                            // this.likedList.splice(index, 1, 1)
-
-                            const memberNo = this.$store.state.userProfile.memberNo
-                            const concertNo = this.$store.state.concert.concertNo
-                            const concertName = this.$store.state.concert.concertName
-                            const concertArtist = this.$store.state.concert.concertArtist
-                            const concertVenue = this.$store.state.concert.concertVenue
-                            const concertPrice = this.$store.state.concert.concertPrice
-                            const concertDate = this.$store.state.concert.concertDate
-                            const concertInfo = this.$store.state.concert.concertInfo
-                            
-                            // console.log("{ memberNo }: " + memberNo)
-                            // console.log("{ concert }: " + JSON.stringify(this.$store.state.concert))
-
-                            axios.post('http://localhost:8888/member/addLiked', { memberNo, concertNo, concertName, concertArtist, concertVenue, concertPrice, concertDate, concertInfo })
-                                .then(alert('관심 목록에 추가되었습니다!'))
-
-                                this.$store.state.concert.numberOfLikes ++
-                                this.$store.state.notLikedYet = false
-
+                        if(res.data) {
+                           
+                            const memberNo = this.userProfile.memberNo;
+                            const concertNo = this.concertIdx + 1;
+                         
+                            axios.post('http://localhost:8888/member/addLiked', { memberNo, concertNo })
+                                .then((res) => {
+                                    if(res.data.length > 10) alert('이미 좋아요한 공연이에요!!');
+                                    else alert('관심 목록에 추가되었습니다!');
+                                });
                         } else {
-                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
-                            this.$store.state.isLoggedIn = false
+                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
+                            this.handleUserLogin();
                         }
-                    })
+                    });
             } else {
-                alert('로그인이 필요한 서비스입니다!')
-            }
-        },
-        unLiked() {
-            if(this.$store.state.isLoggedIn == true) {
-                
-                axios.post('http://localhost:8888/member/needSession')
-                    .then(res => {
-                        if(res.data == true) {
-                            // var index = this.concert.concertNo -1
-                            // this.likedList.splice(index, 1, 0)
-
-                            let formData = new FormData()
-
-                            formData.append("memberNo", this.$store.state.userProfile.memberNo)
-                            formData.append("concertNo", this.$store.state.concert.concertNo)
-
-                            axios.post('http://localhost:8888/member/deleteLiked', formData)
-                                .then(alert('관심 목록에서 제거되었습니다!'))
-
-                                this.$store.state.concert.numberOfLikes --
-                                this.$store.state.notLikedYet = true
-
-                        } else {
-                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
-                            this.$store.state.isLoggedIn = false
-                        }
-                    })
-            } else {
-                alert('로그인이 필요한 서비스입니다!')
+                alert('로그인이 필요한 서비스입니다!');
             }
         }
     }

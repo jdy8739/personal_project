@@ -45,18 +45,13 @@ import Vue from 'vue'
 import cookies from 'vue-cookies'
 Vue.use(cookies)
 
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 import GenreDialogue from '@/components/concertMainDialogue/GenreDialogue'
 import ArtistDialogue from '@/components/concertMainDialogue/ArtistDialogue'
 import DateDialogue from '@/components/concertMainDialogue/DateDialogue'
 
 import ConcertRow1 from '@/components/concertMainPage/ConcertRow1'
-// import ConcertRow2 from '@/components/concertMainPage/ConcertRow2'
-// import ConcertRow3 from '@/components/concertMainPage/ConcertRow3'
-//import Concert6 from '@/components/concertMainPage/concertElem/Concert6'
-
-//import Concerts from '@/components/concertMainPage/Concerts'
 import MainPageFooter from '@/components/concertMainPage/MainPageFooter'
 
 export default {
@@ -68,11 +63,6 @@ export default {
         DateDialogue,
 
         ConcertRow1,
-        // ConcertRow2,
-        // ConcertRow3,
-        //Concert6,
-
-        //Concerts,
 
         MainPageFooter
     },
@@ -96,6 +86,7 @@ export default {
     },
     methods: {
         ...mapActions(['fetchTaste', 'fetchConcertList']),
+        ...mapMutations(['handleUserLogin']),
 
         offFilter() {
             this.tmpChosenGenres = this.$store.state.taste
@@ -136,13 +127,10 @@ export default {
     mounted() {
         this.fetchConcertList();
 
-        if(this.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity //state 직접적으로 건드리는 얘네 다 뮤테이션 메소드로 정리
-            this.$store.state.userProfile = this.$cookies.get("currentUser")
-
-            this.fetchTaste(this.userProfile.memberNo);
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.handleUserLogin(userInfo);
+            //this.fetchTaste(this.userProfile.memberNo);
         } 
     }
 }

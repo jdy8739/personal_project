@@ -62,15 +62,11 @@ export default {
         axios.get(`http://localhost:8888/${keyword}`)
             .then(({ data }) => {
                 commit(CRAWL_FIND, data)
-
-                
             })
     },
     
     fetchLikedList({ commit }, payload) { //한 회원의 좋아요한 공연 리스트 뽑아오기
-       
         const memberNo = payload
-
         return axios.put(`http://localhost:8888/concert/likedList/${ memberNo }`)
             .then((res) => {
                 commit(FETCH_LIKED_LIST, res.data)
@@ -78,11 +74,9 @@ export default {
     },
 
     fetchLikedOrNot({ commit }, payload) {
-
-        return axios.put('http://localhost:8888/member/fetchLikedOrNot', payload)
+        return axios.post('http://localhost:8888/member/fetchLikedOrNot', payload)
             .then((res) => {
-                commit(FETCH_LIKED_OR_NOT, res.data)
-                //console.log("This page's likedOrNot is: " + res.data)
+                commit(FETCH_LIKED_OR_NOT, res.data);
             })
     },
 

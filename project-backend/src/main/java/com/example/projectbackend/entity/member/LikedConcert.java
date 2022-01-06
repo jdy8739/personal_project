@@ -25,38 +25,4 @@ public class LikedConcert { //extends Concert해도 될것같음.
 
     @Column(length = 20, nullable = false)
     private Long concertNo;
-
-    @Column(length = 20, nullable = false)
-    private String concertName;
-
-    @Column(length = 20, nullable = false)
-    private String concertArtist;
-
-    @Column(length = 50, nullable = false)
-    private String concertVenue;
-
-    @Column(length = 50, nullable = false)
-    private String concertPrice;
-
-    @Column(length = 20, nullable = false)
-    private String concertDate;
-
-    @Column(nullable = false)
-    private String concertInfo;
-
-    @CreationTimestamp
-    private Date regDate;
-
-    @UpdateTimestamp
-    private Date updDate;
-
-    public LikedConcert(Long concertNo, String concertName, String concertArtist, String concertVenue, String concertPrice, String concertDate, String concertInfo) {
-        this.concertNo = concertNo;
-        this.concertName = concertName;
-        this.concertArtist = concertArtist;
-        this.concertVenue = concertVenue;
-        this.concertPrice = concertPrice;
-        this.concertDate = concertDate;
-        this.concertInfo = concertInfo;
-    }
 }

@@ -97,7 +97,7 @@
                                 {{ link.text }}
                             </v-list-item-content>
                         </v-list-item>
-                    </div>
+                    </div> <!-- 메소드 하나 만들어서 return하는거롤 해결하면 될듯 -->
                     
                 </v-list-item-group>
             </v-list>
@@ -111,7 +111,7 @@ import Vue from 'vue'
 Vue.use(cookies)
 
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import LoginDialogue from '@/components/concertMainDialogue/LoginDialogue'
 
 export default {
@@ -255,13 +255,15 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(['handleUserLogin']),
+
         blankText() {
-            this.searchText = ''
+            this.searchText = '';
         },
 
         imgRequest() {
                 try {                
-                    return require(`../../../../../personalProjectSpring/images/memberPic/${this.$store.state.userProfile.memberNo}_${this.$store.state.userProfile.id}.jpg`)
+                    return require(`../../../../../personalProjectSpring/images/memberPic/${this.userProfile.memberNo}_${this.userProfile.id}.jpg`)
                     
                 } catch (e) {
                     return require(`@/assets/logo.png`)
@@ -277,8 +279,8 @@ export default {
         },
 
         handleFileUpload() {
-            this.files = this.$refs.files.files //data의 files는 input에서 받는 ref - files의 id files
-            this.profilePicChanged = true
+            this.files = this.$refs.files.files; //data의 files는 input에서 받는 ref - files의 id files
+            this.profilePicChanged = true;
         },
 
         imgUpload() {
@@ -289,14 +291,14 @@ export default {
                         if(res.data == true) {
 
                             if(this.files.length > 0) {
-                                let formData = new FormData()
+                                let formData = new FormData();
                                 
                                 for(var idx=0; idx < this.files.length; idx++) {
-                                    formData.append("memberPic", this.files[idx])
+                                    formData.append("memberPic", this.files[idx]);
                                 }
 
-                                let memberNo = this.$store.state.userProfile.memberNo
-                                let id = this.$store.state.userProfile.id
+                                let memberNo = 0//this.userProfile.memberNo;
+                                let id = 'xx'//.userProfile.id;
 
                                 formData.append("memberNo", memberNo)
                                 formData.append("id", id)
@@ -307,39 +309,33 @@ export default {
                                     }
                                 })
                                 .then (res => {
-                                    this.responser = res.data
+                                    this.responser = res.data;
 
-                                    this.profilePicChanged = false
-                                    alert('프로필 사진이 교체되었습니다!')
+                                    this.profilePicChanged = false;
+                                    alert('프로필 사진이 교체되었습니다!');
                                 })
                                 .catch (res => {
-                                    this.response = res.message
+                                    this.response = res.message;
                                 })
                                 //alert('사진 업로드 완료!')
                             }
                         } else {
-                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
+                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                         }
                     })
             }
         },
 
         logOut($event) {
-            if($event.target.innerHTML == 'LOG OUT') {
+            if($event.target.innerHTML === 'LOG OUT') {
                 
-                this.$cookies.remove("currentUser")
+                this.$cookies.remove("CurrentUser");
+                this.handleUserLogin();
 
-                this.$store.state.taste = null
-                
-                this.$store.state.isLoggedIn = false
-                this.$store.state.userProfile = null
-                this.$store.state.userIdentity = null
-
-                alert('로그아웃되었습니다.')
-
+                alert('로그아웃되었습니다.');
                 this.$router.push ({
                     name: 'MainPage'
-                })
+                });
             }
         },
         btn_needSession(index) {
@@ -354,37 +350,33 @@ export default {
                         if(res.data == true && index == 1) {
                             this.$router.push ({
                                 name: 'MyProfilePage'
-                            })
+                            });
                         } else if(res.data == true && index == 2) {
                             this.$router.push ({
                                 name: 'LikedListPage'
-                            })
+                            });
                         } else if(res.data == true && index == 3) {
                             this.$router.push ({
                                 name: 'BookedListPage'
-                            })
+                            });
                         } else if(res.data == true && index == 4) {
                             this.$router.push ({
                                 name: 'MyRequestListPage'
-                            })
+                            });
                         } else if(res.data == false) {
-                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
-                            this.$store.state.isLoggedIn = false
-
-                            this.$cookies.remove("currentUser")
-                            this.$store.state.userProfile = null
-                            this.$store.state.userIdentity = null
+                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
+                            this.handleUserLogin();
                         }
                     })
                 
             } else if(index != 0) {
-                alert('로그인이 필요한 서비스입니다!')
+                alert('로그인이 필요한 서비스입니다!');
             }
         }
     },
     watch: {
         nav_drawer() {
-            this.profilePicChanged = false
+            this.profilePicChanged = false;
         }
     }
 }
