@@ -1,5 +1,5 @@
 <template>
-    <div class="col-sm-3 concert-box" :id='`${ concert.concertNo }`' @click="focusOnThisConcert">
+    <div class="col-sm-3 concert-box" :id='`${ concert.concertNo }`' @click="focusOnThisConcert(true, false)">
         <div style="position: relative;">
 
             <img class="responsive-img bigColorImg"
@@ -37,20 +37,30 @@ export default {
             } else return true;
         },
 
-        focusOnThisConcert() {
+        focusOnThisConcert(onChange, offBox) {
+
             const id = this.concert.concertNo;
             const focusedConcert = document.getElementById(id);
-
-            focusedConcert.classList.remove('concert-box');
-
             const focusedImg = focusedConcert.getElementsByTagName('img')[0];
-            focusedImg.classList.remove('bigColorImg');
-            focusedImg.classList.remove('blurImg');
-
             const focusedText = focusedConcert.querySelector('.text-box');
-            focusedText.classList.remove('hide');
 
-            EventBus.$emit('offColors', id)
+            if(onChange && offBox) {
+                focusedConcert.classList.add('concert-box');
+                focusedImg.classList.add('bigColorImg');
+                focusedImg.classList.remove('blurImg');
+                focusedText.classList.remove('hide');
+            } else if(onChange && !offBox) {
+                focusedConcert.classList.remove('concert-box');
+                focusedImg.classList.remove('bigColorImg');
+                focusedImg.classList.remove('blurImg');
+                focusedText.classList.remove('hide');
+                EventBus.$emit('offColors', id)
+            } else {
+                focusedConcert.classList.add('concert-box');
+                focusedImg.classList.add('bigColorImg');
+                focusedImg.classList.add('blurImg');
+                focusedText.classList.add('hide');
+            }
         }
     },
     mounted() {
@@ -58,33 +68,12 @@ export default {
             const id = this.concert.concertNo;
 
             if(id !== idx) {
-                
-                const concertToBlur = document.getElementById(id);
-
-                concertToBlur.classList.add('concert-box');
-
-                const imgToBlur = concertToBlur.getElementsByTagName('img')[0];
-                imgToBlur.classList.remove('bigColorImg');
-                imgToBlur.classList.add('blurImg');
-
-                const textToBlur = concertToBlur.querySelector('.text-box');
-                textToBlur.classList.add('hide');
+                this.focusOnThisConcert(false, false);
             }
         });
 
         EventBus.$on('offBox', () => {
-            const id = this.concert.concertNo;
-
-            const concertToBlur = document.getElementById(id);
-
-            concertToBlur.classList.add('concert-box');
-
-            const imgToBlur = concertToBlur.getElementsByTagName('img')[0];
-            imgToBlur.classList.add('bigColorImg');
-            imgToBlur.classList.remove('blurImg');
-
-            const textToBlur = concertToBlur.querySelector('.text-box');
-            textToBlur.classList.remove('hide');
+            this.focusOnThisConcert(true, true);
         });
     }
 }

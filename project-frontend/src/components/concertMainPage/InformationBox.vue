@@ -23,7 +23,6 @@
             <v-btn @click="closeInfoBox">닫기</v-btn>
             <p>MUSIC GHUETTO</p>
         </div>
-        {{concertIdx}}
     </div>
 </template>
 

@@ -132,6 +132,6 @@ export default {
             }
             cnt ++;
         }
-        state.concertList = arr;
+        state.concertList = [...arr];
     }
 }
