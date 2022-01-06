@@ -58,7 +58,7 @@ export default {
         sendToDetailPage() {
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: this.concertIdx + 1 }
+                params: { concertNo: (this.concertIdx + 1).toString() }
             });
         },
 

@@ -92,6 +92,7 @@ export default {
 .text-box {
     opacity: 0.75;
     width: 200px;
+    transition: all 1s;
 }
 
 .long-text {
@@ -100,7 +101,7 @@ export default {
 }
 
 .concert-box:hover .text-box {
-    opacity: 0.95;
+    opacity: 0.2;
 }
 
 .bigColorImg {

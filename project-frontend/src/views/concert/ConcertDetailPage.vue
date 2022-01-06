@@ -1,59 +1,54 @@
 <template>
-    <div style="padding-top: 30px; height: 100%;" class="grey darken-4" align="center">
-
-        <input type="text" class="detailTitle" disabled v-bind:value="concert.concertName" style="font-size: 50px; color: white;"/>    
-
-        <div style="width: 25%; margin: 0px auto; padding-top: 10px;" class="circle responsive-img" v-on:mouseover="turnOffColor" v-on:mouseout="turnOnColor">
-
-            <img v-if="onColor" class="circle responsive-img" :src="imgRequest()" >
-
-            <a :href="urlRequest(concert.concertNo)" target="_blank" v-else-if="!onColor">
-                <img :src="imgRequest()" class="circle responsive-img bluredImg" style="position: relative">
-            </a>
-
-            <div v-if="!onColor" class="hide-on-med-and-down search">사진을 클릭하시면 해당 아티스트의 관련 페이지로 이동합니다!</div>
+    <div align="center" class="main-bg grey darken-4">
+        <div class="container fonted">
+            <h3>{{ concert.concertName }}</h3>
+            <div>
+                <img class="responsive-img round-img" @click="snsRequest"
+                :src="require(`../../../../project-backend/images/artist_pics/${ concert.concertArtist }.jpg`)">
+            </div>
+            <br><br>
+            <h5>{{ concert.concertArtist }}</h5>
+            <h5>{{ concert.concertVenue }}</h5>
+            <h5>{{ concert.concertGenre }}</h5>
+            <br>
+            <h5>
+                {{ concert.concertDate }}
+                <span>&ensp;
+                    {{ concert.concertTime }}
+                </span>
+            </h5>
+            <h5>
+                가격
+                <span>
+                    {{ concert.concertPrice }}
+                </span>
+            </h5>
+            <h5>
+                좋아요 수
+                <span>
+                    {{ concert.numberOfLikes }}
+                </span>
+            </h5>
+            <h5>
+                인원
+                <span>
+                    {{ concert.venueCapacity }}
+                </span>
+            </h5>
+            <p>{{ concert.concertInfo }}</p>
         </div>
-         
-        <div style="margin-top: 10px;">
-            <input type="text" class="name" disabled v-bind:value="concert.concertArtist" style="font-size: 40px; color: white;"/>
-        </div>
-         
-        <input type="text" class="date2" disabled v-bind:value="concert.concertDate" style="color: white;"/>
-          
-        <input type="text" class="venue" disabled v-bind:value="concert.concertVenue" style="color: white;"/>
-
-        <!-- <input type="text" class="venue" disabled v-bind:value="concert.numberOfLikes + '명이 좋아요했습니다!' + ' 현재 남은 자리 수 ' + 
-        concert.venueCapacity" style="font-size: 15px; color: white;"/> -->
-
-        <div class="row" style="justify-content: center; padding-top: 20px;">
-
-            <p style="font-size: 20px; color: #FF24A3; width: 15px;" class="venue">
-                {{ concert.numberOfLikes }}
-            </p>
-            <p style="font-size: 15px; margin-top: 4px;" class="venue">
-                명이 좋아요했습니다! 현재 남은 자리 수는 
-            </p>
-
-            &nbsp; &nbsp;
-            
-            <p style="font-size: 20px; color: #FF24A3; width: 15px;" class="venue">
-                {{ concert.venueCapacity }}
-            </p>
-
-        </div>
-
         <hr style="width: 25%">
 
-        <div class="container" style="width: 25%;">
+        <!-- <div class="container" style="width: 25%;">
             <textarea class="infoText" style='height: 90px; color: white;' disabled v-bind:value="concert.concertInfo"/>
         </div>
           
-        <div align="center" style="margin-bottom: 60px;">
+        <div align="center" style="margin-bottom: 60px;"> -->
             <!-- <v-btn text="text" class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" 
             @click="onReservation" outlined>예약하기!</v-btn> -->
-            <booking-dialogue v-if="notBookedYet || isLoggedIn == false" :member="member" :concertNo="concertNo"/>
+            <!-- <booking-dialogue v-if="notBookedYet || isLoggedIn == false" :member="member" :concertNo="concertNo"/> -->
 
-            <v-tooltip bottom v-else-if="!notBookedYet && isLoggedIn == true">
+            <!-- <v-tooltip bottom v-else-if="!notBookedYet && isLoggedIn == true">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" @click="cancelBook" outlined color="pink" v-bind="attrs" v-on="on">
                         <v-icon>
@@ -86,10 +81,10 @@
                     </v-btn>
                 </template>
                 <span>찜해제</span>    
-            </v-tooltip>
+            </v-tooltip> -->
 
             <!-- <p>.....{{ likedList }}</p> -->
-        </div>
+        <!-- </div> -->
     </div>    
 </template>
 
@@ -97,23 +92,21 @@
 import axios from 'axios'
 import { mapActions, mapState } from 'vuex'
 
-import BookingDialogue from '@/components/concertMainDialogue/BookingDialogue'
+//import BookingDialogue from '@/components/concertMainDialogue/BookingDialogue'
 
 export default {
     name: 'ConcertDetailPage',
     components: {
-        BookingDialogue
+        //BookingDialogue
     },
     props: {
         concertNo: {
-            type: Number,
+            type: String,
             required: true
         }
     },
     data() {
         return {
-            onColor: true,
-
             urlList: [
                 'https://ko-kr.facebook.com/bandflyingdog',
                 'https://www.instagram.com/kidcozyboy/?hl=ko',
@@ -132,23 +125,26 @@ export default {
     methods: {
         ...mapActions(['fetchLikedOrNot', 'fetchConcert', 'fetchMember', 'fetchBookedOrNot']),
 
-        urlRequest(concertNo) {
+        // urlRequest() {
+        //     const urlListNo = parseInt(this.concertNo) - 1;
+        //     try {
+        //         return this.urlList[urlListNo];
+        //     } catch (e) {
+        //         return 'MainPage';
+        //     }
+        // },
 
-                var urlListNo = concertNo - 1
+        // imgRequest() {
+        //         try {                
+        //             return require(`@/assets/img/artist_pics/${this.concert.concertArtist}.jpg`)
+        //         } catch (e) {
+        //             return require(`@/assets/logo.png`)
+        //         }
+        // },
 
-                try {
-                    return this.urlList[urlListNo]
-                } catch (e) {
-                    return 'MainPage'
-                }
-        },
-
-        imgRequest() {
-                try {                
-                    return require(`@/assets/img/artist_pics/${this.concert.concertArtist}.jpg`)
-                } catch (e) {
-                    return require(`@/assets/logo.png`)
-                }
+        snsRequest() {
+            const urlListNo = parseInt(this.concertNo) - 1;
+            window.open(`${ this.urlList[urlListNo] }`, "_blank");    
         },
 
         addLiked() {
@@ -216,46 +212,12 @@ export default {
                 alert('로그인이 필요한 서비스입니다!')
             }
         },
-        onReservation() {
-
-        },
-        turnOffColor() {
-            this.onColor = false
-        },
-        turnOnColor() {
-            this.onColor = true
-        },
         cancelBook() {
             alert('예약 취소는 마이페이지의 예약리스트에서 할 수 있습니다! :)')
         }
     },
     mounted() {
-        alert(this.concertNo)
-        this.fetchConcert(this.concertNo) //이상하네.. 이게 맨 뒤에 있을 때는 실행이 안되다가 왜 지금처럼 위에 놓으면 실행되지?
-        //alert(this.concertNo)
-
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
-
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
-
-            var memNoAndConNoArr = []
-
-            memNoAndConNoArr.push(this.$store.state.userProfile.memberNo)
-            memNoAndConNoArr.push(parseInt(this.concertNo)) //얘가 this.$store.state.concert.concertNo에서 this.concertNo로 수정해주니까 잘됨 --> 위의 fetchConcert가 
-            //db에서 concert를 가져와 concert.concertNo를 주기 전에 이 명령이 실행되니까 그런거였음. 그래서 애초에 props로 받은 this.concertNo를 사용해주니까 잘됨
-
-            let formData = new FormData()
-            formData.append("likedOrNotNumArr", memNoAndConNoArr)
-
-            this.fetchLikedOrNot(formData)
-            this.fetchBookedOrNot(formData)
-
-            this.fetchMember(this.$store.state.userProfile.memberNo)
-        }
-        
+        this.fetchConcert(parseInt(this.concertNo));
     }
 }
 </script>
@@ -263,48 +225,29 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap');
 
-td, th {
-    padding: 0px 0px;
+.fonted {
+    font-family: 'Do Hyeon', sans-serif;
+    font-style: italic;
 }
 
 hr{
 	margin: 0px auto;
 }
 
-.detailTitle {
-    color: white;
-    font-family: 'Do Hyeon', sans-serif;
-    font-style: italic;
-    text-align: center;
+h5>span {
+    color: rgb(221, 107, 107);
 }
 
-.name {
-    font-size: 90px;
-    color: white;
-    font-family: 'Do Hyeon', sans-serif;
-    font-style: italic;
-    text-align: center;
-    margin-top: 10px;
+.round-img {
+    border-radius: 50%;
+    width: 35%;
+    filter: grayscale(0.9);
+    cursor: pointer;
+    transition: all 1s;
 }
 
-.date2 {
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    text-align: center;
-}
-
-.venue {
-    font-size: 15px;
-    color: white;
-    font-family: 'Do Hyeon', sans-serif;
-    font-style: italic;
-    text-align: center;
-}
-
-.bluredImg {
-    filter: blur(2px) grayscale(80%); 
-    opacity: 0.6;
+.round-img:hover {
+    filter: grayscale(0.1);
 }
 
 .search {

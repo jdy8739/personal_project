@@ -1,7 +1,6 @@
 <template>
     <div class="grey darken-4" style="height: 100%; position: relative;">
         <br>
-        
         <div align="center" style="margin-top: -20px;">
             <img class="responsive-img bigImg" src="@/assets/img/wall2.jpg" width="100%" style="margin-bottom: -6px;">
         </div>
@@ -11,23 +10,10 @@
             <artist-dialogue class="col xs4 sm4 md4 lg4"/> 
             <date-dialogue class="col xs4 sm4 md4 lg4"/>                        
         </div>
-
         <div>
-          <!-- <Concert6 v-for="(concert, i) in concertList" :key="i" :concert="concert" :id="i" class="mb-5"/> -->
           <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :concerts="concerts" class="concert-wrapper"/>
         </div>
 
-        <!-- <concert-row-1 :taste="taste" :dateForFilter="dateForFilter"/>
-
-        <concert-row-2 :taste="taste" :dateForFilter="dateForFilter"/>
-
-        <concert-row-3 :taste="taste" :dateForFilter="dateForFilter"/> -->
-
-        <!-- <concert-row-1/>
-        
-        <concert-row-3/> -->
-
-        <!-- <concerts v-if="taste" v-bind:taste="taste"/> -->
       
         <div :class="['box', 'grey darken-4', {'dragged': dragged}]" v-if="taste || dateForFilter"
             v-dragged="onDragged"
@@ -165,6 +151,12 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+
+.main-bg {
+    height: 100%;
+    padding-top: 60px;
+    color: white;
+}
 
 .topBar {
     font-style: italic;

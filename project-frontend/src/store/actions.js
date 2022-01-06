@@ -36,11 +36,11 @@ export default {
     fetchConcert({ commit }, num) {
         return axios.get(`http://localhost:8888/concert/${num}`)
             .then((res) => {
-                commit(FETCH_CONCERT, res.data)
+                commit(FETCH_CONCERT, res.data);
             })
             .catch(err => {
-                alert(err.response.data.message)
-            })
+                alert(err.response.data.message);
+            });
     },
 
     fetchMemberList({ commit }) {
