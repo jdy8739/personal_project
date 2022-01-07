@@ -11,7 +11,7 @@ public interface ConcertService {
 
     public Optional<Concert> findByConcertNo(Long concertNo);
 
-    public List<LikedConcert> getLikedList(Long memberNo);
+    public List<Concert> getLikedList(Long memberNo);
 
     public void makeBooking(BookedConcert bookedConcert);
 

@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="loginDialog" persistent max-width="290">
         <template v-slot:activator="{ on }">
-            <p class="flat waves-effect waves-red topBarText" v-on="on" style="margin-top: -5px;">
+            <p class="flat waves-effect waves-red topBarText" v-on="on">
                 lOG IN
             </p>
         </template>
@@ -22,7 +22,6 @@
             </v-card-text>
 
             <v-card-actions>
-
                 <v-spacer></v-spacer>
                 <v-btn color="error" text @click.native="login">
                     로그인

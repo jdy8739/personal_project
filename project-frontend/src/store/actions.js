@@ -67,7 +67,7 @@ export default {
     
     fetchLikedList({ commit }, payload) { //한 회원의 좋아요한 공연 리스트 뽑아오기
         const memberNo = payload
-        return axios.put(`http://localhost:8888/concert/likedList/${ memberNo }`)
+        return axios.get(`http://localhost:8888/concert/likedList/${ memberNo }`)
             .then((res) => {
                 commit(FETCH_LIKED_LIST, res.data)
             })

@@ -6,44 +6,22 @@
                 <v-icon style="color: white;">dehaze</v-icon>
             </v-app-bar-nav-icon>
             <v-toolbar-title>
-                <span class="font-weight-light" style="margin-right: 40px; color: white;">NAVI</span>
+                <span class="font-weight-light mr-5">NAVI</span>
             </v-toolbar-title>
 
-            <v-toolbar-items v-if="!isLoggedIn">
-                <v-btn text v-for="link in links" :key="link.name" :to="link.route" style="padding-top: 15px;" class="btn-flat waves-effect waves-red">
-                    <login-dialogue v-if="link.text == 'LOG IN'"></login-dialogue>
-                    <p v-else class="topBarText">{{ link.text }}</p>
-                </v-btn>
-            </v-toolbar-items>
-
-            <v-toolbar-items v-if="isLoggedIn && userIdentity == 'individual'">
-                <v-btn text v-for="loggedInlink in loggedInlinks" :key="loggedInlink.name" router :to="loggedInlink.route" style="padding-top: 15px;" class="btn-flat waves-effect waves-red">
-                    <p class="topBarText" @click="logOut($event)">{{ loggedInlink.text }}</p>
-                </v-btn>
-            </v-toolbar-items>
-
-            <v-toolbar-items v-else-if="isLoggedIn && userIdentity == 'admin'">
-                <v-btn text v-for="managerLink in managerLinks" :key="managerLink.name" router :to="managerLink.route" style="padding-top: 15px;" class="btn-flat waves-effect waves-red">
-                    <p class="topBarText" @click="logOut($event)">{{ managerLink.text }}</p>
-                </v-btn>
-            </v-toolbar-items>
-
-            <v-toolbar-items v-else-if="isLoggedIn && userIdentity == 'artist'">
-                <v-btn text v-for="artistLink in artistLinks" :key="artistLink.name" router :to="artistLink.route" style="padding-top: 15px;" class="btn-flat waves-effect waves-red">
-                    <p class="topBarText" @click="logOut($event)">{{ artistLink.text }}</p>
+            <v-toolbar-items>
+                <v-btn text v-for="link in filterLinks()" :key="link.name" router :to="link.route" class="btn-flat waves-effect waves-red pt-4">
+                    <login-dialogue v-if="link.text === 'LOG IN'"></login-dialogue>
+                    <p v-else class="topBarText" @click="logOut($event)">{{ link.text }}</p>
                 </v-btn>
             </v-toolbar-items>
 
             <div class="flex-grow-1"></div> <!-- 간격 벌리기 -->
 
             <v-toolbar-items>
-            
                 <v-icon class="material-icons small teal-text" @click="searchKeyword">search</v-icon>
-                <input type="text" style="font-size: 13px; font-style: italic; width: 250px; color: white;" v-model="searchText" 
-                v-on:click="blankText" @keydown.enter="searchKeyword"/>
-
-                <p class="btn-flat topBarText" style="padding-top: 5px; color: white;">&copy; MUSIC GHUETTO</p>
-           
+                <input type="text" class="search-text" placeholder="찾고자 하는 장르 또는 아티스트" @keydown.enter="searchKeyword"/>
+                <p class="btn-flat topBarText pt-2">&copy; MUSIC GHUETTO</p>
             </v-toolbar-items>
 
         </v-toolbar>
@@ -51,34 +29,33 @@
         <v-navigation-drawer v-model="nav_drawer" app temporary width="150px" dark>
             <v-list nav>
                 <v-list-item-group active-class="red--text text--accent-4">
-
                     <div v-if="isLoggedIn">
                         <v-list-item-avatar style="margin-left: 35%;">
                             <v-img :src="imgRequest()">
-                                <label> <!-- 라벨 히든!! -->
-                                    <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" class="files"> <!-- multiple 빼줌 -->
+                                <label>
+                                    <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" class="files">
                                 </label>
                             </v-img>
                         </v-list-item-avatar>
 
-                        <v-list-item-title style="text-align: center; font-size: 12px; line-height: 20px; margin-bottom: 10px;">
-                            <p v-if="profilePicChanged" style="font-size: 10px; pointer: cursor;" @click="imgUpload">프로필 사진 바꾸기</p>
+                        <v-list-item-title class="bar-text">
+                            <p v-if="profilePicChanged" @click="imgUpload">프로필 사진 바꾸기</p>
                             로그인된 ID:<br/>{{ userProfile.id }}
                         </v-list-item-title>
                     </div>
 
-                    <div v-if="!isLoggedIn">
+                    <div v-else-if="!isLoggedIn">
                         <v-list-item-avatar style="margin-left: 35%;">
                             <v-img src="@/assets/img/background.jpg"></v-img>
                         </v-list-item-avatar>
 
-                        <v-list-item-title style="text-align: center; font-size: 10px; line-height: 20px; margin-bottom: 10px;">
+                        <v-list-item-title class="bar-text">
                             로그인된 ID:<br/>아직 로그인되지 않았습니다.
                         </v-list-item-title>
                     </div>
 
-                    <div v-if="userIdentity == 'artist'"> 
-                        <v-list-item v-for="(link, index) in navLinksForArtist" :key="index" router :to="link.route" @click="btn_needSession(index)">
+                    <div> 
+                        <v-list-item v-for="(link, index) in filterNavBar()" :key="index" router :to="link.route" @click="btn_needSession(index)">
                             <v-list-item-action>
                                 <v-icon>{{ link. icon }}</v-icon>
                             </v-list-item-action>
@@ -87,18 +64,6 @@
                             </v-list-item-content>
                         </v-list-item>
                     </div>
-
-                    <div v-else-if="userIdentity != 'artist'"> 
-                        <v-list-item v-for="(link, index) in navLinks" :key="index" router :to="link.route" @click="btn_needSession(index)">
-                            <v-list-item-action>
-                                <v-icon>{{ link. icon }}</v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>
-                                {{ link.text }}
-                            </v-list-item-content>
-                        </v-list-item>
-                    </div> <!-- 메소드 하나 만들어서 return하는거롤 해결하면 될듯 -->
-                    
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
@@ -114,156 +79,54 @@ import axios from 'axios'
 import { mapMutations, mapState } from 'vuex'
 import LoginDialogue from '@/components/concertMainDialogue/LoginDialogue'
 
+import { links, loggedInlinks, managerLinks, artistLinks, navLinks, navLinksForArtist } from '../../assets/links.js'
+
 export default {
     name: 'ConcertToolBar',
     components: {
         LoginDialogue
     },
-    computed: {
-        ...mapState(['isLoggedIn', 'userIdentity', 'userProfile'])
-    },
     data() {
         return {
             nav_drawer: false,
-            searchText: '  찾고자 하는 장르 또는 아티스트',
-
             files: '',
             profilePicChanged: false,
-
-            links: [
-                {
-                    text: 'ABOUT US',
-                    icon: 'people',
-                    route: '/aboutUs',
-                },
-                {
-                    text: 'LOG IN',
-                    icon: '/people'
-                },
-                {
-                    text: 'SIGN UP',
-                    icon: 'people',
-                    route: '/signup',
-                },
-                {
-                    text: 'SUPPORT',
-                    icon: 'people',
-                    route: '/preference',
-                },
-                {
-                    text: 'COMMUNITY',
-                    icon: 'people',
-                    route: '/community',
-                },
-                {
-                    text: 'MORE',
-                    icon: 'people',
-                    route: '/indieNewsCrawler',
-                }
-            ],
-            loggedInlinks: [
-                {
-                    text: 'LOG OUT',
-                    icon: ''           
-                },
-                {
-                    text: 'ABOUT US',
-                    icon: 'people',
-                    route: '/aboutUs',
-                },
-                {
-                    text: 'SUPPORT',
-                    icon: 'people',
-                    route: '/preference',
-                },
-                {
-                    text: 'COMMUNITY',
-                    icon: 'people',
-                    route: '/community',
-                },
-                {
-                    text: 'MORE',
-                    icon: 'people',
-                    route: '/indieNewsCrawler',
-                }
-            ],
-            managerLinks: [
-                {
-                    text: 'LOG OUT',
-                    icon: '',
-                },
-                {
-                    text: 'ABOUT US',
-                    icon: 'people',
-                    route: '/aboutUs',
-                },
-                {
-                    text: 'REQUEST STORE', 
-                    icon: 'people',
-                    route: '/request/store', 
-                },
-                {
-                    text: 'COMMUNITY',
-                    icon: 'people',
-                    route: '/community',
-                },
-                {
-                    text: 'ADMIN',
-                    icon: 'people',
-                    route: '/memberList',
-                }
-            ],
-            artistLinks: [
-                {
-                    text: 'LOG OUT',
-                    icon: '',
-                },
-                {
-                    text: 'ABOUT US',
-                    icon: 'people',
-                    route: '/aboutUs',
-                },
-                {
-                    text: 'SUPPORT',
-                    icon: 'people',
-                    route: '/preference',
-                },
-                {
-                    text: 'COMMUNITY',
-                    icon: 'people',
-                    route: '/community',
-                },
-                {
-                    text: 'ConcertReg',
-                    icon: 'people',
-                    route: '/register/request',
-                }
-            ],
-            navLinks: [
-                { text: 'Home', icon: 'home'},
-                { text: 'Profile', icon: 'person_outline'},
-                { text: 'Liked', icon: 'star'},
-                { text: 'Booked', icon: 'done'}
-            ],
-            navLinksForArtist: [
-                { text: 'Home', icon: 'home'},
-                { text: 'Profile', icon: 'person_outline'},
-                { text: 'Liked', icon: 'star'},
-                { text: 'Booked', icon: 'done'},
-                { text: 'Request', icon: 'email'}
-            ],
+            links: links,
+            loggedInlinks: loggedInlinks,
+            managerLinks: managerLinks,
+            artistLinks: artistLinks,
+            navLinks: navLinks,
+            navLinksForArtist: navLinksForArtist
         }
+    },
+    computed: {
+        ...mapState(['isLoggedIn', 'userIdentity', 'userProfile']),
     },
     methods: {
         ...mapMutations(['handleUserLogin']),
 
-        blankText() {
-            this.searchText = '';
+        filterLinks() {
+            if(!this.isLoggedIn) return this.links;
+            else if(this.userIdentity === 'individual') {
+                return this.loggedInlinks;
+            } else if (this.userIdentity === 'artist') {
+                return this.artistLinks;
+            } else if (this.userIdentity === 'manager') {
+                return this.managerLinks;
+            }
+        },
+
+        filterNavBar() {
+            if(this.userIdentity !== 'artist' || !this.isLoggedIn) {
+                return this.navLinks;
+            } else if (this.userIdentity === 'artist') {
+                return this.navLinksForArtist;
+            } 
         },
 
         imgRequest() {
                 try {                
-                    return require(`../../../../../personalProjectSpring/images/memberPic/${this.userProfile.memberNo}_${this.userProfile.id}.jpg`)
+                    return require(`../../../../../project-backend/images/memberPic/${this.userProfile.memberNo}_${this.userProfile.id}.jpg`)
                     
                 } catch (e) {
                     return require(`@/assets/logo.png`)
@@ -285,10 +148,10 @@ export default {
 
         imgUpload() {
 
-            if(this.$store.state.isLoggedIn == true) {
+            if(this.isLoggedIn) {
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-                        if(res.data == true) {
+                        if(res.data) {
 
                             if(this.files.length > 0) {
                                 let formData = new FormData();
@@ -297,8 +160,8 @@ export default {
                                     formData.append("memberPic", this.files[idx]);
                                 }
 
-                                let memberNo = 0//this.userProfile.memberNo;
-                                let id = 'xx'//.userProfile.id;
+                                let memberNo = this.userProfile.memberNo;
+                                let id = this.userProfile.id;
 
                                 formData.append("memberNo", memberNo)
                                 formData.append("id", id)
@@ -310,19 +173,18 @@ export default {
                                 })
                                 .then (res => {
                                     this.responser = res.data;
-
                                     this.profilePicChanged = false;
                                     alert('프로필 사진이 교체되었습니다!');
+
                                 })
                                 .catch (res => {
                                     this.response = res.message;
-                                })
-                                //alert('사진 업로드 완료!')
+                                });
                             }
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                         }
-                    })
+                    });
             }
         },
 
@@ -339,36 +201,35 @@ export default {
             }
         },
         btn_needSession(index) {
-            if(index == 0) {
+            if(index === 0) {
                 this.$router.push ({
                     name: 'MainPage'
-                })
-            } else if(this.$store.state.isLoggedIn == true) {
+                });
+            } else if(this.isLoggedIn) {
               
                     axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-                        if(res.data == true && index == 1) {
+                        if(res.data && index == 1) {
                             this.$router.push ({
                                 name: 'MyProfilePage'
                             });
-                        } else if(res.data == true && index == 2) {
+                        } else if(res.data && index == 2) {
                             this.$router.push ({
                                 name: 'LikedListPage'
                             });
-                        } else if(res.data == true && index == 3) {
+                        } else if(res.date && index == 3) {
                             this.$router.push ({
                                 name: 'BookedListPage'
                             });
-                        } else if(res.data == true && index == 4) {
+                        } else if(res.data&& index == 4) {
                             this.$router.push ({
                                 name: 'MyRequestListPage'
                             });
-                        } else if(res.data == false) {
+                        } else if(!res.data) {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                             this.handleUserLogin();
                         }
                     })
-                
             } else if(index != 0) {
                 alert('로그인이 필요한 서비스입니다!');
             }
@@ -395,6 +256,32 @@ export default {
     cursor: pointer;    
 }
 
+</style>
+
+<style scoped>
+
+span {
+    color: white;
+}
+
+.search-text {
+    font-size: 13px; 
+    font-style: italic; 
+    width: 250px; 
+    color: white;
+}
+
+.bar-text {
+    text-align: center; 
+    font-size: 10px; 
+    line-height: 20px; 
+    margin-bottom: 10px;
+}
+
+.bar-text>p {
+    font-size: 10px;
+    cursor: pointer;
+}
 </style>
         
 

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +33,16 @@ public class ConcertServiceImpl implements ConcertService {
     }
 
     @Override
-    public List<LikedConcert> getLikedList(Long memberNo) {
-        return likedConcertRepository.findByMemberNo(memberNo);
+    public List<Concert> getLikedList(Long memberNo) {
+        List<LikedConcert> userLikedList = likedConcertRepository.findByMemberNo(memberNo);
+        List<Concert> likedConcertList = new ArrayList<Concert>();
+        Concert concert;
+
+        for(int i=0; i<userLikedList.size(); i++) {
+            concert = concertRepository.findByConcertNo(userLikedList.get(i).getConcertNo()).get();
+            likedConcertList.add(concert);
+        }
+        return likedConcertList;
     }
 
     @Override

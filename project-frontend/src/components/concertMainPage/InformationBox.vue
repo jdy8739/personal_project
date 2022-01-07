@@ -19,7 +19,7 @@
             <h5>{{ getChosenConcert.concertInfo }}</h5>
         </div>
         <div class="col-md-3 com-sm-12 btn-section">
-            <v-btn @click="addLiked">찜하기</v-btn>
+            <v-btn @click="addLiked" class="pick-btn">찜하기</v-btn>
             <v-btn @click="sendToDetailPage">바로가기</v-btn>
             <v-btn @click="closeInfoBox">닫기</v-btn>
             <p>MUSIC GHUETTO</p>

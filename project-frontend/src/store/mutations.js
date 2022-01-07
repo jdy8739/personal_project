@@ -147,5 +147,9 @@ export default {
             state.userProfile = '';
             state.userTaste = '';
         }
+    },
+
+    delLikedList(state, payload) {
+        state.likedList.splice(payload, 1);
     }
 }

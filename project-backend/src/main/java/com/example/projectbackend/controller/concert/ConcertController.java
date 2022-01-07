@@ -36,16 +36,13 @@ public class ConcertController {
     }
     
     //한 회원의 좋아요한 공연 리스트 뽑아오기
-    @PutMapping("/likedList/{memberNo}")
-    public ResponseEntity<List<LikedConcert>> getLikedList(@PathVariable("memberNo") Integer memberNo) throws Exception {
+    @GetMapping("/likedList/{memberNo}")
+    public ResponseEntity<List<Concert>> getLikedList(@PathVariable("memberNo") Integer memberNo) {
 
         log.info("memberNo: " + memberNo);
 
-        List<LikedConcert> likedList = concertService.getLikedList(new Long(memberNo));
-
-        log.info("likedList: " + likedList);
-
-        return new ResponseEntity<List<LikedConcert>>(likedList, HttpStatus.OK);
+        List<Concert> likedList = concertService.getLikedList(new Long(memberNo));
+        return new ResponseEntity<List<Concert>>(likedList, HttpStatus.OK);
     }
 
     @PostMapping("/makeBooking")
