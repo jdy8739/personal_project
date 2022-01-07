@@ -151,5 +151,15 @@ export default {
 
     delLikedList(state, payload) {
         state.likedList.splice(payload, 1);
+    },
+
+    handleDislikeConcert(state) {
+        state.concert.numberOfLikes --;
+        state.notLikedYet = false;
+    },
+
+    handleLikeConcert(state) {
+        state.concert.numberOfLikes ++;
+        state.notLikedYet = true;
     }
 }

@@ -127,7 +127,7 @@ export default {
     },
     methods: {
         ...mapActions(['fetchLikedOrNot', 'fetchConcert', 'fetchMember', 'fetchBookedOrNot']),
-        ...mapMutations(['handleUserLogin']),
+        ...mapMutations(['handleUserLogin', 'handleDislikeConcert', 'handleLikeConcert']),
 
         // urlRequest() {
         //     const urlListNo = parseInt(this.concertNo) - 1;
@@ -161,8 +161,7 @@ export default {
                          
                             axios.post('http://localhost:8888/member/addLiked', { memberNo, concertNo })
                                 .then(() => {
-                                    this.$store.state.concert.numberOfLikes ++;
-                                    this.$store.state.notLikedYet = true;
+                                    this.handleLikeConcert();
                                     alert('관심 목록에 추가되었습니다!');
                                 });
                         } else {
@@ -186,8 +185,7 @@ export default {
 
                             axios.post('http://localhost:8888/member/deleteLiked', formData)
                                 .then(() => {
-                                    this.$store.state.concert.numberOfLikes --;
-                                    this.$store.state.notLikedYet = false;
+                                    this.handleDislikeConcert();
                                     alert('관심 목록에서 제거되었습니다!');
                                 });
                         } else {
