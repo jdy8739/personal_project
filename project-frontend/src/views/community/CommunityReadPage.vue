@@ -1,16 +1,10 @@
 <template>
-
-    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
-        
+    <div align="center" class="main-bg grey darken-4">
         <h3 class="topBar">COMMUNITY COMMENT</h3>
-
-        <p class="description" style="margin-right: 20px;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
-
-        <community-board-read v-if="board" :board="board"/>
+        <p class="description mr-5">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
+        <community-board-read v-if="board" :board="board" class="board-form"/>
         <p class="description" v-else-if="!board">해당 게시글의 정보를 불러오는 중입니다. 조금만 기다려주세요. :)</p>
-        
-        <reply-section/>
-
+        <reply-section class="board-form"/>
     </div>
 </template>
 
@@ -34,34 +28,30 @@ export default {
     },
     data() {
         return {
-            //boardNo: 0
+            
         }
     },
     mounted() {
-        // EventBus.$on('sendNum', (payload) => {
-        //     this.boardNo = payload
+        this.fetchBoard(this.boardNo);
 
-        //     this.fetchBoard(this.boardNo)
-        //     this.fetchReplyList(this.boardNo)
-        // })
-        this.fetchBoard(this.boardNo)
-        this.fetchReplyList(this.boardNo) //댓글이 board에 딸려있기때문에 board.replyList해주면 됐었다..
-
-        //alert(this.boardNo)
-
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
-
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.$store.commit('handleUserLogin', userInfo);
         }
     },
     computed: {
         ...mapState(['userProfile', 'isLoggedIn', 'board'])
     },
     methods: {
-        ...mapActions(['fetchBoard', 'fetchReplyList'])
+        ...mapActions(['fetchBoard'])
     }
 }
 </script>
+
+<style>
+
+.board-form {
+    min-width: 1000px;
+}
+
+</style>

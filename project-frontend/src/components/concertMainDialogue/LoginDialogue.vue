@@ -5,7 +5,6 @@
                 lOG IN
             </p>
         </template>
-
         <v-card class="grey darken-3">
 
             <v-card-title class="headLine">
@@ -30,10 +29,8 @@
                     취소
                 </v-btn>
             </v-card-actions>
-
         </v-card>
     </v-dialog>
-    
 </template>
 
 <script>
@@ -81,7 +78,7 @@ export default {
                         if(res.data.id.length > 2) {
                             alert(res.data.id + '으로 로그인되었습니다!')
 
-                            this.$cookies.set("CurrentUser", res.data, '120m') 
+                            this.$cookies.set("CurrentUser", res.data, '120m'); 
                             this.handleUserLogin(res.data);
                         } else {
                             alert('로그인 실패!');

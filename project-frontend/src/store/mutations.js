@@ -12,8 +12,6 @@ import {
     FETCH_BOARD_LIST,
     FETCH_BOARD,
 
-    FETCH_REPLY_LIST,
-
     FETCH_DECIDE_OR_NOT,
     FETCH_TASTE,
     
@@ -64,11 +62,9 @@ export default {
     },
 
     [FETCH_BOARD] (state, payload) {
-        state.board = payload
-    },
-
-    [FETCH_REPLY_LIST] (state, payload) {
-        state.replyList = payload
+        state.replyList = payload.boardReplyList;
+        delete payload['boardReplyList'];
+        state.board = payload;
     },
 
     [FETCH_DECIDE_OR_NOT] (state, payload) {

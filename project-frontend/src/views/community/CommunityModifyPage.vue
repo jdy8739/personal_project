@@ -1,14 +1,9 @@
 <template>
-
-    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
-
+    <div align="center" class="main-bg grey darken-4">
         <h3 class="topBar">COMMUNITY COMMENT</h3>
-
-        <p class="description" style="margin-right: 20px;">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
-        
-        <community-board-modify v-if="board" :board="board"/>
+        <p class="description mr-5">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
+        <community-board-modify v-if="board" :board="board" class="board-form"/>
         <p class="description" v-else-if="!board">해당 게시글의 정보를 불러오는 중입니다. 조금만 기다려주세요. :)</p>
-
     </div>
 </template>
 
@@ -29,21 +24,18 @@ export default {
         }
     },
     computed: {
-        ...mapState(['userProfile', 'isLoggedIn', 'board'])
+        ...mapState(['board'])
     },
     methods: {
         ...mapActions(['fetchBoard'])
     },
     mounted() {
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
+        this.fetchBoard(this.boardNo);
 
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.$store.commit('handleUserLogin', userInfo);
         }
-        //alert(this.boardNo)
-        this.fetchBoard(this.boardNo)
     }
 }
 </script>

@@ -7,7 +7,6 @@ import {
     FETCH_LIKED_OR_NOT,
     FETCH_BOARD_LIST,
     FETCH_BOARD,
-    FETCH_REPLY_LIST,
 
     FETCH_DECIDE_OR_NOT,
     FETCH_TASTE,
@@ -88,25 +87,9 @@ export default {
     },
 
     fetchBoard({ commit }, num) {
-
-        const boardNo = num
-        //console.log('boardNo' + boardNo)
-
-        return axios.get(`http://localhost:8888/board/read/${ boardNo }`)
+        return axios.get(`http://localhost:8888/board/read/${ num }`)
             .then((res) => {
                 commit(FETCH_BOARD, res.data)
-            })
-    },
-
-    fetchReplyList({ commit }, num) {
-
-        const boardNo = num
-        //console.log('boardNo' + boardNo)
-
-        return axios.get(`http://localhost:8888/board/replyList/${ boardNo }`)
-            .then((res) => {
-                commit(FETCH_REPLY_LIST, res.data)
-                //alert('replyList: ' + JSON.stringify(res.data))
             })
     },
 
@@ -119,7 +102,6 @@ export default {
     },
 
     fetchTaste({ commit }, num) {
-
         return axios.get(`http://localhost:8888/member/taste/getTaste/${ num }`)
             .then(res => {
                 commit(FETCH_TASTE, res.data)

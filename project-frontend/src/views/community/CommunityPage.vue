@@ -1,14 +1,9 @@
 <template>
-
-    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;"> 
-        
+    <div align="center" class="main-bg grey darken-4">
         <h3 class="topBar">COMMUNITY COMMENT</h3>
-
-        <p class="description" style="margin-right: 20px;">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
-
+        <p class="description mr-5">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
         <community-board-list :boards="boards"/>
     </div>
-    
 </template>
 
 <script>
@@ -22,24 +17,17 @@ export default {
     },
     methods: {
         ...mapActions(['fetchBoardList'])
-
     },
     computed: {
         ...mapState(['isLoggedIn', 'boards'])
     },
-    created() {
-        this.fetchBoardList()
-    },
     mounted() {
         this.fetchBoardList()
 
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
-
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
-        }
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.$store.commit('handleUserLogin', userInfo);
+        } 
     }
 }
 </script>

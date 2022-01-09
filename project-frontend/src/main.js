@@ -17,7 +17,7 @@ Vue.use(cookies)
 import VDragged from './VDragged/v-dragged'
 Vue.use(VDragged) 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,

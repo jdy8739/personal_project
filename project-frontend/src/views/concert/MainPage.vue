@@ -13,7 +13,6 @@
         <div>
           <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :concerts="concerts" class="concert-wrapper"/>
         </div>
-
       
         <div :class="['box', 'grey darken-4', {'dragged': dragged}]" v-if="taste || dateForFilter"
             v-dragged="onDragged"
