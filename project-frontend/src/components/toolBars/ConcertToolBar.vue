@@ -163,8 +163,8 @@ export default {
                                 let memberNo = this.userProfile.memberNo;
                                 let id = this.userProfile.id;
 
-                                formData.append("memberNo", memberNo)
-                                formData.append("id", id)
+                                formData.append("memberNo", memberNo);
+                                formData.append("id", id);
 
                                 axios.post('http://localhost:8888/member/sendMemberPic', formData, { //멀티 컨텐츠 날릴때는 무조건 헤더를 이 형식으로 맞춰야한다.
                                     headers: {

@@ -46,22 +46,21 @@ export default {
         return axios.get('http://localhost:8888/member/list')
             .then((res) => {
                 commit(FETCH_MEMBER_LIST, res.data)
-            })
+            });
     },
 
     fetchMember({ commit }, memberNo) {
         return axios.get(`http://localhost:8888/member/read/${memberNo}`)
             .then((res) => {
-                commit(FETCH_MEMBER, res.data)
-                //alert(JSON.stringify(res.data))
-            })
+                commit(FETCH_MEMBER, res.data);
+            });
     },
 
     async crawlFind({ commit }, keyword) {
         axios.get(`http://localhost:8888/${keyword}`)
             .then(({ data }) => {
-                commit(CRAWL_FIND, data)
-            })
+                commit(CRAWL_FIND, data);
+            });
     },
     
     fetchLikedList({ commit }, payload) { //한 회원의 좋아요한 공연 리스트 뽑아오기

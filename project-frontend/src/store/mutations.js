@@ -33,16 +33,16 @@ import {
 } from './mutation-types'
 
 export default {
-    [FETCH_CONCERT] (state, concert) {
-        state.concert = concert
+    [FETCH_CONCERT] (state, payload) {
+        state.concert = payload
     },
     
-    [FETCH_MEMBER_LIST] (state, members) {
-        state.members = members
+    [FETCH_MEMBER_LIST] (state, payload) {
+        state.members = payload
     },
 
-    [FETCH_MEMBER] (state, member) {
-        state.member = member
+    [FETCH_MEMBER] (state, payload) {
+        state.member = payload
     },
 
     [CRAWL_FIND] (state, payload) {
