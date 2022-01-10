@@ -42,7 +42,9 @@ export default {
     },
 
     [FETCH_MEMBER] (state, payload) {
-        state.member = payload
+        state.taste = payload.memberTasteList[0];
+        delete payload.memberTasteList;
+        state.member = payload;
     },
 
     [CRAWL_FIND] (state, payload) {
@@ -72,7 +74,6 @@ export default {
     },
 
     [FETCH_TASTE] (state, payload) {
-
         if(payload) state.taste = payload
     },
 

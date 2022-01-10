@@ -1,25 +1,22 @@
 <template>
-    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
-
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">WITHDRAWAL</h3>
-        <p class="description" style="margin-right: 20px;">정말로 탈퇴하시나요? 탈퇴하시면 기록된 모든 정보가 사라집니다!</p>
-
-        <div style="margin-top: 50px; margin-right: 20px;">
-            <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="btn_delete($event)" style="margin-right: 40px;">
+    <div align="center" class="main-bg grey darken-4">
+        <h3 class="topBar">WITHDRAWAL</h3>
+        <p class="description mr-5">정말로 탈퇴하시나요? 탈퇴하시면 기록된 모든 정보가 사라집니다!</p>
+        <div class="mt-10 mr-5">
+            <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="withdraw($event)">
                 탈퇴
             </v-btn>
-            <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="btn_cancel($event)">
+            &emsp;
+            <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="cancel($event)">
                 취소
             </v-btn>
         </div>
-        
     </div>
 </template>
 
 <script>
-//import EventBus from '@/eventBus.js'
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
     name: 'MemberWithdrawalPage',
@@ -31,50 +28,47 @@ export default {
     },
     data() {
         return {
-            //memberNo: 0
+            
         }
     },
     methods: {
-        btn_delete() {
+        ...mapMutations(['handleUserLogin']),
 
-            console.log('탈퇴할 멤버 번호' + this.$store.state.userProfile.memberNo)
-
-            axios.delete(`http://localhost:8888/member/delete/${ this.$store.state.userProfile.memberNo }`)
+        withdraw() {
+            axios.delete(`http://localhost:8888/member/delete/${ this.userProfile.memberNo }`)
                 .then(() => {
-                    alert('탈퇴처리 완료되었습니다!')
+                    alert('탈퇴처리 완료되었습니다!');
 
-                    this.$cookies.remove("currentUser")
-                
-                    this.$store.state.isLoggedIn = false
-                    this.$store.state.userProfile = null
-                    this.$store.state.userIdentity = null
-
+                    this.$cookies.remove("CurrentUser");
+                    this.handleUserLogin();
+            
                     this.$router.push({
                         name: 'MainPage'
-                    })
+                    });
                 })
+                .catch(err => {
+                    alert('잠시 후에 다시 시도해주세요!');
+                    console.log(err);
+                });
         },
-        btn_cancel() {
+        cancel() {
             this.$router.push({
                 name: 'MyProfilePage'
-            })
+            });
         }
-    },
-    created() {
-        // EventBus.$on('sendNum', (payload) => {
-        //     this.memberNo = payload
-        // })
     },
     computed: {
         ...mapState(['isLoggedIn', 'userProfile'])
     },
     mounted() {
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
+        if(!this.memberNo) {
+            alert('정상적인 경로가 아닙니다.');
+            history.go(-1);
+        }
 
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.$store.commit('handleUserLogin', userInfo);
         }
     }
 }

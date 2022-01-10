@@ -67,17 +67,11 @@ export default {
         }
     },
     mounted() {
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.$store.commit('handleUserLogin', userInfo);
 
-        this.fetchAlreadyDecidePrefOrNot(this.$store.state.userProfile.memberNo)
-
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
-
-            this.fetchAlreadyDecidePrefOrNot(this.$store.state.userProfile.memberNo)
-            //alert(this.notDecidedYet)
+            this.fetchAlreadyDecidePrefOrNot(this.userProfile.memberNo);
         }
     }
 }

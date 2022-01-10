@@ -3,20 +3,20 @@
         <p class="topBar">MY PROFILE</p>
         <p class="description mr-5">현재 회원님의 가입 정보입니다.</p>
         <my-profile :member="member" :taste="taste"/>
-        <!-- <check-dialogue/> -->
+        <check-dialogue :memberNo="member.memberNo"/>
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 
-//import CheckDialogue from '@/components/memberPage/CheckDialogue';
+import CheckDialogue from '@/components/memberPage/CheckDialogue';
 import MyProfile from '@/components/memberPage/MyProfile';
 
 export default {
     name: 'MyProfilePage',
     components: {
-        //CheckDialogue,
+        CheckDialogue,
         MyProfile
     },
     data() {
@@ -29,7 +29,7 @@ export default {
     },
     
     methods: {
-        ...mapActions(['fetchMember', 'fetchTaste'])
+        ...mapActions(['fetchMember'])
     },
     mounted() {
         if(this.$cookies.isKey('CurrentUser')) {
@@ -37,7 +37,6 @@ export default {
             this.$store.commit('handleUserLogin', userInfo);
 
             this.fetchMember(userInfo.memberNo);
-            this.fetchTaste(userInfo.memberNo); //없애도 될듯
         }
     }
 }
