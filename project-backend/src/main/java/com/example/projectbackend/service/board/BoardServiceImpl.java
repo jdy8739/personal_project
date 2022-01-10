@@ -27,12 +27,12 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<Board> list() throws Exception {
-        return boardRepository.getList();
+        return boardRepository.findAll();
     }
 
     @Override
     public Board read(Integer boardNo) throws Exception {
-        return boardRepository.getRead(boardNo.longValue());
+        return boardRepository.findByBoardNo(boardNo.longValue());
     }
 
     @Override
@@ -56,12 +56,6 @@ public class BoardServiceImpl implements BoardService{
     public void addReply(BoardReply boardReply) throws Exception {
 
         boardReplyRepository.save(boardReply);
-    }
-
-    @Override
-    public List<BoardReply> replyList(Integer boardNo) throws Exception {
-
-        return boardReplyRepository.getReplyList(new Long(boardNo));
     }
 
     @Override

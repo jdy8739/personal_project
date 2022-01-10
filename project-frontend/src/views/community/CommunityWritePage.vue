@@ -1,7 +1,7 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
-        <h3 class="topBar">COMMUNITY COMMENT</h3>
-        <p class="description mr-5">여러분들의 공연에 대한 기대나 후기를 공유해주세요. :)</p>
+        <p class="topBar">COMMUNITY COMMENT</p>
+        <p class="description">여러분들의 공연에 대한 기대나 후기를 공유해주세요. :)</p>
         <v-container>
             <v-select
               :items="categories"

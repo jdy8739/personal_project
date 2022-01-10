@@ -10,9 +10,6 @@ import java.util.List;
 
 public interface BoardReplyRepository extends JpaRepository<BoardReply, Long> {
 
-    @Query("select br from BoardReply br where boardNo = :boardNo and br.id != 'default'") //'default'로 해줘야하나?? --> 해줘야한다!
-    List<BoardReply> getReplyList(Long boardNo);
-
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("delete from BoardReply br where br.boardNo = :boardNo")

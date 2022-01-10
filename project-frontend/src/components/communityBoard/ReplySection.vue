@@ -1,170 +1,137 @@
 <template>
-    <div style="margin-top: 30px;">
-
-        <v-container style="width: 65%;">
-
+    <div>
+        <v-container>
             <table dense dark>
-
                 <tr>
                     <td class="description" style="color: gray;">작성된 댓글</td>
                 </tr>
-
                 <tr v-for="(reply, index) in replyList" :key="index">
-                    <td class="description" style="width: 14%; color: gray;">{{ reply.id }}</td>
+                    <td class="description" style="color: gray;">{{ reply.id }}</td>
 
-                    <td v-if="modifyIndex == index" class="description" style="width: 75%;">
-                        <input v-model="modifyContent" style="color: white;"
+                    <td v-if="modifyIndex === index" class="description" style="width: 75%;">
+                        <input v-model="modifiedContent" style="color: white;"
                         @keydown.enter="submitModified(reply.boardReplyNo, reply.id, index)"/>
                     </td>
-
-                    <td v-else-if="modifyIndex != index" class="description" style="width: 75%; color: white;">{{ reply.content }}</td>
-
+                    <td v-else-if="modifyIndex !== index" class="description" style="width: 75%; color: white;">{{ reply.content }}</td>
 
                     <div v-if="modifyIndex == index">
-
-                        <td width="20" style="padding-left: 5px;">
+                        <td width="20">
                             <v-btn class="ma-2" text icon color="red lighten-3" 
                             @click="submitModified(reply.boardReplyNo, reply.id, index)">
 
                                 <v-icon>
-                                keyboard_arrow_up
+                                    keyboard_arrow_up
                                 </v-icon>
                             </v-btn>
                         </td>
-
-                        <td style="width: 5%; padding-left: 5px;">
-                            <v-btn class="ma-2" text icon color="red lighten-3" 
-                            @click="cancel()">
-
+                        <td style="width: 5%;">
+                            <v-btn class="ma-2" text icon color="red lighten-3" @click="cancel()">
                                 <v-icon>
                                     cancel
                                 </v-icon>
                             </v-btn>
                         </td>
-
                     </div>
-
-                    <div v-else-if="modifyIndex != index" style="width: 55px;">
-
-                        <td style="width: 55px;">
-                            <v-btn class="ma-2" text icon color="red lighten-3" 
-                            @click="modifyReply(reply.content, index)">
-                            
+                    <div v-else-if="modifyIndex !== index">
+                        <td>
+                            <v-btn class="ma-2" text icon color="red lighten-3" @click="modifyReply(reply.content, index)">
                                 <v-icon>
                                     mode_edit
                                 </v-icon>
                             </v-btn>
                         </td>
-
                     </div>
-
-                    <td style="text-align: right; width: 55px;">
-                        <v-btn class="ma-2" text icon color="red lighten-3"
-                        @click="deleteReply(reply.boardReplyNo, reply.id, index)">
-                        
+                    <td>
+                        <v-btn class="ma-2" text icon color="red lighten-3" @click="deleteReply(reply.boardReplyNo, reply.id, index)">
                             <v-icon>
                                 delete
                             </v-icon>
                         </v-btn>
                     </td>
-
                 </tr>
-
             </table>
-            
         </v-container>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-import { mapActions, mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
     name: 'ReplySection',
-    // props: {
-    //     replyList: {
-    //         type: Array
-    //     }
-    // },
     data() {
         return {
             modifyIndex: -1,
-            modifyContent: ''
+            modifiedContent: ''
         }
     },
     computed: {
-        ...mapState(['isLoggedIn', 'userProfile', 'board', 'replyList']),
+        ...mapState(['isLoggedIn', 'userProfile', 'board', 'replyList'])
     },
     methods: {
-        ...mapActions(['fetchReplyList']),
+        ...mapMutations(['handleUserLogin', 'handleReplyRequest']),
 
         cancel() {
-            this.modifyIndex = -1
-            this.modifyContent = ''
+            this.modifyIndex = -1;
+            this.modifiedContent = '';
         },
         modifyReply(content, index) {
-
-            this.modifyIndex = index
-            this.modifyContent = content
-
+            this.modifyIndex = index;
+            this.modifiedContent = content;
         },
-        submitModified(tmpBoardReplyNoo, id, index) {
+        submitModified(tmpBoardReplyNo, id, index) {
             
-            if(this.isLoggedIn && (this.userProfile.id == id || this.userProfile.identity == 'admin')) {
+            if(this.isLoggedIn && (this.userProfile.id === id || this.userProfile.identity === 'admin')) {
                 
                  axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-
                         if(res.data) {
-
-                            this.$store.state.replyList.splice(index, 1, { boardReplyNo: boardReplyNo, boardNo: this.board.boardNo, id: id, content: this.modifyContent })
-
-                            const boardReplyNo = tmpBoardReplyNoo
-                            const content = this.modifyContent
+                            
+                            const boardReplyNo = tmpBoardReplyNo;
+                            const content = this.modifiedContent;
 
                             axios.put('http://localhost:8888/board/modifyReply', { boardReplyNo, content })
-                                .then(alert('댓글이 수정되었습니다 :)'))
+                                .then(() => {
 
-                            //this.fetchReplyList(this.board.boardNo)
-                            this.modifyIndex = -1
-                            this.modifyContent = ''
+                                    const newReply = { boardReplyNo: boardReplyNo, boardNo: this.board.boardNo, id: id, content: this.modifiedContent };
+                                    this.handleReplyRequest([ index, newReply ]);
 
+                                    this.modifyIndex = -1;
+                                    this.modifiedContent = '';
+                                })
+                                .catch(err => console.log(err));
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
-                            this.$store.state.isLoggedIn = false
+                            this.handleUserLogin();
                         }
                     })           
-
             } else {
-                alert('권한이 없습니다!')
+                alert('권한이 없습니다!');
             }
 
         },
         deleteReply(replyNo, id, index) {
-
-            if(this.isLoggedIn && (this.userProfile.id == id || this.userProfile.identity == 'admin')) {
+            
+            if(this.isLoggedIn && (this.userProfile.id === id || this.userProfile.identity === 'admin')) {
                 
                  axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-                        if(res.data == true) {
-
-                            this.$store.state.replyList.splice(index, 1)
-
-                            axios.delete(`http://localhost:8888/board/deleteReply/${ replyNo }`) //db에 입력 직전에 주석친 fetch를 실행해 가져오다보니 업데이트 전의 데이터를 가져오게 된다
-                                .then()
-
-                            //this.fetchReplyList(this.board.boardNo)
-                            this.modifyIndex = -1
-
+                        if(res.data) {
+                            axios.delete(`http://localhost:8888/board/deleteReply/${ replyNo }`) 
+                                .then(() => {
+                                    this.handleReplyRequest(index);
+                                })
+                                .catch(() => {
+                                    alert('잠시 후에 다시 시도해주세요.');
+                                });
                         } else {
-                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!')
-                            this.$store.state.isLoggedIn = false
+                            alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
+                            this.handleUserLogin();
                         }
-                    })           
-
+                    });
             } else {
-                alert('권한이 없습니다!')
+                alert('권한이 없습니다!');
             }
         }
     }

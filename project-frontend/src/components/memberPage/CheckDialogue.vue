@@ -47,12 +47,6 @@ import { mapState } from 'vuex'
 
 export default {
     name: 'CheckDialogue',
-    props: {
-        memberNo: {
-            type: Number,
-            required: true
-        }
-    },
     data() {
         return {
             checkDialog: false,

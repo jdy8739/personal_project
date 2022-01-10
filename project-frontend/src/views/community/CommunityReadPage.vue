@@ -1,6 +1,6 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
-        <h3 class="topBar">COMMUNITY COMMENT</h3>
+        <p class="topBar">COMMUNITY COMMENT</p>
         <p class="description mr-5">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
         <community-board-read v-if="board" :board="board" class="board-form"/>
         <p class="description" v-else-if="!board">해당 게시글의 정보를 불러오는 중입니다. 조금만 기다려주세요. :)</p>

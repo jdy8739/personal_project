@@ -1,7 +1,7 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
-        <h3 class="topBar">COMMUNITY COMMENT</h3>
-        <p class="description mr-5">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
+        <p class="topBar">COMMUNITY COMMENT</p>
+        <p class="description">MUSIC GHUETTO 이용자들의 공연 관람 후기입니다. 참고하세요. :)</p>
         <community-board-list :boards="boards"/>
     </div>
 </template>

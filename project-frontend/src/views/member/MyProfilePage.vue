@@ -3,7 +3,7 @@
         <p class="topBar">MY PROFILE</p>
         <p class="description">현재 회원님의 가입 정보입니다.</p>
         <my-profile :member="member" :taste="taste"/>
-        <check-dialogue :memberNo="member.memberNo"/>
+        <check-dialogue/>
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['member', 'taste']),
+        ...mapState(['member', 'taste', 'userProfile']),
     },
     
     methods: {

@@ -8,14 +8,17 @@ import vuetify from './plugins/vuetify'
 // import "material-design-icons/iconsfont/material-icons.css";
 
 
-import VueAgile from 'vue-agile' 
-Vue.use(VueAgile)
+import VueAgile from 'vue-agile';
+Vue.use(VueAgile);
 
-import cookies from 'vue-cookies'
-Vue.use(cookies)
+import cookies from 'vue-cookies';
+Vue.use(cookies);
 
-import VDragged from './VDragged/v-dragged'
-Vue.use(VDragged) 
+import VDragged from './VDragged/v-dragged';
+Vue.use(VDragged);
+
+import axios from 'axios';
+Vue.use(axios);
 
 Vue.config.productionTip = false;
 

@@ -19,7 +19,7 @@ export default {
 
     replyList: [],
 
-    notDecidedYet: false,
+    notDecidedYet: true,
 
     taste: null,
     dateForFilter: false,

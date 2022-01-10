@@ -37,8 +37,21 @@
                 <td>{{ member.regDate }}</td>
             </tr>
             <hr :style="{ width: '100%' }">
+            <br>
             <tr v-if="!taste">
-                <td>아직 선호 사항을 정하지 않으셨어요!</td>
+                <td colspan="2">아직 선호 사항을 정하지 않으셨어요!</td>
+            </tr>
+            <tr v-if="taste">
+                <td>선택한 장르</td>
+                <td>{{ taste.chosenGenres }}</td>
+            </tr>
+            <tr v-if="taste">
+                <td>선택한 분위기</td>
+                <td>{{ taste.atmosphereTaste }}</td>
+            </tr>
+            <tr v-if="taste">
+                <td>선택한 아티스트</td>
+                <td>{{ taste.chosenArtists }}</td>
             </tr>
         </table>
     </v-container>

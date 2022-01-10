@@ -77,14 +77,14 @@ public class BoardController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @GetMapping("/replyList/{boardNo}")
-    public ResponseEntity<List<BoardReply>> replyList(@PathVariable("boardNo") Integer boardNo) throws Exception {
-        log.info("replyList() - boardNo: " + boardNo);
-
-        List<BoardReply> replyList = service.replyList(boardNo);
-
-        return new ResponseEntity<List<BoardReply>>(replyList, HttpStatus.OK);
-    }
+//    @GetMapping("/replyList/{boardNo}")
+//    public ResponseEntity<List<BoardReply>> replyList(@PathVariable("boardNo") Integer boardNo) throws Exception {
+//        log.info("replyList() - boardNo: " + boardNo);
+//
+//        List<BoardReply> replyList = service.replyList(boardNo);
+//
+//        return new ResponseEntity<List<BoardReply>>(replyList, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/deleteReply/{replyNo}")
     public ResponseEntity<Void> replyDelete(@PathVariable("replyNo") Integer replyNo) throws Exception {

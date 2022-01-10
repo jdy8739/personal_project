@@ -39,11 +39,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
-import cookies from 'vue-cookies'
-Vue.use(cookies)
-
 import { mapActions, mapMutations, mapState } from 'vuex'
 
 import GenreDialogue from '@/components/concertMainDialogue/GenreDialogue'
@@ -156,19 +151,6 @@ export default {
     color: white;
 }
 
-.imgTitle {
-    position: absolute; 
-    text-align: center; 
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    color: #EAEAEA;
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    font-size: 85px;
-    line-height: 90px;
-}
-
 .location {
     position: absolute; 
     text-align: center; 
@@ -230,6 +212,8 @@ export default {
 .concert-wrapper {
     display: flex;
     flex-wrap: wrap;
+    max-width: 2200px;
+    margin: auto;
 }
 
 

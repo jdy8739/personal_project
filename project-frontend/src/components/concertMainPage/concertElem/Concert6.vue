@@ -1,12 +1,11 @@
 <template>
     <div class="col-sm-3 concert-box" :id='`${ concert.concertNo }`' @click="focusOnThisConcert(true, false)">
-        <div style="position: relative;">
-
+        <div :style="{ position: `${ position }` }">
             <img class="responsive-img bigColorImg"
             :src="require(`../../../../../project-backend/images/concert_pics/${ concert.concertArtist }.jpg`)">
             <div class="text-box">
-                <div v-if="cntArtistName()" class="imgTitle d-lg-block">{{ concert.concertArtist }}</div>
-                <div v-else class="imgTitle d-lg-block long-text">{{ concert.concertArtist }}</div>
+                <div v-if="isLongTitleName()" class="img-title big-text d-lg-block">{{ concert.concertArtist }}</div>
+                <div v-else class="img-title small-text d-lg-block">{{ concert.concertArtist }}</div>
                 <div class="location d-none d-lg-block">{{ concert.concertVenue }}</div>
                 <div class="date d-none d-lg-block">{{ concert.concertDate }}</div>  
             </div>
@@ -27,11 +26,11 @@ export default {
     },
     data() {
         return {
-           
+           position: 'relative'
         }
     },
     methods: {
-        cntArtistName() {
+        isLongTitleName() {
             if(this.concert.concertArtist.length > 14) {
                 return false;
             } else return true;
@@ -89,15 +88,14 @@ export default {
     padding: 3px;
 }
 
+.concert-box>img {
+    width: 100%;
+}
+
 .text-box {
     opacity: 0.75;
     width: 200px;
     transition: all 1s;
-}
-
-.long-text {
-    font-size: 60px; 
-    line-height: 60px;
 }
 
 .concert-box:hover .text-box {
@@ -119,15 +117,36 @@ export default {
     opacity: 0.5;
 }
 
+.img-title {
+    position: absolute; 
+    text-align: center; 
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    color: #EAEAEA;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+}
+
+.small-text {
+    font-size: 60px; 
+    line-height: 60px;
+}
+
+.big-text {
+    font-size: 85px;
+    line-height: 90px;
+}
+
 @media screen and (max-width: 1200px) {
-    .imgTitle, .long-text {
+    .img-title, .long-text {
         font-size: 40px;
         line-height: 40px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .imgTitle {
+    .img-title {
         font-size: 80px;
         line-height: 100px;
     }

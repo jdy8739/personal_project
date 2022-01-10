@@ -1,7 +1,7 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
-        <h3 class="topBar">COMMUNITY COMMENT</h3>
-        <p class="description mr-5">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
+        <p class="topBar">COMMUNITY COMMENT</p>
+        <p class="description">글을 자유롭게 수정, 삭제하실 수 있습니다. :)</p>
         <community-board-modify v-if="board" :board="board" class="board-form"/>
         <p class="description" v-else-if="!board">해당 게시글의 정보를 불러오는 중입니다. 조금만 기다려주세요. :)</p>
     </div>

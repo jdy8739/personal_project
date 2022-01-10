@@ -7,9 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -39,7 +37,7 @@ public class Board {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "board_no")
-    private Set<BoardReply> boardReplyList = new HashSet<BoardReply>();
+    private List<BoardReply> boardReplyList = new ArrayList<>();
 
     public Board(String id, String title, String content) {
         this.id = id;

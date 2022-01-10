@@ -12,11 +12,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     //@Query(value = "select * from board where board_no > 0 order by board_no asc", nativeQuery = true)
     //밑 처럼 말고 위에처럼밖에 실행 안됐던 이유??? --> 엔티티에 오타있었음.. boardNo이 boardContentNo로 적혀있어서 계속 에러났었다..
-    @Query("select bo from Board bo where bo.boardNo > 0 order by boardNo asc")
-    List<Board> getList();
 
-    @Query("select bo from Board bo where bo.boardNo = :boardNo")
-    Board getRead(Long boardNo);
+    Board findByBoardNo(Long boardNo);
 
     @Transactional
     @Modifying(clearAutomatically = true)

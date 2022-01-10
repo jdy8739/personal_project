@@ -19,8 +19,6 @@ public interface BoardService {
 
     public void addReply(BoardReply boardReply) throws Exception;
 
-    public List<BoardReply> replyList(Integer boardNo) throws Exception;
-
     public void deleteReply(Integer replyNo) throws Exception;
 
     public void modifyReply(BoardReply boardReply) throws Exception;

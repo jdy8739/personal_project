@@ -158,5 +158,13 @@ export default {
     handleLikeConcert(state) {
         state.concert.numberOfLikes ++;
         state.notLikedYet = true;
+    },
+
+    handleReplyRequest(state, payload) {
+        if(payload[1] === undefined) {
+            state.replyList.splice(payload, 1);
+        } else {
+            state.replyList.splice(payload[0], 1, payload[1]);
+        }
     }
 }
