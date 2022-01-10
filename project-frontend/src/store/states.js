@@ -7,7 +7,7 @@ export default {
     isLoggedIn: false,
     loggedInID: '',
     userIdentity: '',
-    userProfile: [],
+    userProfile: '',
 
     newsList: [],
 

@@ -147,7 +147,6 @@ export default {
 
 .topBar {
     font-style: italic;
-    margin-right: 25px;
     color: white;
 }
 

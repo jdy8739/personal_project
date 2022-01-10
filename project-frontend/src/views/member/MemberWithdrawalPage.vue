@@ -1,8 +1,8 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
-        <h3 class="topBar">WITHDRAWAL</h3>
-        <p class="description mr-5">정말로 탈퇴하시나요? 탈퇴하시면 기록된 모든 정보가 사라집니다!</p>
-        <div class="mt-10 mr-5">
+        <p class="topBar mt-10">WITHDRAWAL</p>
+        <p class="description">정말로 탈퇴하시나요? 탈퇴하시면 기록된 모든 정보가 사라집니다!</p>
+        <div class="mt-10">
             <v-btn class="btn-flat red-text waves-effect waves-teal" text="text" @click.native="withdraw($event)">
                 탈퇴
             </v-btn>

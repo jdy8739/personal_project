@@ -1,14 +1,14 @@
 <template>
     <div align="center" class="main-bg grey darken-4 board-form">
         <p class="topBar">MY PROFILE</p>
-        <p class="description mr-5">현재 회원님의 가입 정보입니다.</p>
+        <p class="description">현재 회원님의 가입 정보입니다.</p>
         <my-profile :member="member" :taste="taste"/>
         <check-dialogue :memberNo="member.memberNo"/>
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex';
 
 import CheckDialogue from '@/components/memberPage/CheckDialogue';
 import MyProfile from '@/components/memberPage/MyProfile';

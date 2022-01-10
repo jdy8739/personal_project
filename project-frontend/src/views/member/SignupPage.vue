@@ -42,16 +42,16 @@ export default {
             const { id, password, name, birthDay, identity, phoneNo } = payload;
 
             axios.post('http://localhost:8888/member/signup', { id, password, name, location, birthDay, identity, phoneNo })
-            .then(res => {
-                if(res.data) {
-                    alert('회원가입이 완료되었습니다!');
-                    this.signupSuccess = true;
+                .then(res => {
+                    if(res.data) {
+                        alert('회원가입이 완료되었습니다!');
+                        this.signupSuccess = true;
 
-                } else if(!res.data) {
-                    alert('이미 존재하는 ID입니다!' + res);
-                }
-            })
-            .catch(res => { alert(res.response.data.message); });
+                    } else if(!res.data) {
+                        alert('이미 존재하는 ID입니다!' + res);
+                    }
+                })
+                .catch(res => { alert(res.response.data.message); });
         },
         addSetting() {
             this.$router.push({
