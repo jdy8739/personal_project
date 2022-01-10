@@ -209,23 +209,30 @@ export default {
               
                     axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
-                        if(res.data && index == 1) {
-                            this.$router.push ({
-                                name: 'MyProfilePage'
-                            });
-                        } else if(res.data && index == 2) {
-                            this.$router.push ({
-                                name: 'LikedListPage'
-                            });
-                        } else if(res.date && index == 3) {
-                            this.$router.push ({
-                                name: 'BookedListPage'
-                            });
-                        } else if(res.data&& index == 4) {
-                            this.$router.push ({
-                                name: 'MyRequestListPage'
-                            });
-                        } else if(!res.data) {
+                        if(res.data) {
+                            switch(index) {
+                                case 1:
+                                    this.$router.push ({
+                                        name: 'MyProfilePage'
+                                    });
+                                    break;
+                                case 2:
+                                    this.$router.push ({
+                                        name: 'LikedListPage'
+                                    });
+                                    break;
+                                case 3:
+                                    this.$router.push ({
+                                        name: 'BookedListPage'
+                                    });
+                                    break;
+                                case 4:
+                                    this.$router.push ({
+                                        name: 'MyRequestListPage'
+                                    });
+                                    break;
+                            }
+                        } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                             this.handleUserLogin();
                         }
