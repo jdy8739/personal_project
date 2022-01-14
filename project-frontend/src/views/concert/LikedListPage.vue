@@ -1,7 +1,7 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
         <div class="container">
-            <h3 class="topBar">LIKED LIST</h3>
+            <p class="topBar">LIKED LIST</p>
             <p class="description mr-5">찜하신 공연을 한눈에 확인해보세요 :)</p>
             <p class="description total">좋아요한 공연 총 &ensp;{{ likedList.length }} 개</p>
             <v-simple-table class="table mt-8" dark dense>

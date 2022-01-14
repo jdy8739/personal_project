@@ -1,6 +1,6 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
-        <h3 class="topBar">SIGN UP</h3>
+        <p class="topBar">SIGN UP</p>
         <p class="description">MUSIC GHUETTO에 오신것을 환영합니다! 가입하셔서 다양한 공연 정보와 서비스를 사용해보세요. :)</p>
         <signup v-if="!signupSuccess" @submit="onSubmit" class="signup-form"/>
         <v-container v-else-if="signupSuccess">

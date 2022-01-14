@@ -13,7 +13,7 @@
 
 import axios from 'axios'
 import Signup from '@/components/memberPage/Signup';
-import { mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'MemberModifyPage',
@@ -24,6 +24,8 @@ export default {
         ...mapState(['userProfile'])
     },
     methods: {
+        ...mapMutations(['handleUserLogin']),
+
         onSubmit(payload) {
             const memberNo = this.userProfile.memberNo;
             const location = JSON.stringify(payload.location);
@@ -32,11 +34,10 @@ export default {
             axios.put('http://localhost:8888/member/modify', { memberNo, id, password, name, location, birthDay, identity, phoneNo })
                 .then(res => {
                     if(res.data) {
-                        alert('회원 정보 수정이 완료되었습니다!');
-                        this.$router.push({
-                            name: 'MyProfilePage'
-                        });
-
+                        this.$cookies.remove('CurrentUser');
+                        this.handleUserLogin();
+                        alert('회원 정보 수정이 완료되었습니다! 다시 로그인해주세요 :)');
+                        this.$router.push({ name: 'MainPage' });
                     } else if(!res.data) {
                         alert('이미 존재하는 ID입니다!' + res);
                     }
