@@ -199,7 +199,7 @@ public class MemberServiceImpl implements MemberService{
         boardRepository.makeIdAsWithdrawn(id);
         boardReplyRepository.makeIdAsWithdrawn(id);
 
-        concertRequestRepository.makeIdAsWithdrawn(memberNo); //탈퇴한 회원이 작성한 공연 요청의 id 바꿔줌.
+        //concertRequestRepository.makeIdAsWithdrawn(memberNo); //탈퇴한 회원이 작성한 공연 요청의 id 바꿔줌.
 
         likedConcertRepository.delete(memberNo);
 

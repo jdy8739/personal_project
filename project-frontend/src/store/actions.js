@@ -109,32 +109,30 @@ export default {
     },
 
     fetchUserName({ commit }, num) {
-        return axios.get(`http://localhost:8888/member/concertRegister/getName/${ num }`)
+        return axios.get(`http://localhost:8888/member/concert_register/getName/${ num }`)
             .then(res => {
                 commit(FETCH_USER_NAME, res.data)
             })
     },
 
     fetchConcertRequestList({ commit }) {
-        return axios.get('http://localhost:8888/member/concertRegister/getConcertRequestList')
+        return axios.get('http://localhost:8888/member/concert_register/getConcertRequestList')
             .then(res => {
                 commit(FETCH_CONCERT_REQUEST_LIST, res.data)
             })
     },
     
     fetchConcertRequest({ commit }, num) {
-        return axios.get(`http://localhost:8888/member/concertRegister/getConcertRequest/${ num }`)
+        return axios.get(`http://localhost:8888/member/concert_register/get_concert_request/${ num }`)
             .then(res => {
                 commit(FETCH_CONCERT_REQUEST, res.data)
-                //alert(JSON.stringify(res.data))
             })
     },
 
     fetchMyRequestList({ commit }, num) {
-        return axios.get(`http://localhost:8888/member/concertRegister/getMyRequestList/${ num }`)
+        return axios.get(`http://localhost:8888/member/concert_register/get_my_request/${ num }`)
             .then(res => {
                 commit(FETCH_MY_REQUEST_LIST, res.data)
-                //alert(JSON.stringify(res.data))
             })
     },
 
@@ -145,7 +143,6 @@ export default {
         return axios.post('http://localhost:8888/concert/fetchBookedOrNot', payload)
             .then((res) => {
                 commit(FETCH_BOOKED_OR_NOT, res.data)
-                //console.log("This page's likedOrNot is: " + res.data)
             })
     },
 
@@ -153,7 +150,6 @@ export default {
         return axios.get(`http://localhost:8888/concert/fetchBookedList/${ num }`)
             .then(res => {
                 commit(FETCH_BOOKED_LIST, res.data)
-                //alert(JSON.stringify(res.data))
             })
     },
 
@@ -161,14 +157,12 @@ export default {
         return axios.get(`http://localhost:8888/concert/fetchBookedConcert/${ num }`)
             .then(res => {
                 commit(FETCH_BOOKED_CONCERT, res.data)
-                //alert(JSON.stringify(res.data))
             })
     },
 
     fetchSearchedResults({ commit }, searchedText) {
         return axios.post(`http://localhost:8888/concert/searchText/${searchedText}`)
             .then(res => {
-                //alert(JSON.stringify(res.data))
                 commit(FETCH_SEARCHED_RESULTS, res.data)
             })
             .catch(() => {

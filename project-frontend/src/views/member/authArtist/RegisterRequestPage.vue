@@ -4,22 +4,40 @@
         <p class="description">
             관리자에게 공연 정보의 등록을 요청할 수 있습니다. 회원님의 공연을 MUSIC GUETTO에서 홍보하세요!
         </p>
-        <concert-regist-form/>
+        <concert-regist-form @submit="onSubmit"/>
     </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 // import { mapActions, mapState } from 'vuex'
 import ConcertRegistForm from '@/components/authArtist/ConcertRegistForm';
+import { mapState } from 'vuex';
 
 export default {
     components: {
         ConcertRegistForm,
     },
-    methods: {
+    computed: {
+        ...mapState(['isLoggedIn'])
     },
-        
+    methods: {
+        onSubmit(payload) {
+            alert(JSON.stringify(payload));
+            
+            if(this.isLoggedIn) {
+                axios.post('http://localhost:8888/member/concert_register/request', payload)
+                    .then(() => {
+                        alert('성공적으로 공연 요청이 등록되었습니다. :)');
+                        this.$router.push({ name: 'MainPage' });
+                    })
+                    .catch(err => { 
+                        console.log(err);
+                        alert('잠시 후에 다시 시도해주세요!')
+                    });
+            }
+        }
+    },
     mounted() {
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');

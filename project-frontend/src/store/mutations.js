@@ -86,7 +86,7 @@ export default {
     },
 
     [FETCH_CONCERT_REQUEST] (state, payload) {
-        state.concertRequest = payload
+        state.concertRequest = payload;
     },
 
     [FETCH_MY_REQUEST_LIST] (state, payload) {

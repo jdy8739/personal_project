@@ -5,20 +5,20 @@
                 <div class="input-box">
                     <label class="float-left ml-12">공연명</label>
                     <br>
-                    <input placeholder="공연이름을 입력해주세요." class="concert-input" v-model="concertName"/>
+                    <input placeholder="공연이름을 입력해주세요." class="concert-input" v-model="concertName" required/>
                 </div>
                 <div class="input-box">
                     <label class="float-left ml-12">아티스트</label>
                     <br>
-                    <input placeholder="어떤 아티스트가 출연하나요." class="concert-input" v-model="artistName"/>
+                    <input placeholder="어떤 아티스트가 출연하나요." class="concert-input" v-model="concertArtist" required/>
                 </div>
             </div>
             <div class="input-row mt-5">
                 <div>
                     <v-select
                         dark
-                        v-model="place"
-                        :items="states"
+                        v-model="city"
+                        :items="cityList"
                         menu-props="auto"
                         hide-details
                         label="공연 위치"
@@ -32,26 +32,27 @@
                 <div class="input-box">
                     <label class="float-left ml-12">공연장 주소(상세)</label>
                     <br>
-                    <input placeholder="공연장 주소를 입력해주세요." class="concert-input"/>
+                    <input placeholder="공연장 주소를 입력해주세요." class="concert-input" v-model="place" required/>
                 </div>
                 <div class="input-capacity">
                     <label class="float-left ml-12">수용 인원</label>
                     <br>
-                    <input placeholder="수용 인원" class="concert-input"/>
+                    <input placeholder="수용 인원" class="concert-input" v-model="venueCapacity" required/>
                 </div>
             </div>
             <div class="input-genre mt-5">
                 <div>
                     <v-select
                         dark
-                        v-model="place"
-                        :items="states"
+                        v-model="concertGenre"
+                        :items="genres"
                         menu-props="auto"
                         hide-details
                         label="공연 장르"
                         outlined
                         color="teal"
                         style="padding: 20px;"
+                        multiple
                     ></v-select>
                 </div>
             </div>
@@ -60,21 +61,24 @@
                 <div class="input-box-date">
                     <label class="float-left ml-12">공연 날자</label>
                     <br>
-                    <input type="date" class="concert-input"/>
+                    <input type="date" class="concert-input" v-model="concertDate" required/>
                 </div>
                 <div class="input-box-date">
                     <label class="float-left ml-12">시간</label>
                     <br>
-                    <input type="time" class="concert-input"/>
+                    <input type="time" class="concert-input" v-model="concertTime" required/>
                 </div>
                 <div class="input-box-price">
                     <label class="float-left ml-12">입장료</label>
                     <br>
-                    <input placeholder="입장료" class="concert-input"/>
+                    <input placeholder="입장료" class="concert-input" v-model="concertPrice" required/>
                 </div>
             </div>
+            <div class="mt-10" style="width: 94.5%">
+                <v-textarea outlined color="teal" label="공연 설명" height="200px" dark v-model="concertInfo"/>
+            </div>
             <div style="margin-top: 70px;"></div>
-            <div style="display: flex; justify-content: space-around" class="mt-10">
+            <div class="mt-10 buttons">
                 <button class="form-btn submit" type="submit">제출</button>
                 <button class="form-btn cancel" @click="cancel">취소</button>
             </div>
@@ -83,48 +87,68 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     data() {
         return {
             concertName: '',
-            artistName: '',
+            concertArtist: '',
+            city: '',
             place: '',
-            dateOfConcert: '',
-            timeOfConcert: '00:00',
-            timeOfEnd: '00:00',
+            venueCapacity: 0,
+            concertGenre: [],
+            concertPrice: 0,
+            concertDate: '',
+            concertTime: '00:00',
+            concertInfo: '',
 
             files: '',
-            picSent: false,
 
-            states: [
-                'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-                'Arkansas', 'California', 'Colorado', 'Connecticut',
-                'Delaware', 'District of Columbia'
+            cityList: [
+                '강남', '홍대', '서울', '이태원',
+                '부산', '대구', '속초', '그 외'
+            ],
+            genres: [
+                'rock', 'hip-hop', 'jazz', 'acoustic', 'edm'
             ],
         }
     },
+    computed: {
+        ...mapState(['userProfile'])
+    },
     methods: {
         onSubmit() {
-            alert('x')
+            if(!parseInt(this.concertPrice) > 0) {
+                alert(this.makeMsg('입장료'));
+                return;
+            }
+
+            const memberNo = this.userProfile.memberNo;
+            const memberId = this.userProfile.id;
+            const concertVenue = this.city + ' ' + this.place;
+            const concertGenre = JSON.stringify(this.concertGenre);
+            const { concertName, concertArtist, venueCapacity, concertDate, concertTime, concertInfo, concertPrice } = this;
+
+            this.$emit('submit', 
+            { memberNo, memberId, concertName, concertArtist, concertVenue, venueCapacity, concertGenre, concertDate, concertTime, concertInfo, concertPrice });
         },
         cancel() {
             this.$router.push({ name: 'MainPage' });
+        },
+        makeMsg(subject) {
+            return `${ subject } 항목을 다시 체크해주세요!`;
         }
     }
 }
 </script>
 
 <style>
-    .form-card {
-        justify-content: space-between;
-        min-width: 200px;
-    }
-
     .register-form {
         border: 1px solid rgb(77, 77, 77);
         border-radius: 12px;
         width: 60%;
         min-width: 320px;
+        max-width: 1250px;
         padding: 40px 18px;
     }
 
@@ -175,14 +199,6 @@ export default {
         width: 50%;
     }
 
-    .input-box-place {
-        width: 65%;
-    }
-
-    .select-place {
-        width: 30%;
-    }
-
     .input-capacity {
         width: 20%;
     }
@@ -206,18 +222,15 @@ export default {
         margin-left: 20px;
     }
 
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+
     @media screen and (max-width: 920px) {
         .input-box {
             width: 100%;
             margin-top: 10px;
-        }
-
-        .input-box-place {
-            width: 100%;
-        }
-
-        .select-place {
-            width: 100%;
         }
 
         .input-box-date {

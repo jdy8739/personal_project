@@ -110,6 +110,19 @@ export default {
     width: 70%;
 }
 
+.btn {
+    font-size: 12px;
+    margin: 5px;
+}
+
+.btn:first-child {
+    color: rgb(255, 153, 153);
+}
+
+.btn:last-child {
+    color: rgb(247, 144, 27);
+}
+
 </style>
 
 <style scoped>
@@ -137,19 +150,6 @@ tr td:last-child {
 .total {
     text-align: right;
     margin: 0px;
-}
-
-.btn {
-    font-size: 12px;
-    margin: 5px;
-}
-
-.btn:first-child {
-    color: rgb(255, 153, 153);
-}
-
-.btn:last-child {
-    color: rgb(247, 144, 27);
 }
 
 </style>

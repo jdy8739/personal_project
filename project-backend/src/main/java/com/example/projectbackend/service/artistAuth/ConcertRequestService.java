@@ -9,19 +9,9 @@ public interface ConcertRequestService {
 
     public void regRequest(ConcertRequest concertRequest);
 
-    public String getUserName(Integer memberNo);
+    public List<ConcertRequest> getMyRequestList(Long memberNo);
 
-    public List<ConcertRequest> getConcertRequestList(Integer memberNo);
+    public ConcertRequest readRequest(Long concertRequestNo);
 
-    public ConcertRequest getConcertRequest(Integer concertRequestNo);
-
-    public void approveOrNotRequest(Integer[] numArr);
-
-    public void inputReply(RequestReply requestReply);
-
-    //public String findRequestReply(Integer concertRequestNo);
-
-    public void modifyConcertRequest(ConcertRequest concertRequest);
-
-    public void deleteConcertRequest(Integer concertRequestNo);
+    public void deleteRequest(Long concertRequestNo);
 }

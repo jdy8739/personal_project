@@ -20,43 +20,43 @@ public class ConcertRequest {
     @Column(name = "concert_request_no")
     private Long concertRequestNo;
 
-    @Column(name = "member_no")
+    @Column(name = "member_no", nullable = false)
     private Long memberNo;
 
+    @Column(name = "member_id", nullable = false)
+    private String memberId;
+
+    @Column(name = "approved_or_not")
+    private boolean approvedOrNot;
+
     @Column(length = 20, nullable = false)
-    private String regName;
-
-    @Column(length = 30, nullable = false)
-    private String artistName;
-
-    @Column(length = 30, nullable = false)
-    private String venueName;
-
-    @Column(length = 30, nullable = false)
     private String concertName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @Column(length = 25, nullable = false)
-    private Date dateOfConcert;
+    @Column(length = 20, nullable = false)
+    private String concertArtist;
 
     @Column(length = 30, nullable = false)
-    private String timeOfConcert;
+    private String concertVenue;
 
-    @Column(length = 3, nullable = true)
-    private String approvedOrNot;
+    @Column(length = 30, nullable = false)
+    private String concertGenre;
+
+    @Column(length = 10, nullable = false)
+    private Integer venueCapacity;
+
+    @Column(length = 25, nullable = false)
+    private String concertPrice;
+
+    @Column(length = 20, nullable = false)
+    private String concertDate;
+
+    @Column(length = 20, nullable = false)
+    private String concertTime;
+
+    @Column(nullable = false)
+    private String concertInfo;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @CreationTimestamp
     private Date regDate;
-
-    @UpdateTimestamp
-    private Date updDate;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "concert_request_no")
-    private List<RequestReply> requestReplies = new ArrayList<RequestReply>();
-
-    public void addRequestReply(RequestReply requestReply) {
-        requestReplies.add(requestReply);
-    }
 }

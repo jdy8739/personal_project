@@ -35,6 +35,8 @@ import BookedAlterPage from '../views/concert/BookedAlterPage.vue'
 
 import SearchPage from '../views/concert/SearchPage.vue'
 
+import ExceptionPage from '../views/ExceptionPage.vue';
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -52,7 +54,7 @@ const routes = [
     path: '/concertDetail/:concertNo',
     name: 'ConcertDetailPage',
     components: {
-      default: ConcertDetailPage //default쓸거면 components --> s를 붙여줘야된다! props받는데 필요한듯
+      default: ConcertDetailPage 
     },
     props: {
       default: true
@@ -121,7 +123,7 @@ const routes = [
     component: CommunityPage
   },
   {
-    path: '/community/write', //뒤에 /~~ 가 오면 화면 전환이 안되는것이다. 질문해야할듯
+    path: '/community/write',
     name: 'CommunityWritePage',
     components: {
       default: CommunityWritePage
@@ -138,7 +140,7 @@ const routes = [
     }
   },
   {
-    path: '/community/modify/:boardNo', // /:boardNo을 붙이면 그 화면에서 다른 화면으로 가는 버튼이 안먹히고.. 무조건 나중에 수정하자
+    path: '/community/modify/:boardNo', 
     name: 'CommunityModifyPage',
     components: {
       default: CommunityModifyPage
@@ -173,12 +175,12 @@ const routes = [
     }
   },
   {
-    path: '/myRequest/list',
+    path: '/my_request/list',
     name: 'MyRequestListPage',
     component: MyRequestListPage
   },
   {
-    path: '/myRequest/read/:concertRequestNo',
+    path: '/my_request/read/:concertRequestNo',
     name: 'MyRequestReadPage',
     components: {
       default: MyRequestReadPage
@@ -221,6 +223,11 @@ const routes = [
     props: {
       default: true
     }
+  },
+  {
+    path: '/:exception',
+    name: 'ExceptionPage',
+    component: ExceptionPage
   }
 ]
 

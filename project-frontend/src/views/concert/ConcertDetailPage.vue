@@ -128,7 +128,6 @@ export default {
     methods: {
         ...mapActions(['fetchLikedOrNot', 'fetchConcert', 'fetchMember', 'fetchBookedOrNot']),
         ...mapMutations(['handleUserLogin', 'handleDislikeConcert', 'handleLikeConcert']),
-
         // urlRequest() {
         //     const urlListNo = parseInt(this.concertNo) - 1;
         //     try {
