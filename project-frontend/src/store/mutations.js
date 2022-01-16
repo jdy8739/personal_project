@@ -32,6 +32,8 @@ import {
 
 } from './mutation-types'
 
+const NOT_EXIST = 'notExist';
+
 export default {
     [FETCH_CONCERT] (state, payload) {
         state.concert = payload
@@ -64,6 +66,10 @@ export default {
     },
 
     [FETCH_BOARD] (state, payload) {
+        if(payload === '') {
+            state.board = NOT_EXIST;
+            return;
+        }
         state.replyList = payload.boardReplyList;
         delete payload['boardReplyList'];
         state.board = payload;
@@ -86,7 +92,7 @@ export default {
     },
 
     [FETCH_CONCERT_REQUEST] (state, payload) {
-        if(payload === "") payload = "notExist";
+        if(payload === "") payload = NOT_EXIST;
         state.concertRequest = payload;
     },
 

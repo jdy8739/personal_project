@@ -9,7 +9,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-
 import CommunityBoardModify from '@/components/communityBoard/CommunityBoardModify'
 
 export default {
@@ -19,22 +18,33 @@ export default {
     },
     props: {
         boardNo: {
-            type: String, //String인가??
+            type: String,
             required: true
         }
     },
     computed: {
-        ...mapState(['board'])
+        ...mapState(['board', 'userProfile'])
     },
     methods: {
         ...mapActions(['fetchBoard'])
     },
     mounted() {
-        this.fetchBoard(this.boardNo);
-
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');
             this.$store.commit('handleUserLogin', userInfo);
+
+            this.fetchBoard(this.boardNo);
+        }
+    },
+    watch: {
+        board(a) {
+            if(a === 'notExist') {
+                this.$router.push({ name: 'ExceptionPage' });
+                
+            } else if(this.userProfile.id !== a.id) {
+                alert('접근 권한이 없습니다!');
+                this.$router.push({ name: 'MainPage' });
+            }
         }
     }
 }

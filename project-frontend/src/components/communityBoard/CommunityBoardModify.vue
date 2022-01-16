@@ -31,16 +31,13 @@
                 <tr>
                     <td>
                         <span style="float: right;">
-
-                            <v-btn text color="red" @click="modify" style="font-size: 11px;">
+                            <v-btn text color="red" @click="modify">
                                 수정
                             </v-btn>
-
-                            <v-btn text color="red" @click="deletee" style="margin-left: 10px; font-size: 11px;">
+                            <v-btn text color="red" @click="deletee">
                                 삭제
                             </v-btn>
-                            
-                            <v-btn text color="red" style="margin-left: 10px; font-size: 11px;" @click="goBack">
+                            <v-btn text color="red" @click="goBack">
                                 뒤로가기
                             </v-btn>
                         </span>
@@ -102,18 +99,13 @@ export default {
                                         name: 'CommunityPage'
                                     });
                                 })
-                                .catch(() => {
-                                    alert('게시글 수정 실패. 잠시 후에 다시 시도해주세요!');
-                                });
-                        
+                                .catch(() => { alert('게시글 수정 실패. 잠시 후에 다시 시도해주세요!'); });
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                             this.$store.commit('handleUserLogin');
                         }
                     })
-            } else {
-                alert('로그인이 필요한 서비스입니다!');
-            }
+            } else alert('로그인이 필요한 서비스입니다!');
         },
         deletee() {
             if(this.isLoggedIn) {
@@ -130,18 +122,13 @@ export default {
                                         name: 'CommunityPage'
                                     });
                                 })
-                                .catch(err => {
-                                    console.log(err);
-                                })
-
+                                .catch(err => { console.log(err); });
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                             this.$store.commit('handleUserLogin');
                         }
                     })
-            } else {
-                alert('로그인이 필요한 서비스입니다!');
-            }
+            } else alert('로그인이 필요한 서비스입니다!');
         },
         goBack() {
             this.$router.push({

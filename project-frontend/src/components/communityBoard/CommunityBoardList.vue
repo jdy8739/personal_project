@@ -32,8 +32,9 @@
                     </template>
             </v-data-table>
             <div class="search-box mt-10">
-                <p>찾을 게시글의 제목 또는 작성자를 검색하세요.</p>
-                <input class="description" placeholder="게시글 검색" v-model="search"/>
+                <label>찾을 게시글의 제목 또는 작성자를 검색하세요.
+                    <input type="text" placeholder="게시글 검색" v-model="search"/>
+                </label>
             </div>
         </v-container>
     </div>

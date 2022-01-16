@@ -31,6 +31,12 @@ export default {
             
         }
     },
+    computed: {
+        ...mapState(['userProfile', 'isLoggedIn', 'board'])
+    },
+    methods: {
+        ...mapActions(['fetchBoard'])
+    },
     mounted() {
         this.fetchBoard(this.boardNo);
 
@@ -39,12 +45,14 @@ export default {
             this.$store.commit('handleUserLogin', userInfo);
         }
     },
-    computed: {
-        ...mapState(['userProfile', 'isLoggedIn', 'board'])
-    },
-    methods: {
-        ...mapActions(['fetchBoard'])
+    watch: {
+        board(a) {
+            if(a === 'notExist') {
+                this.$router.push({ name: 'ExceptionPage' });
+            }
+        }
     }
+
 }
 </script>
 

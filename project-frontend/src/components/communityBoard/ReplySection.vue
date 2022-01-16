@@ -19,33 +19,25 @@
                             <v-btn class="ma-2" text icon color="red lighten-3" 
                             @click="submitModified(reply.boardReplyNo, reply.id, index)">
 
-                                <v-icon>
-                                    keyboard_arrow_up
-                                </v-icon>
+                                <v-icon>keyboard_arrow_up</v-icon>
                             </v-btn>
                         </td>
                         <td style="width: 5%;">
                             <v-btn class="ma-2" text icon color="red lighten-3" @click="cancel()">
-                                <v-icon>
-                                    cancel
-                                </v-icon>
+                                <v-icon>cancel</v-icon>
                             </v-btn>
                         </td>
                     </div>
                     <div v-else-if="modifyIndex !== index">
                         <td>
                             <v-btn class="ma-2" text icon color="red lighten-3" @click="modifyReply(reply.content, index)">
-                                <v-icon>
-                                    mode_edit
-                                </v-icon>
+                                <v-icon>mode_edit</v-icon>
                             </v-btn>
                         </td>
                     </div>
                     <td>
                         <v-btn class="ma-2" text icon color="red lighten-3" @click="deleteReply(reply.boardReplyNo, reply.id, index)">
-                            <v-icon>
-                                delete
-                            </v-icon>
+                            <v-icon>delete</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -122,17 +114,13 @@ export default {
                                 .then(() => {
                                     this.handleReplyRequest(index);
                                 })
-                                .catch(() => {
-                                    alert('잠시 후에 다시 시도해주세요.');
-                                });
+                                .catch(() => { alert('잠시 후에 다시 시도해주세요.'); });
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                             this.handleUserLogin();
                         }
-                    });
-            } else {
-                alert('권한이 없습니다!');
-            }
+                    })
+            } else { alert('권한이 없습니다!'); }
         }
     }
 }

@@ -128,15 +128,7 @@ export default {
 }
 </script>
 
-<style scoped>
-    th {
-        color: grey;
-    }
-
-    td {
-        text-align: right;
-    }
-
+<style>
     .hide {
         display: none;
     }
@@ -171,5 +163,15 @@ export default {
         transform: translate(-50%, -60%);
         background-color: rgb(48, 48, 48);
         border-radius: 12px;
+    }
+</style>
+
+<style scoped>
+    th {
+        color: grey;
+    }
+
+    td {
+        text-align: right;
     }
 </style>

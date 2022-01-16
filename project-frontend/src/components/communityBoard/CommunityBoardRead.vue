@@ -31,11 +31,11 @@
                 </tr>
                 <tr>
                     <td>
-                        <span style="float: right;">
-                            <v-btn text color="red" style="font-size: 11px; margin-right: 10px;" @click="modify">
+                        <span class="float-right">
+                            <v-btn text color="red" @click="modify">
                                 수정, 삭제
                             </v-btn>
-                            <v-btn text color="red" style="font-size: 11px;" @click="goBack">
+                            <v-btn text color="red" @click="goBack">
                                 뒤로가기
                             </v-btn>
                         </span>
@@ -43,15 +43,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <p class="description" style="color: red;" @click="addReply">댓글 달기</p>
+                        <p class="description" @click="addReply">댓글 달기</p>
                         <span>
-                            <input style="color: white; width: 92%;" v-model="reply" @keydown.enter="addReply"/>
+                            <input type="text" v-model="reply" @keydown.enter="addReply" style="width: 92%;" />
                             <v-tooltip bottom>
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn class="ma-2" text icon color="red lighten-1" v-bind="attrs" v-on="on" @click="deleteInput">
-                                        <v-icon>
-                                            clear_all
-                                        </v-icon>
+                                        <v-icon>clear_all</v-icon>
                                     </v-btn>
                                 </template>
                                 <span>입력 취소</span>   

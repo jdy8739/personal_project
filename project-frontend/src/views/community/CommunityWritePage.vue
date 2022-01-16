@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input required v-model="title" style="color: white;"/>
+                            <input type="text" required v-model="title" style="color: white;"/>
                         </td>
                     </tr>
                     <tr>
