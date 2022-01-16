@@ -125,8 +125,8 @@ export default {
     fetchConcertRequest({ commit }, num) {
         return axios.get(`http://localhost:8888/member/concert_register/get_concert_request/${ num }`)
             .then(res => {
-                commit(FETCH_CONCERT_REQUEST, res.data)
-            })
+                commit(FETCH_CONCERT_REQUEST, res.data);
+            });
     },
 
     fetchMyRequestList({ commit }, num) {

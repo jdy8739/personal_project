@@ -86,6 +86,7 @@ export default {
     },
 
     [FETCH_CONCERT_REQUEST] (state, payload) {
+        if(payload === "") payload = "notExist";
         state.concertRequest = payload;
     },
 

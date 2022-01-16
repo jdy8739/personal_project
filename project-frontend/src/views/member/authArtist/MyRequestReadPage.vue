@@ -2,7 +2,16 @@
     <div align="center" class="main-bg grey darken-4">
         <p class="topBar">CONCERT REQUEST</p>
         <p class="description" >회원님이 작성한 공연 게시 요청 정보입니다. 거부되어도 재요청을 보낼 수 있습니다. :)</p>
-        <v-container>
+        <div class="modal-frame" :class="{ hide: !showModal }">
+            <div class="modal-bg"></div>
+            <div class="modal-content">
+                <p class="mt-5 description">정말 해당 공연 요청을 삭제할까요?</p>
+                <v-btn class="btn" dark @click="confirmDelete">네</v-btn>
+                &emsp;
+                <v-btn class="btn" dark @click="cancelDelete">아니오</v-btn>
+            </div>
+        </div>
+        <v-container class="shortened">
             <div class="footerText mt-5">
                 <h5 v-if="concertRequest.approvedOrNot">게시 승인된 공연</h5>
                 <h5 v-if="!concertRequest.approvedOrNot">게시 승인 대기 중</h5>
@@ -76,8 +85,20 @@ export default {
     computed: {
         ...mapState(['concertRequest', 'userProfile'])
     },
+    data() {
+        return {
+            showModal: false
+        }
+    },
+
     methods: {
         deleteRequest() {
+            this.showModal = true;
+        },
+        cancelDelete() {
+            this.showModal = false;
+        },
+        confirmDelete() {
             axios.delete(`http://localhost:8888/member/concert_register/delete/${parseInt(this.concertRequestNo)}`)
                 .then(() => {
                     alert('요청이 정상적으로 취소되었습니다.');
@@ -92,10 +113,17 @@ export default {
             this.$store.commit('handleUserLogin', userInfo);
             this.$store.dispatch('fetchConcertRequest', this.concertRequestNo);
         }
-        if(this.userProfile.memberNo !== this.concertRequest.memberNo) {
-            alert('존재하지 않거나 접근할 수 없는 게시물입니다.');
-            this.$router.push({ name: 'MainPage' });
-        } 
+    },
+    watch: {
+        concertRequest(a) {
+            if(a === "notExist") {
+                this.$router.push({ name: 'ExceptionPage' });
+            
+            } else if(this.userProfile.memberNo !== a.memberNo) {
+                alert('접근할 수 없는 게시물입니다.');
+                this.$router.push({ name: 'MainPage' });
+            } 
+        }
     }
 }
 </script>
@@ -103,5 +131,45 @@ export default {
 <style scoped>
     th {
         color: grey;
+    }
+
+    td {
+        text-align: right;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .shortened {
+        width: 35%;
+    }
+
+    .modal-frame {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        transition: all 3s;
+        box-shadow: 0 0 5px 3px #555;
+    }
+
+    .modal-bg {
+        background-color: rgb(151, 151, 151, 0.4);
+        width: 100%;
+        height: 100%;
+    }
+
+    .modal-content {
+        position: absolute;
+        width: 400px;
+        height: 120px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        background-color: rgb(48, 48, 48);
+        border-radius: 12px;
     }
 </style>
