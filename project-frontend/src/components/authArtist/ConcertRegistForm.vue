@@ -133,7 +133,7 @@ export default {
             { memberNo, memberId, concertName, concertArtist, concertVenue, venueCapacity, concertGenre, concertDate, concertTime, concertInfo, concertPrice });
         },
         cancel() {
-            this.$router.push({ name: 'MainPage' });
+            this.$emit('goPreStep');
         },
         makeMsg(subject) {
             return `${ subject } 항목을 다시 체크해주세요!`;
