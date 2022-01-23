@@ -23,12 +23,11 @@ export default {
     data() {
         return {
             step: 1,
-            files: '',
-            imgUploadSuccess: false
+            files: ''
         }
     },
     computed: {
-        ...mapState(['isLoggedIn'])
+        ...mapState(['isLoggedIn', 'userProfile'])
     },
     methods: {
         goNext(payload) {
@@ -38,23 +37,32 @@ export default {
         onSubmit(payload) {
             
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/concert_register/img_upload')
+
+                const formData = new FormData();
+                const date = Date.now();
+                
+                formData.append('id', this.userProfile.id);
+                formData.append('date', date);
+
+                Array.from(this.files).forEach((a, i) => {
+                    formData.append("concertPic", this.files[i]);
+                });
+
+                axios.post('http://localhost:8888/member/concert_register/img_upload', formData)
                     .then(() => {
-                        this.imgUploadSuccess = true;
+             
+                        const folderName = this.userProfile.id + date;
+                        axios.post('http://localhost:8888/member/concert_register/request', { ...payload, folderName })
+                            .then(() => {
+                                alert('성공적으로 공연 요청이 등록되었습니다. :)');
+                                this.$router.push({ name: 'MainPage' });
+                            })
+                            .catch(err => { 
+                                console.log(err);
+                                alert('잠시 후에 다시 시도해주세요!');
+                            });
                     })
                     .catch(err => console.log(err));
-
-                if(this.imgUploadSuccess) {
-                    axios.post('http://localhost:8888/member/concert_register/request', payload)
-                        .then(() => {
-                            alert('성공적으로 공연 요청이 등록되었습니다. :)');
-                            this.$router.push({ name: 'MainPage' });
-                        })
-                        .catch(err => { 
-                            console.log(err);
-                            alert('잠시 후에 다시 시도해주세요!')
-                        });
-                }
             }
         }
     },

@@ -45,6 +45,9 @@ public class Concert {
     @Column(nullable = false)
     private String concertInfo;
 
+    @Column(nullable = true)
+    private String folderName;
+
     @Column(columnDefinition = "integer default 0")
     private Integer numberOfLikes;
 

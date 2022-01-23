@@ -11,10 +11,15 @@
                 <v-btn class="btn" dark @click="cancelDelete">아니오</v-btn>
             </div>
         </div>
+        <div class="img-section">
+            <div v-for="i in 2" :key="i" class="registered-img">
+                <img :src="require( `../../../../../project-backend/images/registered_pics/${ concertRequest.folderName }/${ userProfile.id }${ i }.jpg` )"/>
+            </div>
+        </div>
         <v-container class="shortened">
             <div class="footerText mt-5">
                 <h5 v-if="concertRequest.approvedOrNot">게시 승인된 공연</h5>
-                <h5 v-if="!concertRequest.approvedOrNot">게시 승인 대기 중</h5>
+                <h5 v-else-if="!concertRequest.approvedOrNot">게시 승인 대기 중</h5>
             </div>
             <v-simple-table class="mt-12 description" dark dense>
                 <tr>
@@ -90,7 +95,6 @@ export default {
             showModal: false
         }
     },
-
     methods: {
         deleteRequest() {
             this.showModal = true;
@@ -163,6 +167,16 @@ export default {
         transform: translate(-50%, -60%);
         background-color: rgb(48, 48, 48);
         border-radius: 12px;
+    }
+    
+    .registered-img {
+        display: inline-block;
+        padding: 12px;
+    }
+
+    .registered-img>img {
+        width: 300px;
+        height: 390px;
     }
 </style>
 

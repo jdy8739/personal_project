@@ -5,14 +5,15 @@
         <v-container class="description mt-12 request-box">
             <div v-for="(request, i) in myRequestList" :key="i" class="request-card">
                 <div class="request-card-inner" :class="{ approved: request.approvedOrNot }" @click="toDetailPage(request.concertRequestNo)">
-                    <div class="thumbnail">
-                        <v-icon v-if="request.approvedOrNot" class="approved-card">checked</v-icon>
+                    <img class="thumbnail" :src="require(`../../../../../project-backend/images/registered_pics/${ request.folderName }/${ userProfile.id }1.jpg`)"/>
+                    <v-icon class="approved-sign" v-if="request.approved_or_not">checked</v-icon>
+                    <div class="thumbnail-desc">
+                        <h5>{{ request.concertName }}</h5>
+                        <p>{{ request.concertArtist }}</p>
+                        <p>{{ request.concertVenue }}</p>
+                        <p>{{ request.concertPrice }}</p>
+                        <p>{{ request.regDate }}</p>
                     </div>
-                    <p class="mt-5">{{ request.concertName }}</p>
-                    <p>{{ request.concertArtist }}</p>
-                    <p>{{ request.concertVenue }}</p>
-                    <p>{{ request.concertPrice }}</p>
-                    <p>{{ request.regDate }}</p>
                 </div>
             </div>
         </v-container>
@@ -20,7 +21,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'MyRequestListPage',
@@ -38,7 +39,6 @@ export default {
                 params: { concertRequestNo: concertRequestNo }
             });
         }
-        
     },
     mounted() {
         if(this.$cookies.isKey('CurrentUser')) {
@@ -48,13 +48,14 @@ export default {
         }
     },
     computed: {
-        ...mapState(['myRequestList'])
+        ...mapState(['myRequestList', 'userProfile'])
     }
 }
 </script>
 
 
 <style scoped>
+
     .request-box {
         display: flex;
         flex-wrap: wrap;
@@ -74,6 +75,8 @@ export default {
         transition: all 500ms;
         overflow: hidden;
         cursor: pointer;
+        height: 325px;
+        position: relative;
     }
 
     .request-card-inner:hover {
@@ -86,18 +89,26 @@ export default {
 
     .thumbnail {
         width: 100%;
-        height: 125px;
-        background-color: rgb(49, 49, 49);
-        position: relative;
+        height: 100%;
+        opacity: 0.2;
     }
 
-    .approved-card {
+    .thumbnail-desc {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .approved-sign {
         font-size: 75px;
         color: aliceblue;
         position: absolute;
-        top: 50%;
+        top: 15%;
         left: 85%;
         transform: translate(-50%, -50%);
+        text-align: center;
+        display: inline-block;
     }
 
     @media screen and (max-width: 1200px) {

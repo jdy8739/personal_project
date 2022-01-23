@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
@@ -24,42 +25,48 @@ public class ArtistAuthController {
     @Autowired
     ConcertRequestService concertRequestService;
 
-    @PostMapping("/sendConcertPic")
+    @PostMapping("/img_upload")
     @ResponseBody
     public String requestUploadFile(@RequestParam("concertPic") List<MultipartFile> fileList,
-                                    @RequestParam("regName") String regName,
-                                    @RequestParam("concertName") String concertName) {
+                                    @RequestParam("id") String id,
+                                    @RequestParam("date") String date) {
 
-        log.info("requestUploadFile(): " + fileList + ", " + regName + ", " + concertName);
+        log.info("requestUploadFile(): " + fileList + ", " + id + ", " + date);
+
+        String path = "./images/registered_pics/" + id + date;
+        File newFolder = new File(path);
+
+        if(!newFolder.exists()) {
+            try {
+                newFolder.mkdir();
+            } catch (Exception e) {
+                log.info("A folder making error has occured.");
+            }
+        }
 
         int i = 1;
         try {
             // 결국 저장되는 위치가 images/사진파일명.확장자
             // images/아이디/사진파일명.확장자
-            for (MultipartFile multipartFile : fileList) {
-                //File file = new File("c:/java_work/test.jpg");
+            for(MultipartFile multipartFile : fileList) {
                 log.info("requestUploadFile(): Make File");
 
-                FileOutputStream writer = new FileOutputStream("./images/concertRequestPic/" + regName +  "_" + concertName + i + ".jpg");
+                FileOutputStream writer = new FileOutputStream(path +  "/" + id + i + ".jpg");
                 i++;
                 writer.write(multipartFile.getBytes());
                 writer.close();
             }
-            /*
-            FileOutputStream writer = new FileOutputStream("./images/" + fileList.getOriginalFilename());
-            writer.write(fileList.getBytes());
-            writer.close();
-             */
+
         } catch (Exception e) {
-            return "Upload Fail!!!";
+            return "Upload Fail!";
         }
-        log.info("requestUploadFile(): Success!!!");
-        return "Upload Success!!!";
+        log.info("requestUploadFile(): Success!");
+        return "Upload Success!";
     }
 
     @PostMapping("/request")
     public ResponseEntity<Void> request(@Validated @RequestBody ConcertRequest concertRequest) {
-        log.info("request(): concertRequest - " + concertRequest);
+        log.info("request(): " + concertRequest);
 
         concertRequestService.regRequest(concertRequest);
 

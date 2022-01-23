@@ -56,6 +56,9 @@ public class ConcertRequest {
     @Column(nullable = false)
     private String concertInfo;
 
+    @Column(nullable = true)
+    private String folderName;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @CreationTimestamp
     private Date regDate;
