@@ -80,7 +80,7 @@
             <div style="margin-top: 70px;"></div>
             <div class="mt-10 buttons">
                 <button class="form-btn submit" type="submit">제출</button>
-                <button class="form-btn cancel" @click="cancel">취소</button>
+                <button class="form-btn cancel" @click="cancel">뒤로</button>
             </div>
         </form>
     </div>
