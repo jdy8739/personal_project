@@ -29,7 +29,10 @@ public class ArtistAuthController {
     @ResponseBody
     public String requestUploadFile(@RequestParam("concertPic") List<MultipartFile> fileList,
                                     @RequestParam("id") String id,
-                                    @RequestParam("date") String date) {
+                                    @RequestParam("date") String date,
+                                    @RequestParam("preFolderName") String preFolderName) {
+
+        concertRequestService.deletePicFile(preFolderName);
 
         log.info("requestUploadFile(): " + fileList + ", " + id + ", " + date);
 
@@ -91,6 +94,13 @@ public class ArtistAuthController {
     public ResponseEntity<Void> deleteRequest(@PathVariable("concertRequestNo") Long concertRequestNo) {
         log.info("deleteRequest(): " + concertRequestNo);
         concertRequestService.deleteRequest(concertRequestNo);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @PutMapping("/modify")
+    public ResponseEntity<Void> modifyRequest(@Validated @RequestBody ConcertRequest concertRequest) {
+        log.info("modifyRequest(): " + concertRequest);
+        concertRequestService.modifyRequest(concertRequest);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

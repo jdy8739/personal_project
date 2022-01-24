@@ -14,4 +14,8 @@ public interface ConcertRequestService {
     public ConcertRequest readRequest(Long concertRequestNo);
 
     public void deleteRequest(Long concertRequestNo);
+
+    public void modifyRequest(ConcertRequest concertRequest);
+
+    public void deletePicFile(String preFolderName);
 }

@@ -1,65 +1,91 @@
 <template>
-    <div align="center" class="grey darken-4" style="height: 100%; padding-top: 60px;">
-        
-        <h3 class="topBar" style="margin-top: 0px; padding-top: 30px;">REQUEST MODIFY</h3>
-        <p class="description" style="margin-right: 20px;">회원님이 작성한 공연 게시 요청 정보입니다. 거부되어도 재요청을 보낼 수 있습니다. :)</p>
-        
-        <my-request-modify v-if="concertRequest" :concertRequest="concertRequest" @submit="onSubmit"/>
-        <p v-else-if="!concertRequest">잠시만 기다려주세요!</p> <!-- 이게 있어야 새로고침해도 concertRequest값이 자식 컴포넌트에 들어감? -->
+    <div align="center" class="main-bg grey darken-4">
+        <p class="topBar">CONCERT REQUEST</p>
+        <p class="description">
+            공연 요청 등록을 수정하세요.
+        </p>
+        <concert-pic-regi-form @toNextStep="goNext" v-if="step === 1"/>
+        <concert-regist-form @submit="onSubmit" @goPreStep="step --" v-if="step === 2"/>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-import { mapActions, mapState } from 'vuex'
-import MyRequestModify from '@/components/authArtist/MyRequestModify'
+import axios from 'axios';
+import ConcertRegistForm from '@/components/authArtist/ConcertRegistForm';
+import ConcertPicRegiForm from '@/components/authArtist/ConcertPicRegiForm';
+import { mapState } from 'vuex';
 
 export default {
-    name: 'MyRequestModifyPage',
     components: {
-        MyRequestModify
+        ConcertRegistForm,
+        ConcertPicRegiForm
     },
     props: {
-        concertRequestNo: {
-            type: String,
-            required: true
-        }
+        concertRequestNo: Number
     },
-    methods: {
-        ...mapActions(['fetchConcertRequest']),
-
-        onSubmit(payload) {
-            //alert(JSON.stringify(payload))
-
-            const { concertRequestNo, memberNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd } = payload
-
-            axios.put('http://localhost:8888/member/concertRegister/requestModify', { concertRequestNo, memberNo, regName, artistName, venueName, concertName, dateOfConcert, timeOfConcert, timeOfEnd })
-                .then(() => {
-                    alert('업로드가 완료되었습니다.')
-
-                    this.$router.push({
-                        name: 'MyRequestReadPage',
-                        params: { concertRequestNo: this.concertRequest.concertRequestNo.toString() }
-                    })
-                })
-                .catch(() => {
-                    alert('서버에 문제가 있습니다. 잠시후에 다시 시도해주세요!')
-                })
+    data() {
+        return {
+            step: 1
         }
     },
     computed: {
-        ...mapState(['userProfile', 'isLoggedIn', 'concertRequest'])
+        ...mapState(['concertRequest', 'userProfile', 'isLoggedIn'])
+    },
+    methods: {
+        goNext(payload) {
+            this.files = payload;
+            this.step ++;
+        },
+        onSubmit(payload) {
+            if(this.isLoggedIn) {
+
+                const formData = new FormData();
+                const date = Date.now();
+                
+                formData.append('id', this.userProfile.id);
+                formData.append('date', date);
+                formData.append('preFolderName', this.concertRequest.folderName);
+
+                Array.from(this.files).forEach((a, i) => {
+                    formData.append("concertPic", this.files[i]);
+                });
+
+                axios.post('http://localhost:8888/member/concert_register/img_upload', formData)
+                    .then(() => {
+
+                        alert(JSON.stringify(payload))
+             
+                        const folderName = this.userProfile.id + date;
+                        axios.put('http://localhost:8888/member/concert_register/modify', { ...payload, folderName, concertRequestNo: this.concertRequestNo })
+                            .then(() => {
+                                alert('성공적으로 공연 요청이 수정되었습니다. :)');
+                                this.$router.push({ name: 'MainPage' });
+                            })
+                            .catch(err => { 
+                                console.log(err);
+                                alert('잠시 후에 다시 시도해주세요!');
+                            });
+                    })
+                    .catch(err => console.log(err));
+            }
+        }
     },
     mounted() {
-        this.fetchConcertRequest(this.concertRequestNo)
-        //alert('mounted: ' + JSON.stringify(this.concertRequest)) --> null로 나옴, 새로고침해도 v-model에 값 유지되게하는건 자식 컴포넌트 만들고 v-else-if
-    
-        this.$store.state.userProfile = this.$cookies.get("currentUser")
-
-        if(this.$store.state.userProfile.id != '') {
-
-            this.$store.state.isLoggedIn = true
-            this.$store.state.userIdentity = this.$store.state.userProfile.identity
+        if(this.$cookies.isKey('CurrentUser')) {
+            const userInfo = this.$cookies.get('CurrentUser');
+            this.$store.commit('handleUserLogin', userInfo);
+            this.$store.dispatch('fetchConcertRequest', this.concertRequestNo);
+        }
+    },
+    watch: {
+        concertRequest(a) {
+            if(a === 'notExist') {
+                this.$router.push({ name: 'ExceptionPage' });
+                
+            } else if(this.userProfile.id !== a.memberId) {
+                alert('접근 권한이 없습니다!');
+                this.$router.push({ name: 'MainPage' });
+            }
         }
     }
 }

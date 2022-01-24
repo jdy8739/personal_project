@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.*;
 
 @Slf4j
@@ -43,7 +44,30 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
 
     @Override
     public void deleteRequest(Long concertRequestNo) {
+
+
         concertRequestRepository.deleteByConcertRequestNo(concertRequestNo);
+    }
+
+    @Override
+    public void modifyRequest(ConcertRequest concertRequest) {
+        String preFolderName = concertRequestRepository.findByConcertRequestNo(concertRequest.getConcertRequestNo()).get().getFolderName();
+        deletePicFile(preFolderName);
+        concertRequestRepository.save(concertRequest);
+    }
+
+    @Override
+    public void deletePicFile(String preFolderName) {
+        if(preFolderName != "") {
+            File dir = new File("./images/registered_pics/" + preFolderName);
+            if(dir.exists()) {
+                File[] files = dir.listFiles();
+                for(File file : files) file.delete();
+                dir.delete();
+            } else {
+                log.info("File does noe exist.");
+            }
+        }
     }
 
 

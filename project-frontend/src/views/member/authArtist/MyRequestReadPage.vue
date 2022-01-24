@@ -64,7 +64,7 @@
                 </tr>
             </v-simple-table>
             <div class="float-right mt-5">
-                <v-btn class="btn" dark>
+                <v-btn class="btn" @click="modifyRequerst" dark>
                     수정
                 </v-btn>
                 <v-btn class="btn" @click="deleteRequest" dark>
@@ -109,6 +109,9 @@ export default {
                     this.$router.push({ name: 'MyRequestListPage' });
                 })
                 .catch(err => console.log(err));
+        },
+        modifyRequerst() {
+            this.$router.push({ name: 'MyRequestModifyPage', params: { concertRequestNo: this.concertRequestNo } });
         }
     },
     mounted() {

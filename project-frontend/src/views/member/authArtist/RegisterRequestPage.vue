@@ -43,6 +43,7 @@ export default {
                 
                 formData.append('id', this.userProfile.id);
                 formData.append('date', date);
+                formData.append('preFolderName', '');
 
                 Array.from(this.files).forEach((a, i) => {
                     formData.append("concertPic", this.files[i]);
