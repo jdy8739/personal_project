@@ -116,7 +116,7 @@ export default {
     },
 
     fetchConcertRequestList({ commit }) {
-        return axios.get('http://localhost:8888/member/concert_register/getConcertRequestList')
+        return axios.get('http://localhost:8888/member/concert_register/get_all_request')
             .then(res => {
                 commit(FETCH_CONCERT_REQUEST_LIST, res.data)
             })
@@ -137,7 +137,6 @@ export default {
     },
 
     fetchBookedOrNot({ commit }, payload) {
-        
         // ** 원래 변수명을 bookedOrNotCheckNums라고 해줘야하지만 스프핑을 바꿔줘야해서 그냥 likedOrNotCheckNums로 간다.
 
         return axios.post('http://localhost:8888/concert/fetchBookedOrNot', payload)

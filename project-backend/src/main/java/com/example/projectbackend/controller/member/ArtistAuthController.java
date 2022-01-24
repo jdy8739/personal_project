@@ -103,4 +103,17 @@ public class ArtistAuthController {
         concertRequestService.modifyRequest(concertRequest);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+    @GetMapping("/get_all_request")
+    public ResponseEntity<List<ConcertRequest>> getAllRequest() {
+        log.info("getAllRequest(): ");
+        return new ResponseEntity<List<ConcertRequest>>(concertRequestService.getAllRequest(), HttpStatus.OK);
+    }
+
+    @PutMapping("/approve/{concertRequestNo}")
+    public ResponseEntity<Void> approveRequest(@PathVariable("concertRequestNo") Long concertRequestNo) {
+        log.info("approveRequest(): ");
+        concertRequestService.approveConcertRequest(concertRequestNo);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

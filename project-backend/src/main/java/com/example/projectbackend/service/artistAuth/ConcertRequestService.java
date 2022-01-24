@@ -18,4 +18,8 @@ public interface ConcertRequestService {
     public void modifyRequest(ConcertRequest concertRequest);
 
     public void deletePicFile(String preFolderName);
+
+    public List<ConcertRequest> getAllRequest();
+
+    public void approveConcertRequest(Long concertRequestNo);
 }

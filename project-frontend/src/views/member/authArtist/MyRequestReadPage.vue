@@ -13,13 +13,12 @@
         </div>
         <div class="img-section">
             <div v-for="i in 2" :key="i" class="registered-img">
-                <img :src="require( `../../../../../project-backend/images/registered_pics/${ concertRequest.folderName }/${ userProfile.id }${ i }.jpg` )"/>
+                <img :src="require( `../../../../../project-backend/images/registered_pics/${ concertRequest.folderName }/${ concertRequest.memberId }${ i }.jpg` )"/>
             </div>
         </div>
         <v-container class="shortened">
             <div class="footerText mt-5">
-                <h5 v-if="concertRequest.approvedOrNot">게시 승인된 공연</h5>
-                <h5 v-else-if="!concertRequest.approvedOrNot">게시 승인 대기 중</h5>
+                <h5>{{ concertRequest.approvedOrNot ? '게시 승인된 공연' : '게시 승인 대기 중' }}</h5>
             </div>
             <v-simple-table class="mt-12 description" dark dense>
                 <tr>
@@ -64,8 +63,11 @@
                 </tr>
             </v-simple-table>
             <div class="float-right mt-5">
-                <v-btn class="btn" @click="modifyRequerst" dark>
+                <v-btn class="btn" @click="modifyRequerst" dark v-if="userIdentity !== 'manager'">
                     수정
+                </v-btn>
+                <v-btn class="btn" @click="approveRegister" dark v-if="userIdentity === 'manager'">
+                    <span>{{ concertRequest.approvedOrNot ? '게시 보류' : '게시 승인' }}</span>
                 </v-btn>
                 <v-btn class="btn" @click="deleteRequest" dark>
                     요청 삭제
@@ -77,7 +79,7 @@
 
 <script>
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
     name: 'MyRequestReadPage',
@@ -88,7 +90,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['concertRequest', 'userProfile'])
+        ...mapState(['concertRequest', 'userProfile', 'userIdentity'])
     },
     data() {
         return {
@@ -96,6 +98,8 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(['handleRequestApprove']),
+
         deleteRequest() {
             this.showModal = true;
         },
@@ -112,6 +116,12 @@ export default {
         },
         modifyRequerst() {
             this.$router.push({ name: 'MyRequestModifyPage', params: { concertRequestNo: this.concertRequestNo } });
+        },
+        approveRegister() {
+            axios.put(`http://localhost:8888/member/concert_register/approve/${parseInt(this.concertRequestNo)}`)
+                .then(() => {
+                   this.handleRequestApprove();
+                })
         }
     },
     mounted() {
@@ -119,6 +129,8 @@ export default {
             const userInfo = this.$cookies.get('CurrentUser');
             this.$store.commit('handleUserLogin', userInfo);
             this.$store.dispatch('fetchConcertRequest', this.concertRequestNo);
+        } else {
+            this.$router.push({ name: 'ExceptionPage' });
         }
     },
     watch: {
@@ -126,10 +138,10 @@ export default {
             if(a === "notExist") {
                 this.$router.push({ name: 'ExceptionPage' });
             
-            } else if(this.userProfile.memberNo !== a.memberNo) {
+            } else if(this.userProfile.memberNo !== a.memberNo && this.userIdentity !== 'manager') {
                 alert('접근할 수 없는 게시물입니다.');
                 this.$router.push({ name: 'MainPage' });
-            } 
+            }
         }
     }
 }

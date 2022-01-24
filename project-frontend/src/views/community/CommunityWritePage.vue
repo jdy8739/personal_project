@@ -114,6 +114,8 @@ export default {
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');
             this.$store.commit('handleUserLogin', userInfo);
+        } else {
+            this.$router.push({ name: 'ExceptionPage' });
         }
     }
 }

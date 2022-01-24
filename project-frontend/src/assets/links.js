@@ -105,7 +105,7 @@ const artistLinks = [
         route: '/community',
     },
     {
-        text: 'ConcertReg',
+        text: 'CONCERT REG',
         icon: 'people',
         route: '/register/request',
     }

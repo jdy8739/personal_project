@@ -20,6 +20,9 @@ public interface ConcertRequestRepository extends JpaRepository<ConcertRequest, 
     @Modifying
     void deleteByConcertRequestNo(Long concertRequestNo);
 
+    @Query("select cr.approvedOrNot from ConcertRequest cr where cr.concertRequestNo = :concertRequestNo")
+    boolean isApprovedOrNot(Long concertRequestNo);
+
     @Transactional
     @Modifying
     @Query("update ConcertRequest cr set cr.approvedOrNot = true where cr.concertRequestNo = :concertRequestNo")

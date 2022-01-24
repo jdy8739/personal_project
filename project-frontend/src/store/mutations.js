@@ -88,7 +88,7 @@ export default {
     },
 
     [FETCH_CONCERT_REQUEST_LIST] (state, payload) {
-        state.concertRequestList = payload
+        state.requestList = payload
     },
 
     [FETCH_CONCERT_REQUEST] (state, payload) {
@@ -97,7 +97,7 @@ export default {
     },
 
     [FETCH_MY_REQUEST_LIST] (state, payload) {
-        state.myRequestList = payload
+        state.requestList = payload
     },
 
     [FETCH_BOOKED_OR_NOT] (state, payload) {
@@ -172,6 +172,12 @@ export default {
             state.replyList.splice(payload, 1);
         } else {
             state.replyList.splice(payload[0], 1, payload[1]);
-        }
+        }  
+    },
+
+    handleRequestApprove(state) {
+        if(state.concertRequest.approvedOrNot) state.concertRequest.approvedOrNot = false;
+        else state.concertRequest.approvedOrNot = true;
     }
 }
+    

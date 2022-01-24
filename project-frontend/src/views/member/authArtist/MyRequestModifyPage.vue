@@ -52,10 +52,9 @@ export default {
 
                 axios.post('http://localhost:8888/member/concert_register/img_upload', formData)
                     .then(() => {
-
-                        alert(JSON.stringify(payload))
              
                         const folderName = this.userProfile.id + date;
+                        
                         axios.put('http://localhost:8888/member/concert_register/modify', { ...payload, folderName, concertRequestNo: this.concertRequestNo })
                             .then(() => {
                                 alert('성공적으로 공연 요청이 수정되었습니다. :)');
@@ -75,6 +74,8 @@ export default {
             const userInfo = this.$cookies.get('CurrentUser');
             this.$store.commit('handleUserLogin', userInfo);
             this.$store.dispatch('fetchConcertRequest', this.concertRequestNo);
+        } else {
+            this.$router.push({ name: 'ExceptionPage' });
         }
     },
     watch: {

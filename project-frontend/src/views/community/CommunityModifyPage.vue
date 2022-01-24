@@ -34,6 +34,8 @@ export default {
             this.$store.commit('handleUserLogin', userInfo);
 
             this.fetchBoard(this.boardNo);
+        } else {
+            this.$router.push({ name: 'ExceptionPage' });
         }
     },
     watch: {

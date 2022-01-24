@@ -70,6 +70,19 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
         }
     }
 
+    @Override
+    public List<ConcertRequest> getAllRequest() {
+        return concertRequestRepository.findAll();
+    }
+
+    @Override
+    public void approveConcertRequest(Long concertRequestNo) {
+        boolean isApproved = concertRequestRepository.isApprovedOrNot(concertRequestNo);
+        if(!isApproved) {
+            concertRequestRepository.approveConcertRequest(concertRequestNo);
+        } else concertRequestRepository.denyConcertRequest(concertRequestNo);
+    }
+
 
 
 

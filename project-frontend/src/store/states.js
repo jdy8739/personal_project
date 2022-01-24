@@ -26,10 +26,8 @@ export default {
 
     userName: '',
 
-    concertRequestList: [],
+    requestList: [],
     concertRequest: '', 
-
-    myRequestList: [],
 
     notBookedYet: false,
     bookedList: [],

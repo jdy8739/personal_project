@@ -91,7 +91,9 @@ export default {
 
             const memberNo = this.userProfile.memberNo;
             this.fetchLikedList(memberNo);
-        } 
+        } else {
+            this.$router.push({ name: 'ExceptionPage' });
+        }
     }
 }
 </script>

@@ -183,6 +183,8 @@ export default {
                             }
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
+                            this.handleUserLogin();
+                            this.$cookies.remove('CurrentUser');
                         }
                     });
             }
@@ -235,6 +237,7 @@ export default {
                         } else {
                             alert('세션 정보가 만료되었습니다. 다시 로그인해주세요!');
                             this.handleUserLogin();
+                            this.$cookies.remove('CurrentUser');
                         }
                     })
             } else if(index != 0) {
