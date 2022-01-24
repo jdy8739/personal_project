@@ -44,8 +44,8 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
 
     @Override
     public void deleteRequest(Long concertRequestNo) {
-
-
+        String preFolderName = concertRequestRepository.findByConcertRequestNo(concertRequestNo).get().getFolderName();
+        deletePicFile(preFolderName);
         concertRequestRepository.deleteByConcertRequestNo(concertRequestNo);
     }
 
