@@ -27,30 +27,22 @@ public class ConcertController {
     @GetMapping("/{concertNo}")
     public ResponseEntity<Concert> read(@PathVariable("concertNo") Integer concertNo) throws Exception {
         log.info("concertNo: " + concertNo);
-
-        Optional<Concert> maybeConcert = concertService.findByConcertNo(new Long(concertNo));
-        Concert concert = maybeConcert.get();
-        log.info("concert: " + concert);
-
-        return new ResponseEntity<Concert>(concert, HttpStatus.OK);
+        Optional<Concert> maybeConcert = concertService.findByConcertNo(concertNo.longValue());
+        return new ResponseEntity<Concert>(maybeConcert.get(), HttpStatus.OK);
     }
     
     //한 회원의 좋아요한 공연 리스트 뽑아오기
     @GetMapping("/likedList/{memberNo}")
     public ResponseEntity<List<Concert>> getLikedList(@PathVariable("memberNo") Integer memberNo) {
-
         log.info("memberNo: " + memberNo);
-
-        List<Concert> likedList = concertService.getLikedList(new Long(memberNo));
+        List<Concert> likedList = concertService.getLikedList(memberNo.longValue());
         return new ResponseEntity<List<Concert>>(likedList, HttpStatus.OK);
     }
 
     @PostMapping("/makeBooking")
     public ResponseEntity<Void> makeBooking(@Validated @RequestBody BookedConcert BookedConcert) throws Exception {
         log.info("makeBooking: " + BookedConcert);
-
         concertService.makeBooking(BookedConcert);
-
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
@@ -67,56 +59,45 @@ public class ConcertController {
     @GetMapping("/fetchBookedList/{memberNo}")
     public ResponseEntity<List<BookedConcert>> fetchBookedList(@PathVariable("memberNo") Integer memberNo) throws Exception {
         log.info("fetchBookedList(): " + memberNo);
-
-        return new ResponseEntity<List<BookedConcert>>(concertService.getBookedConcertList(new Long(memberNo)), HttpStatus.OK);
+        return new ResponseEntity<List<BookedConcert>>(concertService.getBookedConcertList(memberNo.longValue()), HttpStatus.OK);
     }
 
-    @GetMapping("/fetchBookedConcert/{memberNo}")
-    public ResponseEntity<BookedConcert> fetchBookedConcert(@PathVariable("memberNo") Integer memberNo) throws Exception {
-        log.info("fetchBookedConcert(): " + memberNo);
-
-        return new ResponseEntity<BookedConcert>(concertService.getBookedConcert(new Long(memberNo)), HttpStatus.OK);
+    @GetMapping("/fetchBookedConcert/{bookedConcertNo}")
+    public ResponseEntity<BookedConcert> fetchBookedConcert(@PathVariable("bookedConcertNo") Integer bookedConcertNo) throws Exception {
+        log.info("fetchBookedConcert(): " + bookedConcertNo);
+        return new ResponseEntity<BookedConcert>(concertService.getBookedConcert(bookedConcertNo.longValue()), HttpStatus.OK);
     }
 
     @PutMapping("/alterBooking")
     public ResponseEntity<Void> alterBooking(@Validated @RequestBody BookedConcert BookedConcert) throws Exception {
-
         concertService.alterBooking(BookedConcert);
-
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteBooking/{bookedConcertNo}")
     public ResponseEntity<Void> deleteBooking(@PathVariable("bookedConcertNo") Integer bookedConcertNo) throws Exception {
-        //log.info("deleteBooking(): " + bookedConcertNo);
-
+        log.info("deleteBooking(): " + bookedConcertNo);
         concertService.deleteBooking(bookedConcertNo);
-
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PostMapping("/searchText/{searchedText}")
     public ResponseEntity<List<Concert>> searchText(@PathVariable("searchedText") String searchedText) throws Exception {
-        //log.info("searchText(): " + searchedText);
-
+        log.info("searchText(): " + searchedText);
         List<Concert> SearchedList = concertService.searchText(searchedText);
-
         return new ResponseEntity<List<Concert>>(SearchedList, HttpStatus.OK);
     }
 
     @PostMapping("/searchArtist/{searchedText}")
     public ResponseEntity<List<Concert>> searchArtist(@PathVariable("searchedText") String searchedArtist) throws Exception {
         //log.info("searchText(): " + searchedText);
-
         List<Concert> SearchedList = concertService.searchArtist(searchedArtist);
-
         return new ResponseEntity<List<Concert>>(SearchedList, HttpStatus.OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<Concert>> getList() {
         log.info("getList(): ");
-
         return new ResponseEntity<List<Concert>>(concertService.getList(), HttpStatus.OK);
     }
 }

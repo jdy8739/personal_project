@@ -3,9 +3,11 @@ package com.example.projectbackend.service.concert;
 import com.example.projectbackend.entity.concert.Concert;
 import com.example.projectbackend.entity.member.BookedConcert;
 import com.example.projectbackend.entity.member.LikedConcert;
+import com.example.projectbackend.entity.member.Member;
 import com.example.projectbackend.repository.concert.ConcertRepository;
 import com.example.projectbackend.repository.member.BookedConcertRepository;
 import com.example.projectbackend.repository.member.LikedConcertRepository;
+import com.example.projectbackend.repository.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Autowired
     private BookedConcertRepository bookedConcertRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Override
     public Optional<Concert> findByConcertNo(Long concertNo) {
@@ -49,6 +54,13 @@ public class ConcertServiceImpl implements ConcertService {
     public void makeBooking(BookedConcert bookedConcert) {
         Integer numOfVisitors = bookedConcert.getNumOfVisitors();
         concertRepository.minusVenueCapacity(numOfVisitors, bookedConcert.getConcertNo().longValue());
+
+        if(bookedConcert.getName() == null || bookedConcert.getPhoneNumber() == null) {
+            Optional<Member> maybeMember = memberRepository.findByMemberNo(bookedConcert.getMemberNo());
+
+            bookedConcert.setName(maybeMember.get().getName());
+            bookedConcert.setPhoneNumber(maybeMember.get().getPhoneNo());
+        }
         bookedConcertRepository.save(bookedConcert);
     }
 
@@ -65,8 +77,7 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public BookedConcert getBookedConcert(Long bookedConcertNo) {
-        Optional<BookedConcert> bookedConcert = bookedConcertRepository.findByBookedConcertNo(bookedConcertNo);
-        return bookedConcert.get();
+        return bookedConcertRepository.findByBookedConcertNo(bookedConcertNo).get();
     }
 
     @Override
@@ -78,7 +89,7 @@ public class ConcertServiceImpl implements ConcertService {
         Integer numOfVisitorsForPlus = tmpBookedConcert.get().getNumOfVisitors();
         Long concertNo = tmpBookedConcert.get().getConcertNo();
         concertRepository.plusVenueCapacity(numOfVisitorsForPlus, concertNo);
-        
+
         concertRepository.minusVenueCapacity(bookedConcert.getNumOfVisitors(), concertNo);
         bookedConcertRepository.save(bookedConcert);
     }
@@ -123,9 +134,7 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public List<Concert> searchArtist(String searchedArtist) {
-        List<Concert> searchedList = concertRepository.findByConcertArtist(searchedArtist);
-
-        return searchedList;
+        return concertRepository.findByConcertArtist(searchedArtist);
     }
 
     @Override

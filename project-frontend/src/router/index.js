@@ -31,7 +31,6 @@ import RequestStorePage from '../views/member/authAdmin/RequestStorePage.vue'
 import RequestReadPage from '../views/member/authAdmin/RequestReadPage.vue'
 
 import BookedListPage from '../views/concert/BookedListPage.vue'
-import BookedAlterPage from '../views/concert/BookedAlterPage.vue'
 
 import SearchPage from '../views/concert/SearchPage.vue'
 
@@ -203,16 +202,6 @@ const routes = [
     path: '/bookedList',
     name: 'BookedListPage',
     component: BookedListPage
-  },
-  {
-    path: '/bookedAlter/:bookedConcertNo',
-    name: 'BookedAlterPage',
-    components: {
-      default: BookedAlterPage
-    },
-    props: {
-      default: true
-    }
   },
   {
     path: '/search',

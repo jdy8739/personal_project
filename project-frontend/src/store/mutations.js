@@ -188,6 +188,11 @@ export default {
     handleConcertBook(state, payload) {
         state.concert.venueCapacity -= parseInt(payload);
         state.notBookedYet = true;
-    } 
+    },
+
+    handleDeleteBooking(state, payload) {
+        const targetIndex = state.bookedList.findIndex(booked => booked.bookedConcertNo === payload);
+        state.bookedList.splice(targetIndex, 1);
+    }
 }
     

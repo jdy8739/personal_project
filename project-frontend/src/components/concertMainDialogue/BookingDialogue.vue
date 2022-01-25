@@ -7,8 +7,8 @@
             <v-btn outlined color="white" v-bind="attrs" v-on="on" v-else-if="!notBookedYet">
                 <v-icon>email</v-icon>
             </v-btn>
+            <!-- <span>{{ notBookedYet ? '예약 취소' : '예약 하기' }}</span> -->
         </template>
-        <span>{{ notBookedYet ? '예약 취소' : '예약 하기' }}</span>
         <v-card class="grey darken-3">
             <v-card-title class="headLine">
                 <p id="headline">Booking Receipt</p>
@@ -16,12 +16,22 @@
             <v-card-text>
                 <v-layout wrap>
                     <form>
-                        <v-flex xs12>
-                            <v-text-field label="휴대폰 번호" type="text" required v-model="phoneNo" dark/>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field label="이름" type="text" style="width: 70%" required v-model="name" dark/>
-                        </v-flex>
+                        <v-checkbox
+                            v-model="registerInNowId"
+                            :label="`${ registerInNowId ? '현재 아이디로 예약' : '직접 예약 정보 입력' }`"
+                            color="red"
+                            hide-details
+                            dark
+                            class="mb-5"
+                        ></v-checkbox>
+                        <div v-if="!registerInNowId">
+                            <v-flex xs12>
+                                <v-text-field label="휴대폰 번호" type="text" required v-model="phoneNo" dark/>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-text-field label="이름" type="text" style="width: 70%" required v-model="name" dark/>
+                            </v-flex>
+                        </div>
                         <v-flex xs12>
                             <v-text-field label="예약 인원" type="number" style="width: 40%" required v-model="numOfVisitors" dark/>
                         </v-flex>
@@ -62,6 +72,9 @@ export default {
     },
     data() {
         return {
+            checkbox1: true,
+            checkbox2: false,
+            registerInNowId: true,
             phoneNo: '',
             name: '',
             numOfVisitors: 0,
@@ -79,13 +92,18 @@ export default {
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
                         if(res.data) {
-                            if(!/^[가-힣|a-z|A-Z|0-9|?'#!$|/\s/g]+$/.test(this.name)) {
+                            if(!/^[가-힣|a-z|A-Z|0-9|?'#!$|/\s/g]+$/.test(this.name) && !this.registerInNowId) {
                                 alert('올바른 이름를 입력해주세요. :)');
-                            } else if(!/^[0-1]{3}[0-9]{3,4}[0-9]{4}/.test(this.phoneNo)) {
+                            } else if(!/^[0-1]{3}[0-9]{3,4}[0-9]{4}/.test(this.phoneNo) && !this.registerInNowId) {
                                 alert('올바른 휴대번호를 입력해주세요!');
                             } else if(this.numOfVisitors > 6 || this.numOfVisitors < 1) {
                                 alert('함께 예약 할 수 있는 인원은 최소 1명 이상 6명 이하입니다!');
                             } else {
+
+                                if(this.registerInNowId) {
+                                    this.name = null;
+                                    this.phoneNumber = null;
+                                } 
                                 
                                 const memberNo = this.userProfile.memberNo;
                                 const concertNo = this.concertNo;
