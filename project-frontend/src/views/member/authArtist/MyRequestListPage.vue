@@ -15,13 +15,8 @@ export default {
     components: {
         ConcertRequestList
     },
-    data() {
-        return {
-            
-        }
-    },
     methods: {
-        ...mapActions(['fetchMyRequestList']),
+        ...mapActions(['fetchMyRequestList'])
     },
     mounted() {
         if(this.$cookies.isKey('CurrentUser')) {

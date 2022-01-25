@@ -128,34 +128,27 @@ public class MemberController {
     @GetMapping("/read/{memberNo}")
     public ResponseEntity<Member> read(@PathVariable("memberNo") Integer memberNo) throws Exception {
         log.info("getRead(): " + service.read(memberNo.longValue()));
-
         return new ResponseEntity<Member>(service.read(memberNo.longValue()), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{memberNo}")
     public ResponseEntity<Void> delete(@PathVariable("memberNo") Integer memberNo) throws Exception {
         log.info("delete(): memberNo " + memberNo);
-
-        service.delete(new Long(memberNo));
-
+        service.delete(memberNo.longValue());
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PutMapping("/modify")
     public ResponseEntity<MemberResponse> modify(@Validated @RequestBody MemberRequest memberRequest) throws Exception {
         log.info("modify(): " + memberRequest);
-
         MemberResponse memberResponse = service.modify(memberRequest);
-
         return new ResponseEntity<MemberResponse>(memberResponse, HttpStatus.OK);
     }
 
     @PostMapping("/addLiked")
     public ResponseEntity<String> addLiked(@Validated @RequestBody LikedConcert likedConcert) throws Exception {
         log.info("addLiked(): concertRequest - " + likedConcert);
-
         String res = service.addLiked(likedConcert);
-
         return new ResponseEntity<String>(res, HttpStatus.OK);
     }
 
@@ -164,11 +157,8 @@ public class MemberController {
                                             @RequestParam("concertNo") Integer concertNo) throws Exception {
 
         log.info("deleteLiked(): concertNo - " + concertNo + ", memberNo - " + memberNo);
-
         int[] intArrForDelete = { concertNo, memberNo };
-
         service.deleteLiked(intArrForDelete);
-
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
@@ -200,11 +190,8 @@ public class MemberController {
     @PostMapping("/checkPassword")
     public ResponseEntity<Boolean> checkPassword(@Validated @RequestBody MemberRequest memberRequest) throws Exception {
         log.info("checkPassword: " + memberRequest);
-
         boolean isRightPassword = false;
-
         isRightPassword = service.checkPassword(memberRequest);
-
         return new ResponseEntity<Boolean>(isRightPassword, HttpStatus.OK);
     }
 
@@ -227,11 +214,7 @@ public class MemberController {
                 writer.write(multipartFile.getBytes());
                 writer.close();
             }
-            /*
-            FileOutputStream writer = new FileOutputStream("./images/" + fileList.getOriginalFilename());
-            writer.write(fileList.getBytes());
-            writer.close();
-             */
+
         } catch (Exception e) {
             return "Upload Fail!!!";
         }

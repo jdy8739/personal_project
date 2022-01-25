@@ -178,6 +178,11 @@ export default {
     handleRequestApprove(state) {
         if(state.concertRequest.approvedOrNot) state.concertRequest.approvedOrNot = false;
         else state.concertRequest.approvedOrNot = true;
+    },
+
+    deleteMember(state, payload) {
+        const targetIndex = state.members.findIndex(member => member.memberNo === payload);
+        state.members.splice(targetIndex, 1);
     }
 }
     

@@ -9,7 +9,7 @@
                     <td class="description" style="color: gray;">{{ reply.id }}</td>
 
                     <td v-if="modifyIndex === index" class="description" style="width: 75%;">
-                        <input v-model="modifiedContent" style="color: white;"
+                        <input v-model="modifiedContent" style="color: white;" type="text"
                         @keydown.enter="submitModified(reply.boardReplyNo, reply.id, index)"/>
                     </td>
                     <td v-else-if="modifyIndex !== index" class="description" style="width: 75%; color: white;">{{ reply.content }}</td>

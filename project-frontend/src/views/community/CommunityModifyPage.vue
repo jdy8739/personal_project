@@ -23,7 +23,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['board', 'userProfile'])
+        ...mapState(['board', 'userProfile', 'userIdentity'])
     },
     methods: {
         ...mapActions(['fetchBoard'])
@@ -43,7 +43,7 @@ export default {
             if(a === 'notExist') {
                 this.$router.push({ name: 'ExceptionPage' });
                 
-            } else if(this.userProfile.id !== a.id) {
+            } else if(this.userProfile.id !== a.id && this.userIdentity !== 'manager') {
                 alert('접근 권한이 없습니다!');
                 this.$router.push({ name: 'MainPage' });
             }

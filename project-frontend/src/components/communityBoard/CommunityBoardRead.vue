@@ -91,7 +91,7 @@ export default {
         },
 
         modify() {
-            if(this.isLoggedIn && (this.userProfile.id == this.board.id || this.userProfile.identity == 'admin')) { 
+            if(this.isLoggedIn && (this.userProfile.id === this.board.id || this.userProfile.identity === 'manager')) { 
 
                 this.$router.push({
                     name: 'CommunityModifyPage',
