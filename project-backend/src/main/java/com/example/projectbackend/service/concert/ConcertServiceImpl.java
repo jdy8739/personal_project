@@ -47,65 +47,50 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public void makeBooking(BookedConcert bookedConcert) {
-
         Integer numOfVisitors = bookedConcert.getNumOfVisitors();
-        concertRepository.minusVenueCapacity(numOfVisitors, new Long(bookedConcert.getConcertNo()));
-
+        concertRepository.minusVenueCapacity(numOfVisitors, bookedConcert.getConcertNo().longValue());
         bookedConcertRepository.save(bookedConcert);
     }
 
     @Override
     public boolean isNotAlreadyBooked(Long memberNo, Long concertNo) {
-        return bookedConcertRepository.findByMemberNoAndConcertNo(memberNo, concertNo).isEmpty();
+        return bookedConcertRepository.findByMemberNoAndConcertNo(memberNo, concertNo).isPresent();
     }
 
     @Override
     public List<BookedConcert> getBookedConcertList(Long memberNo) {
-
         List<BookedConcert> bookedConcertList = bookedConcertRepository.findByMemberNo(memberNo);
-
         return bookedConcertList;
     }
 
     @Override
     public BookedConcert getBookedConcert(Long bookedConcertNo) {
-
         Optional<BookedConcert> bookedConcert = bookedConcertRepository.findByBookedConcertNo(bookedConcertNo);
-
         return bookedConcert.get();
     }
 
     @Override
     public void alterBooking(BookedConcert bookedConcert) {
 
-        //log.info("bookedConcert: " + bookedConcert);
         Long bookedConcertNo = bookedConcert.getBookedConcertNo();
-        Optional<BookedConcert> tmpBookedConcert = bookedConcertRepository.findByBookedConcertNo(new Long(bookedConcertNo));
+        Optional<BookedConcert> tmpBookedConcert = bookedConcertRepository.findByBookedConcertNo(bookedConcertNo.longValue());
 
         Integer numOfVisitorsForPlus = tmpBookedConcert.get().getNumOfVisitors();
         Long concertNo = tmpBookedConcert.get().getConcertNo();
         concertRepository.plusVenueCapacity(numOfVisitorsForPlus, concertNo);
-
-        String name = bookedConcert.getName();
-        String phoneNumber = bookedConcert.getPhoneNumber();
-        Integer numOfVisitors = bookedConcert.getNumOfVisitors();
-        String message = bookedConcert.getMessage();
-
-        concertRepository.minusVenueCapacity(numOfVisitors, concertNo);
-
-        bookedConcertRepository.alterBooking(name, phoneNumber, numOfVisitors, message, bookedConcert.getBookedConcertNo());
+        
+        concertRepository.minusVenueCapacity(bookedConcert.getNumOfVisitors(), concertNo);
+        bookedConcertRepository.save(bookedConcert);
     }
 
     @Override
     public void deleteBooking(Integer bookedConcertNo) {
 
-        Optional<BookedConcert> tmpBookedConcert = bookedConcertRepository.findByBookedConcertNo(new Long(bookedConcertNo));
-        Integer numOfVisitors =  tmpBookedConcert.get().getNumOfVisitors();
+        Optional<BookedConcert> tmpBookedConcert = bookedConcertRepository.findByBookedConcertNo(bookedConcertNo.longValue());
+        Integer numOfVisitors = tmpBookedConcert.get().getNumOfVisitors();
         Long concertNo = tmpBookedConcert.get().getConcertNo();
-
         concertRepository.plusVenueCapacity(numOfVisitors, concertNo);
-
-        bookedConcertRepository.deleteByBookedConcertNo(new Long(bookedConcertNo));
+        bookedConcertRepository.deleteByBookedConcertNo(bookedConcertNo.longValue());
     }
 
     @Override

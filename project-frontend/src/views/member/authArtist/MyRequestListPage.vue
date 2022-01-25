@@ -26,7 +26,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['requestList', 'userProfile'])
+        ...mapState(['requestList', 'userProfile', 'userIdentity'])
     }
 }
 </script>

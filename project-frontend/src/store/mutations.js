@@ -183,6 +183,11 @@ export default {
     deleteMember(state, payload) {
         const targetIndex = state.members.findIndex(member => member.memberNo === payload);
         state.members.splice(targetIndex, 1);
-    }
+    },
+
+    handleConcertBook(state, payload) {
+        state.concert.venueCapacity -= parseInt(payload);
+        state.notBookedYet = true;
+    } 
 }
     

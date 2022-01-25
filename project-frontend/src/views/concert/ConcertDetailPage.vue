@@ -44,18 +44,13 @@
                         <div v-if="!isLoggedIn || !notLikedYet">
                             <v-btn text="text" class="btn-flat red-text waves-effect waves-teal mr-4" outlined
                             @click="addLiked(concert.concertNo)" color="white" v-bind="attrs" v-on="on">
-                                <v-icon>
-                                    mdi-heart
-                                </v-icon>
+                                <v-icon>mdi-heart</v-icon>
                             </v-btn>
                         </div>
-                        
                         <div v-else-if="isLoggedIn">
                             <v-btn text="text" class="btn-flat red-text waves-effect waves-teal mr-4" outlined
                             @click="unLiked(concert.concertNo)" color="pink" v-bind="attrs" v-on="on">
-                                <v-icon>
-                                    mdi-heart
-                                </v-icon>
+                                <v-icon>mdi-heart</v-icon>
                             </v-btn>
                         </div>
                     </template>
@@ -63,44 +58,20 @@
                     <span v-else-if="isLoggedIn">찜해제</span>
                 </v-tooltip> 
             </span>
+            <booking-dialogue :concertNo="parseInt(concertNo)"/>
         </div>
-
-        <!-- <div class="container" style="width: 25%;">
-            <textarea class="infoText" style='height: 90px; color: white;' disabled v-bind:value="concert.concertInfo"/>
-        </div>
-          
-        <div align="center" style="margin-bottom: 60px;"> -->
-            <!-- <v-btn text="text" class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" 
-            @click="onReservation" outlined>예약하기!</v-btn> -->
-            <!-- <booking-dialogue v-if="notBookedYet || isLoggedIn == false" :member="member" :concertNo="concertNo"/> -->
-
-            <!-- <v-tooltip bottom v-else-if="!notBookedYet && isLoggedIn == true">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn class="btn-flat red-text waves-effect waves-teal" style="margin-right: 30px;" @click="cancelBook" outlined color="pink" v-bind="attrs" v-on="on">
-                        <v-icon>
-                            email
-                        </v-icon>
-                    </v-btn>
-                </template>
-                <span>예약 취소</span>    
-            </v-tooltip>
-
-
-     
-        </div> -->
     </div>    
 </template>
 
 <script>
 import axios from 'axios'
 import { mapActions, mapMutations, mapState } from 'vuex'
-
-//import BookingDialogue from '@/components/concertMainDialogue/BookingDialogue'
+import BookingDialogue from '@/components/concertMainDialogue/BookingDialogue'
 
 export default {
     name: 'ConcertDetailPage',
     components: {
-        //BookingDialogue
+        BookingDialogue
     },
     props: {
         concertNo: {
@@ -126,7 +97,7 @@ export default {
         ...mapState(['concert', 'likedList', 'isLoggedIn', 'userProfile', 'member', 'notBookedYet', 'notLikedYet'])
     },
     methods: {
-        ...mapActions(['fetchLikedOrNot', 'fetchConcert', 'fetchMember', 'fetchBookedOrNot']),
+        ...mapActions(['fetchLikedOrNot', 'fetchConcert', 'fetchBookedOrNot']),
         ...mapMutations(['handleUserLogin', 'handleDislikeConcert', 'handleLikeConcert']),
         // urlRequest() {
         //     const urlListNo = parseInt(this.concertNo) - 1;
@@ -198,16 +169,6 @@ export default {
         },
         cancelBook() {
             alert('예약 취소는 마이페이지의 예약리스트에서 할 수 있습니다! :)')
-        },
-        checkLikedOrNot(userInfo) {
-            const memberNo = userInfo.memberNo;
-            const concertNo = this.concertNo;
-
-            const chkArr = [ memberNo, concertNo ];
-            
-            const formData = new FormData();
-            formData.append('likedOrNotNumArr', chkArr);
-            this.fetchLikedOrNot(formData);
         }
     },
     mounted() {
@@ -216,7 +177,13 @@ export default {
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');
             this.handleUserLogin(userInfo);
-            this.checkLikedOrNot(userInfo);
+
+            const chkArr = [ userInfo.memberNo, this.concertNo ];
+            const formData = new FormData();
+            formData.append('likedOrNotNumArr', chkArr);
+
+            this.fetchLikedOrNot(formData);
+            this.fetchBookedOrNot(formData);
         } 
     }
 }

@@ -57,13 +57,10 @@ public class ConcertController {
     @PostMapping("/fetchBookedOrNot")
     public ResponseEntity<Boolean> fetchBookedOrNot(@RequestParam("likedOrNotNumArr") Integer[] likedOrNotNumArr) throws Exception {
 
-        Long memberNo = new Long(likedOrNotNumArr[0]);
-        Long concertNo = new Long(likedOrNotNumArr[1]);
-
+        Long memberNo = likedOrNotNumArr[0].longValue();
+        Long concertNo = likedOrNotNumArr[1].longValue();
         boolean isNotAlreadyBooked = concertService.isNotAlreadyBooked(memberNo, concertNo);
-
         log.info("fetchBookedOrNot(): " + concertNo + ", " + isNotAlreadyBooked);
-
         return new ResponseEntity<Boolean>(isNotAlreadyBooked, HttpStatus.OK);
     }
 
