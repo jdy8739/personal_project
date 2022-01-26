@@ -3,7 +3,7 @@
         <div class="container fonted">
             <h3>{{ concert.concertName }}</h3>
             <img class="responsive-img round-img" @click="snsRequest"
-            :src="require(`../../../../project-backend/images/artist_pics/${ concert.concertArtist }.jpg`)">
+            :src="require(`../../../../project-backend/images/concert_pics/${ concert.folderName }/${ concert.concertName }-2.jpg`)">
             <br>
             <h4>{{ concert.concertArtist }}</h4>
             <h5>{{ concert.concertVenue }}</h5>

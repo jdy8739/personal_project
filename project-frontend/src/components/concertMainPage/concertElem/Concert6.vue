@@ -2,7 +2,7 @@
     <div class="col-sm-3 concert-box" :id='`${ ownId }`' @click="focusOnThisConcert(true, false)">
         <div :style="{ position: `${ position }` }">
             <img class="responsive-img bigColorImg"
-            :src="require(`../../../../../project-backend/images/concert_pics/${ concert.concertArtist }.jpg`)"><!-- concertName으로 바꾸기-->
+            :src="require(`../../../../../project-backend/images/concert_pics/${ concert.folderName }/${ concert.concertName }-1.jpg`)">
             <div class="text-box">
                 <div v-if="isLongTitleName()" class="img-title big-text d-lg-block">{{ concert.concertArtist }}</div>
                 <div v-else class="img-title small-text d-lg-block">{{ concert.concertArtist }}</div>
