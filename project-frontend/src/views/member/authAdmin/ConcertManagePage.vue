@@ -2,7 +2,7 @@
     <div align="center" class="main-bg grey darken-4">
         <p class="topBar">CONCERT MANAGE</p>
         <p class="description" >현재 등록된 공연 상품 목록입니다.</p>
-        <concert-list-all :concertList="concertList"/>
+        <concert-list-all :concertListAll="concertListAll"/>
     </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
         ...mapActions(['fetchConcertListAll'])
     },
     computed: {
-        ...mapState(['concertList', 'userIdentity'])
+        ...mapState(['concertListAll', 'userIdentity'])
     },
 
     mounted() {

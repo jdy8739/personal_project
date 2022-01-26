@@ -197,14 +197,14 @@ export default {
     },
 
     [FETCH_CONCERT_LIST_ALL] (state, payload) {
-        state.concertList = payload;
+        state.concertListAll = payload;
     },
 
     handlePostConcert(state, payload) {
-        const targetIndex = state.concertList.findIndex(concert => {
+        const targetIndex = state.concertListAll.findIndex(concert => {
             return concert.concertNo === payload;
         });
-        state.concertList[targetIndex].locked = !state.concertList[targetIndex].locked;
+        state.concertListAll[targetIndex].locked = !state.concertListAll[targetIndex].locked;
     }
 }
     

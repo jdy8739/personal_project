@@ -42,8 +42,16 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
       @Query("select co from Concert co where co.locked = false")
       List<Concert> findUnlocked();
 
+      @Query("select co.locked from Concert co where co.concertNo = :concertNo")
+      boolean isLocked(Long concertNo);
+
       @Transactional
       @Modifying(clearAutomatically = true, flushAutomatically = true)
       @Query("update Concert co set co.locked = false where co.concertNo = :concertNo")
-      void approveConcert(Long concertNo);
+      void unlockConcert(Long concertNo);
+
+      @Transactional
+      @Modifying(clearAutomatically = true, flushAutomatically = true)
+      @Query("update Concert co set co.locked = true where co.concertNo = :concertNo")
+      void lockConcert(Long concertNo);
 }

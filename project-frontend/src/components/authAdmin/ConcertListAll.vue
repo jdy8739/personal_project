@@ -9,13 +9,13 @@
                     <td>공연 시간</td>
                     <td>게시 여부&emsp; &emsp;</td>
                 </tr>
-                <tr v-for="(concert, i) in concertList" :key="i">
+                <tr v-for="(concert, i) in concertListAll" :key="i">
                     <td>&emsp;{{ concert.concertName }}</td>
                     <td>{{ concert.concertArtist }}</td>
                     <td>{{ concert.concertVenue }}</td>
                     <td>{{ concert.concertDate }} {{ concert.concertTime }}</td>
                     <td>
-                        <v-btn class="btn" small @click="postConcert(concert.concertNo)">{{ concert.locked ? '비공개' : '공연 게시' }}</v-btn>
+                        <v-btn class="btn" small @click="postConcert(concert.concertNo)">{{ concert.locked ? '비공개' : '공연 게시됨' }}</v-btn>
                         <v-btn class="btn" small @click="toDetailPage(concert.concertNo)">자세히</v-btn>
                         &emsp;
                     </td>
@@ -30,7 +30,7 @@ import axios from 'axios';
 import { mapMutations } from 'vuex';
 export default {
     props: {
-        concertList: Array
+        concertListAll: Array
     },
     methods: {
         ...mapMutations(['handlePostConcert']),

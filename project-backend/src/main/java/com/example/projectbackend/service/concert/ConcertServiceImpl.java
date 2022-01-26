@@ -148,6 +148,8 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public void approveConcert(Long concertNo) {
-        concertRepository.approveConcert(concertNo);
+        if(concertRepository.isLocked(concertNo)) {
+            concertRepository.unlockConcert(concertNo);
+        } else concertRepository.lockConcert(concertNo);
     }
 }

@@ -39,5 +39,6 @@ export default {
     searchedResults: [],
     searchedArtists: [],
 
-    concertList: []
+    concertList: [],
+    concertListAll: []
 }
