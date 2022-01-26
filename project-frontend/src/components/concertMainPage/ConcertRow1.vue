@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Concert6 v-for="(concert, i) in concerts" :key="i" :concert="concert" class="mb-5"/>
+        <Concert6 v-for="(concert, i) in concerts" :key="i" :rowIndex="rowIndex" :colIndex="i" :concert="concert" class="mb-5"/>
         <InformationBox v-if="isInfoBoxCalled" :concertIdx="concertIdx"/>
     </div>
 </template>
@@ -25,6 +25,10 @@ export default {
     props: {
         concerts: {
             type: Array,
+            required: true
+        },
+        rowIndex: {
+            type: Number,
             required: true
         }
     },

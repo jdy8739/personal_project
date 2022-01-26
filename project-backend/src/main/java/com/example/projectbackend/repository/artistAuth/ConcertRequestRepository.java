@@ -32,11 +32,4 @@ public interface ConcertRequestRepository extends JpaRepository<ConcertRequest, 
     @Modifying
     @Query("update ConcertRequest cr set cr.approvedOrNot = false where cr.concertRequestNo = :concertRequestNo")
     void denyConcertRequest(Long concertRequestNo);
-
-
-//    @Transactional
-//    @Modifying(clearAutomatically = true)
-//    @Query("update ConcertRequest cr set cr.regName = '탈퇴한 회원' where cr.memberNo = :memberNo") //탈퇴한 회원이 작성한 보드의 id 바꿔줌.
-//    void makeIdAsWithdrawn(Long memberNo);
-
 }

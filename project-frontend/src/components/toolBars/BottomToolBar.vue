@@ -11,7 +11,7 @@
             </div>
         </v-toolbar>
         <div class="#424242 grey darken-4">
-            <P style="font-size: 12px; padding-top: 4px; margin-bottom: 4px; color: grey;">&copy; MUSIC GHUETTO</P>
+            <p style="font-size: 12px; padding-top: 4px; margin-bottom: 4px; color: grey;">&copy; MUSIC GHUETTO</p>
         </div>
     </div>
 </template>

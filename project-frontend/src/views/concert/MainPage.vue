@@ -11,7 +11,7 @@
             <date-dialogue class="col xs4 sm4 md4 lg4"/>                        
         </div>
         <div>
-          <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :concerts="concerts" class="concert-wrapper"/>
+          <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :rowIndex="i" :concerts="concerts" class="concert-wrapper"/>
         </div>
       
         <div :class="['box', 'grey darken-4', {'dragged': dragged}]" v-if="taste || dateForFilter"

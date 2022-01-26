@@ -178,9 +178,7 @@ public class MemberServiceImpl implements MemberService{
         List<LikedConcert> likedConcertList = likedConcertRepository.findByMemberNo(memberNo);//탈퇴할 때 해당 탈퇴하는 사용자가 찜한 concert에서 number_of_likes를 1씩 빼주는 알고리즘
 
         for(int i=0; i<likedConcertList.size(); i++) {
-
             deleteNo = likedConcertList.get(i).getConcertNo();
-
             concertRepository.minusNumberOfLikes(deleteNo);
         }
 
@@ -188,10 +186,8 @@ public class MemberServiceImpl implements MemberService{
         List<BookedConcert> bookedConcertList = bookedConcertRepository.findByMemberNo(memberNo);
 
         for(int i=0; i<bookedConcertList.size(); i++) {
-
             numOfVisitorsForDelete = bookedConcertList.get(i).getNumOfVisitors();
             deleteNo = bookedConcertList.get(i).getConcertNo();
-
             concertRepository.plusVenueCapacity(numOfVisitorsForDelete, deleteNo);
         }
 

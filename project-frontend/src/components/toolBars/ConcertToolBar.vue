@@ -259,7 +259,12 @@ export default {
 .topBarText {
     font-style: italic;
     margin-right: 25px;
-    color: white;
+    color: rgb(179, 179, 179);
+    transition: all 0.4s;
+}
+
+.topBarText:hover {
+    color: turquoise;
 }
 
 .files {

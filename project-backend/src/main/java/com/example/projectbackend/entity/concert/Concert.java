@@ -51,6 +51,9 @@ public class Concert {
     @Column(columnDefinition = "integer default 0")
     private Integer numberOfLikes;
 
+    @Column(columnDefinition = "boolean default true")
+    private Boolean locked;
+
     @CreationTimestamp
     private Date regDate;
 }

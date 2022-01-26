@@ -5,7 +5,7 @@
                     <v-icon class="approved-sign">checked</v-icon>
                 </div>
                 <div class="request-card-inner" :class="{ approved: request.approvedOrNot }" @click="toDetailPage(request.concertRequestNo)">
-                    <img class="thumbnail" :src="require(`../../../../project-backend/images/registered_pics/${ request.folderName }/${ request.memberId }1.jpg`)"/>
+                    <img class="thumbnail" :src="require(`../../../../project-backend/images/registered_pics/${ request.folderName }/${ request.concertName }-1.jpg`)"/>
                     <div class="thumbnail-desc">
                         <h5>{{ request.concertName }}</h5>
                         <p>{{ request.concertArtist }}</p>

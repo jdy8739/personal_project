@@ -26,15 +26,12 @@ import RegisterRequestPage from '../views/member/authArtist/RegisterRequestPage.
 import MyRequestListPage from '../views/member/authArtist/MyRequestListPage.vue'
 import MyRequestReadPage from '../views/member/authArtist/MyRequestReadPage.vue'
 import MyRequestModifyPage from '../views/member/authArtist/MyRequestModifyPage.vue'
-
 import RequestStorePage from '../views/member/authAdmin/RequestStorePage.vue'
-import RequestReadPage from '../views/member/authAdmin/RequestReadPage.vue'
 
 import BookedListPage from '../views/concert/BookedListPage.vue'
-
 import SearchPage from '../views/concert/SearchPage.vue'
-
 import ExceptionPage from '../views/ExceptionPage.vue';
+import ConcertManagePage from '../views/member/authAdmin/ConcertManagePage';
 
 Vue.use(VueRouter)
 
@@ -164,16 +161,6 @@ const routes = [
     component: RequestStorePage
   },
   {
-    path: '/request/read/:concertRequestNo',
-    name: 'RequestReadPage',
-    components: {
-      default: RequestReadPage,
-    },
-    props: {
-      default: true
-    }
-  },
-  {
     path: '/my_request/list',
     name: 'MyRequestListPage',
     component: MyRequestListPage
@@ -217,6 +204,11 @@ const routes = [
     path: '/:exception',
     name: 'ExceptionPage',
     component: ExceptionPage
+  },
+  {
+    path: '/concert/manage',
+    name: 'ConcertManagePage',
+    component: ConcertManagePage
   }
 ]
 

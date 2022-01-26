@@ -13,7 +13,7 @@
         </div>
         <div class="img-section">
             <div v-for="i in 2" :key="i" class="registered-img">
-                <img :src="require( `../../../../../project-backend/images/registered_pics/${ concertRequest.folderName }/${ concertRequest.memberId }${ i }.jpg` )"/>
+                <img :src="require( `../../../../../project-backend/images/registered_pics/${ concertRequest.folderName }/${ concertRequest.concertName }-${ i }.jpg` )"/>
             </div>
         </div>
         <v-container class="shortened">
@@ -118,10 +118,16 @@ export default {
             this.$router.push({ name: 'MyRequestModifyPage', params: { concertRequestNo: this.concertRequestNo } });
         },
         approveRegister() {
+            if(!this.concertRequest.approvedOrNot) {
+                const returnValue = confirm('정말 해당 공연 요청을 승인하고 등록할까요?');
+                if(!returnValue) return;
+            }
+
             axios.put(`http://localhost:8888/member/concert_register/approve/${parseInt(this.concertRequestNo)}`)
                 .then(() => {
-                   this.handleRequestApprove();
+                    this.handleRequestApprove();
                 })
+                .catch(err => console.log(err));
         }
     },
     mounted() {

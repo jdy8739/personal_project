@@ -58,7 +58,7 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
 
     @Override
     public void deletePicFile(String preFolderName) {
-        if(preFolderName != "") {
+        if(preFolderName != null) {
             File dir = new File("./images/registered_pics/" + preFolderName);
             if(dir.exists()) {
                 File[] files = dir.listFiles();
@@ -79,104 +79,9 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     public void approveConcertRequest(Long concertRequestNo) {
         boolean isApproved = concertRequestRepository.isApprovedOrNot(concertRequestNo);
         if(!isApproved) {
+            //승인 거절을 여러번 왓다갓다 눌러서 여러번 생성되는 콘서트가 없도록
+            //jpql과 isPresent()로 일치하는거 있는지 확인하고 없으면 생성하는 로직으로 가야할듯.
             concertRequestRepository.approveConcertRequest(concertRequestNo);
         } else concertRequestRepository.denyConcertRequest(concertRequestNo);
     }
-
-
-
-
-
-//    @Override
-//    public String getUserName(Integer memberNo) {
-//
-//        String userName = memberRepository.findByMemberNo(new Long(memberNo)).get().getName();
-//
-//        return userName;
-//    }
-//
-//    @Override
-//    public List<ConcertRequest> getConcertRequestList(Integer memberNo) {
-//
-//        List<ConcertRequest> concertRequestList;
-//
-//        if(memberNo == 0) { //코드 재활용 --> 관리자용 전체 리스트 보기
-//            concertRequestList = concertRequestRepository.findAll();
-//        } else { // --> 개인이 스스로 요청한 리스트 보기
-//            concertRequestList = concertRequestRepository.findByMemberNo(memberNo.longValue());
-//        }
-//        return concertRequestList;
-//    }
-//
-//    @Override
-//    public ConcertRequest getConcertRequest(Integer concertRequestNo) {
-//
-//        Optional<ConcertRequest> tmpConcertRequest = concertRequestRepository.findByConcertRequestNo(new Long(concertRequestNo));
-//
-//        ConcertRequest concertRequest = tmpConcertRequest.get();
-//
-//        try {
-//            RequestReply requestReply = requestReplyRepository.findByConcertRequestNo(new Long(concertRequestNo)).get();
-//
-////            concertRequest.addRequestReply(requestReply);
-//
-//        } catch (NoSuchElementException noSuchElementException) {
-//
-////            concertRequest.addRequestReply(new RequestReply(" "));
-//        }
-//
-//        return concertRequest;
-//    }
-//
-//    @Override
-//    public void approveOrNotRequest(Integer[] numArr) {
-//
-//        int concertRequestNo = numArr[0];
-//        int statusNum = numArr[1];
-//
-//        Integer conReqNo = concertRequestNo;
-//
-//        if(statusNum == 1) {
-//            concertRequestRepository.approveConcertRequest(conReqNo.longValue());
-//        } else if(statusNum == 2) {
-//            concertRequestRepository.denyConcertRequest(conReqNo.longValue());
-//        }
-//    }
-//
-//    @Override
-//    public void inputReply(RequestReply requestReply) {
-//
-//        boolean isNotRepliedYet = requestReplyRepository.findByConcertRequestNo(requestReply.getConcertRequestNo()).isEmpty();
-//
-//        log.info("isNotRepliedYet: " + isNotRepliedYet);
-//
-//        if(isNotRepliedYet) requestReplyRepository.save(requestReply);
-//        else {
-//
-//            Long concertRequestNo = requestReply.getConcertRequestNo();
-//            String reply = requestReply.getRequestReply();
-//
-//            requestReplyRepository.updateReply(reply, concertRequestNo);
-//        }
-//    }
-//
-////    @Override
-////    public String findRequestReply(Integer concertRequestNo) {
-////
-////        Optional<RequestReply> tmpRequestReply = requestReplyRepository.findByConcertRequestNo(new Long(concertRequestNo));
-////        String requestReply = tmpRequestReply.get().getRequestReply();
-////
-////        return requestReply;
-////    }
-//
-//
-//
-//    @Override
-//    public void deleteConcertRequest(Integer concertRequestNo) {
-//
-//        Long conReqNo = concertRequestNo.longValue();
-//
-//        requestReplyRepository.deleteByConcertRequestNo(conReqNo);
-//        concertRequestRepository.deleteByConcertRequestNo(conReqNo);
-//    }
 }

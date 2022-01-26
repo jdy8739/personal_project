@@ -1,34 +1,26 @@
 <template>
-    <div style="padding-top: 25px;">
-
+    <div class="pt-5">
         <div align="center">
-            
             <v-btn v-if="btnColor == 0" class="ma-2" outlined large color="grey" v-on:mouseover="changeBtn">
                 SHOW MORE
-            </v-btn> 
-
+            </v-btn>
             <v-btn v-else-if="btnColor == 1" class="ma-2" outlined large color="teal" v-on:mouseout="changeBtnBack">
                 SHOW MORE
             </v-btn>
         </div>
-
         <div row style="margin-top: 70px; margin-bottom: 220px;">
-
             <div class="first">
                 <textarea disabled v-model="firstTitle" class="boxTitle"></textarea>
                 <textarea disabled v-model="firstBox" class="textBox"></textarea>
             </div>
-
             <div class="second">
                 <textarea disabled v-model="secondTitle" class="boxTitle"></textarea>
                 <textarea disabled v-model="secondBox" class="textBox"></textarea>
             </div>
-
             <div class="third">
                 <textarea disabled v-model="thirdTitle" class="boxTitle"></textarea>
                 <textarea disabled v-model="thirdBox" class="textBox"></textarea>
             </div>
-
         </div>
 
         <div style="width: 100%;"> <!-- margin-left: 10%; 또는 margin: auto; 로 슬라이드 가운데 정렬-->

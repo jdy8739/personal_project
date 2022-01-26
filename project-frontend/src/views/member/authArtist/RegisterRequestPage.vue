@@ -35,33 +35,36 @@ export default {
             this.step ++;
         },
         onSubmit(payload) {
-            
             if(this.isLoggedIn) {
 
                 const formData = new FormData();
-                const date = Date.now();
+                const code = Date.now();
                 
-                formData.append('id', this.userProfile.id);
-                formData.append('date', date);
-                formData.append('preFolderName', '');
+                formData.append('concertName', payload.concertName);
+                formData.append('code', code);
+                formData.append('preFolderName', null);
 
                 Array.from(this.files).forEach((a, i) => {
                     formData.append("concertPic", this.files[i]);
                 });
 
                 axios.post('http://localhost:8888/member/concert_register/img_upload', formData)
-                    .then(() => {
-             
-                        const folderName = this.userProfile.id + date;
-                        axios.post('http://localhost:8888/member/concert_register/request', { ...payload, folderName })
-                            .then(() => {
-                                alert('성공적으로 공연 요청이 등록되었습니다. :)');
-                                this.$router.push({ name: 'MainPage' });
-                            })
-                            .catch(err => { 
-                                console.log(err);
-                                alert('잠시 후에 다시 시도해주세요!');
-                            });
+                    .then((res) => {
+                        if(res.data === 'Upload Success!') {
+                            const folderName = `${payload.concertName}(${code})`;
+                            axios.post('http://localhost:8888/member/concert_register/request', { ...payload, folderName })
+                                .then(() => {
+                                    alert('성공적으로 공연 요청이 등록되었습니다. :)');
+                                    this.$router.push({ name: 'MainPage' });
+                                })
+                                .catch(err => { 
+                                    console.log(err);
+                                    alert('잠시 후에 다시 시도해주세요!');
+                                });
+
+                        } else {
+                            alert('업로드가 되지않았습니다. 사진의 크기와 형식을 확인해주세요. :)')
+                        }
                     })
                     .catch(err => console.log(err));
             }

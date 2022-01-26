@@ -63,9 +63,9 @@ const managerLinks = [
         icon: '',
     },
     {
-        text: 'ABOUT US',
+        text: 'CONCERT MANAGE',
         icon: 'people',
-        route: '/aboutUs',
+        route: '/concert/manage',
     },
     {
         text: 'REQUEST STORE', 

@@ -4,6 +4,7 @@ import com.example.projectbackend.entity.artistAuth.ConcertRequest;
 import com.example.projectbackend.entity.artistAuth.RequestReply;
 import com.example.projectbackend.service.artistAuth.ConcertRequestService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +28,16 @@ public class ArtistAuthController {
 
     @PostMapping("/img_upload")
     @ResponseBody
-    public String requestUploadFile(@RequestParam("concertPic") List<MultipartFile> fileList,
-                                    @RequestParam("id") String id,
-                                    @RequestParam("date") String date,
+    public ResponseEntity<String> requestUploadFile(@RequestParam("concertPic") List<MultipartFile> fileList,
+                                    @RequestParam("concertName") String concertName,
+                                    @RequestParam("code") String code,
                                     @RequestParam("preFolderName") String preFolderName) {
 
-        concertRequestService.deletePicFile(preFolderName);
+        //concertRequestService.deletePicFile(preFolderName);
 
-        log.info("requestUploadFile(): " + fileList + ", " + id + ", " + date);
+        log.info("requestUploadFile(): " + fileList + ", " + concertName + ", " + code);
 
-        String path = "./images/registered_pics/" + id + date;
+        String path = "./images/registered_pics/" + concertName + "(" + code + ")";
         File newFolder = new File(path);
 
         if(!newFolder.exists()) {
@@ -51,20 +52,22 @@ public class ArtistAuthController {
         try {
             // 결국 저장되는 위치가 images/사진파일명.확장자
             // images/아이디/사진파일명.확장자
-            for(MultipartFile multipartFile : fileList) {
+            for (MultipartFile multipartFile : fileList) {
                 log.info("requestUploadFile(): Make File");
 
-                FileOutputStream writer = new FileOutputStream(path +  "/" + id + i + ".jpg");
+                FileOutputStream writer = new FileOutputStream(path + "/" + concertName + "-" + i + ".jpg");
                 i++;
                 writer.write(multipartFile.getBytes());
                 writer.close();
             }
 
+        } catch (FileSizeLimitExceededException e) {
+            return new ResponseEntity<String>("image size too big.", HttpStatus.OK);
         } catch (Exception e) {
-            return "Upload Fail!";
+            log.info("e:" + e);
+            return new ResponseEntity<String>("Upload Fail!", HttpStatus.OK);
         }
-        log.info("requestUploadFile(): Success!");
-        return "Upload Success!";
+        return new ResponseEntity<String>("Upload Success!", HttpStatus.OK);
     }
 
     @PostMapping("/request")

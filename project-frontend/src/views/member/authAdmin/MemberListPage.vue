@@ -38,8 +38,8 @@ export default {
         }
     },
     watch: {
-        members(a) {
-            if(a !== 'manager') {
+        members() {
+            if(this.userIdentity !== 'manager') {
                 alert('권한이 없는 페이지입니다.');
                 this.$router.push({ name: 'MainPage' });
             }
