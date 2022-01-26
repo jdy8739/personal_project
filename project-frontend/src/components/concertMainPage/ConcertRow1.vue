@@ -37,7 +37,7 @@ export default {
             this.concertIdx = (idx - 1);
             this.isInfoBoxCalled = false;
 
-            let start = this.concerts[0].concertNo;
+            let start = this.rowIndex * 4 + 1;
             let end = idx;
 
             const infoBoxNum = end - start;

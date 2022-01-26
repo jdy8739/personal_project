@@ -79,7 +79,7 @@ export default {
         ...mapState(['isLoggedIn', 'userProfile', 'userIdentity', 'taste', 'dateForFilter', 'concertList'])
     },
     methods: {
-        ...mapActions(['fetchTaste', 'fetchConcertList']),
+        ...mapActions(['fetchTaste', 'fetchUnlockedConcertList']),
         ...mapMutations(['handleUserLogin']),
 
         offFilter() {
@@ -119,7 +119,7 @@ export default {
       }
     },
     mounted() {
-        this.fetchConcertList();
+        this.fetchUnlockedConcertList();
 
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');

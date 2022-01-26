@@ -14,7 +14,6 @@
             </span>
         </div>
         <div class="col-md-4 com-sm-12">
-            {{ notLikedYet }}
             <h5>입장료 {{ getChosenConcert.concertPrice }}</h5>
             <h5>{{ getChosenConcert.concertInfo }}</h5>
         </div>

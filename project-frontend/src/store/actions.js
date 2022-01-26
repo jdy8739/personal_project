@@ -187,5 +187,16 @@ export default {
             .catch((err) => {
                 console.log(err);
             })
+    },
+
+    fetchUnlockedConcertList({ commit }) {
+        return axios.get('http://localhost:8888/concert/unlockedList')
+            .then((res) => {
+                commit(FETCH_CONCERT_LIST, res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
+
 }

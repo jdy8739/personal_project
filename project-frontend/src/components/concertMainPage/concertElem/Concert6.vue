@@ -51,7 +51,7 @@ export default {
 
         focusOnThisConcert(onChange, offBox) {
 
-            const id = this.concert.concertNo;
+            const id = this.ownId;
             const focusedConcert = document.getElementById(id);
             const focusedImg = focusedConcert.getElementsByTagName('img')[0];
             const focusedText = focusedConcert.querySelector('.text-box');
