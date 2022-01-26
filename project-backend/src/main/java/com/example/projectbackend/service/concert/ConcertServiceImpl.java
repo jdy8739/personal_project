@@ -128,7 +128,6 @@ public class ConcertServiceImpl implements ConcertService {
         } else {
             log.info("no such genreName");
         }
-
         return searchedList;
     }
 
@@ -140,5 +139,10 @@ public class ConcertServiceImpl implements ConcertService {
     @Override
     public List<Concert> getList() {
         return concertRepository.findAll();
+    }
+
+    @Override
+    public List<Concert> getUnlockedList() {
+        return concertRepository.findUnlocked();
     }
 }

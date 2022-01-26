@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -33,7 +34,7 @@ public class ArtistAuthController {
                                     @RequestParam("code") String code,
                                     @RequestParam("preFolderName") String preFolderName) {
 
-        //concertRequestService.deletePicFile(preFolderName);
+        concertRequestService.deletePicFile(preFolderName);
 
         log.info("requestUploadFile(): " + fileList + ", " + concertName + ", " + code);
 
@@ -114,7 +115,7 @@ public class ArtistAuthController {
     }
 
     @PutMapping("/approve/{concertRequestNo}")
-    public ResponseEntity<Void> approveRequest(@PathVariable("concertRequestNo") Long concertRequestNo) {
+    public ResponseEntity<Void> approveRequest(@PathVariable("concertRequestNo") Long concertRequestNo) throws IOException {
         log.info("approveRequest(): ");
         concertRequestService.approveConcertRequest(concertRequestNo);
         return new ResponseEntity<Void>(HttpStatus.OK);

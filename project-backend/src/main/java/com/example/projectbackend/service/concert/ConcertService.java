@@ -30,4 +30,6 @@ public interface ConcertService {
     public List<Concert> searchArtist(String searchedArtist);
 
     public List<Concert> getList();
+
+    public List<Concert> getUnlockedList();
 }

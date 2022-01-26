@@ -100,4 +100,10 @@ public class ConcertController {
         log.info("getList(): ");
         return new ResponseEntity<List<Concert>>(concertService.getList(), HttpStatus.OK);
     }
+
+    @GetMapping("/unlockedList")
+    public ResponseEntity<List<Concert>> getUnlockedList() {
+        log.info("getList(): ");
+        return new ResponseEntity<List<Concert>>(concertService.getUnlockedList(), HttpStatus.OK);
+    }
 }

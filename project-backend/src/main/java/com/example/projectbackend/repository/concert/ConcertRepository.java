@@ -11,7 +11,6 @@ import java.util.Optional;
 
 public interface ConcertRepository extends JpaRepository<Concert, Long> {
 
-      @Query("select co from Concert co where co.concertNo = :concertNo") //받는 자료형과 쿼리문 안에 from뒤 이름이 같아야한다!
       Optional<Concert> findByConcertNo(Long concertNo);
 
       @Transactional
@@ -39,4 +38,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
 
       @Query("select co from Concert co where co.concertArtist like :searchedArtist%") //like(포함)
       List<Concert> findByConcertArtist(String searchedArtist);
+
+      @Query("select co from Concert co where co.locked = false")
+      List<Concert> findUnlocked();
 }
