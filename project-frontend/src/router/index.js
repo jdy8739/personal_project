@@ -47,7 +47,7 @@ const routes = [
     component: MainPage
   },
   {
-    path: '/concertDetail/:concertNo',
+    path: '/concert_detail/:concertNo',
     name: 'ConcertDetailPage',
     components: {
       default: ConcertDetailPage 

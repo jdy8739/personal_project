@@ -116,7 +116,7 @@ public class ArtistAuthController {
 
     @PutMapping("/approve/{concertRequestNo}")
     public ResponseEntity<Void> approveRequest(@PathVariable("concertRequestNo") Long concertRequestNo) throws IOException {
-        log.info("approveRequest(): ");
+        log.info("approveRequest(): " + concertRequestNo);
         concertRequestService.approveConcertRequest(concertRequestNo);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

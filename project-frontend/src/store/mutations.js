@@ -28,7 +28,8 @@ import {
     FETCH_SEARCHED_RESULTS,
     FETCH_SEARCHED_ARTISTS,
 
-    FETCH_CONCERT_LIST
+    FETCH_CONCERT_LIST,
+    FETCH_CONCERT_LIST_ALL
 
 } from './mutation-types'
 
@@ -193,6 +194,17 @@ export default {
     handleDeleteBooking(state, payload) {
         const targetIndex = state.bookedList.findIndex(booked => booked.bookedConcertNo === payload);
         state.bookedList.splice(targetIndex, 1);
+    },
+
+    [FETCH_CONCERT_LIST_ALL] (state, payload) {
+        state.concertList = payload;
+    },
+
+    handlePostConcert(state, payload) {
+        const targetIndex = state.concertList.findIndex(concert => {
+            return concert.concertNo === payload;
+        });
+        state.concertList[targetIndex].locked = !state.concertList[targetIndex].locked;
     }
 }
     

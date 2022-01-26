@@ -24,7 +24,8 @@ import {
     FETCH_SEARCHED_RESULTS,
     FETCH_SEARCHED_ARTISTS,
 
-    FETCH_CONCERT_LIST
+    FETCH_CONCERT_LIST,
+    FETCH_CONCERT_LIST_ALL
 
 } from './mutation-types'
 
@@ -179,10 +180,10 @@ export default {
             })
     },
 
-    fetchConcertList({ commit }) {
+    fetchConcertListAll({ commit }) {
         return axios.get('http://localhost:8888/concert/list')
             .then((res) => {
-                commit(FETCH_CONCERT_LIST, res.data);
+                commit(FETCH_CONCERT_LIST_ALL, res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -198,5 +199,4 @@ export default {
                 console.log(err);
             })
     }
-
 }

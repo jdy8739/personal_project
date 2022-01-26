@@ -106,4 +106,11 @@ public class ConcertController {
         log.info("getList(): ");
         return new ResponseEntity<List<Concert>>(concertService.getUnlockedList(), HttpStatus.OK);
     }
+
+    @PutMapping("/postConcert/{concertNo}")
+    public ResponseEntity<Void> postConcert(@PathVariable("concertNo") Long concertNo) {
+        log.info("postConcert(): " + concertNo);
+        concertService.approveConcert(concertNo);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

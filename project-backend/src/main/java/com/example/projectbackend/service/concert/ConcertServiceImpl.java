@@ -145,4 +145,9 @@ public class ConcertServiceImpl implements ConcertService {
     public List<Concert> getUnlockedList() {
         return concertRepository.findUnlocked();
     }
+
+    @Override
+    public void approveConcert(Long concertNo) {
+        concertRepository.approveConcert(concertNo);
+    }
 }

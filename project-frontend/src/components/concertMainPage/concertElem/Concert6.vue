@@ -77,9 +77,7 @@ export default {
     },
     mounted() {
         EventBus.$on('offColors', (idx) => {
-            const id = this.concert.concertNo;
-
-            if(id !== idx) {
+            if(this.ownId !== idx) {
                 this.focusOnThisConcert(false, false);
             }
         });

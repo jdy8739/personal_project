@@ -32,4 +32,6 @@ public interface ConcertService {
     public List<Concert> getList();
 
     public List<Concert> getUnlockedList();
+
+    public void approveConcert(Long concertNo);
 }

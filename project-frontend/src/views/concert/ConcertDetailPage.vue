@@ -75,7 +75,7 @@ export default {
     },
     props: {
         concertNo: {
-            type: String,
+            type: Number,
             required: true
         }
     },

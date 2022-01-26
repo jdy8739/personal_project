@@ -52,7 +52,7 @@ export default {
         goToDetailPage(concertNo) {
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: concertNo.toString() } 
+                params: { concertNo: concertNo } 
             });
         },
         delLikedConcert(conNo, index) { //conNo는 concertNo랑 같음
