@@ -43,7 +43,12 @@ const routes = [
   {
     path: '/main',
     name: 'MainPage',
-    component: MainPage
+    components: {
+      default: MainPage
+    },
+    props: {
+      default: true
+    }
   },
   {
     path: '/concert_detail/:concertNo',

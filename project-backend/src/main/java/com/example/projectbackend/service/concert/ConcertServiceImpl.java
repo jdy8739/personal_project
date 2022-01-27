@@ -8,6 +8,7 @@ import com.example.projectbackend.repository.concert.ConcertRepository;
 import com.example.projectbackend.repository.member.BookedConcertRepository;
 import com.example.projectbackend.repository.member.LikedConcertRepository;
 import com.example.projectbackend.repository.member.MemberRepository;
+import com.example.projectbackend.service.artistAuth.ConcertRequestServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private ConcertRequestServiceImpl concertRequestServiceImpl;
 
     @Override
     public Optional<Concert> findByConcertNo(Long concertNo) {
@@ -145,6 +149,12 @@ public class ConcertServiceImpl implements ConcertService {
     }
 
     @Override
+    public List<Concert> findUnlockedMore(Long lastConcertNo) {
+        Integer MAX = 4;
+        return concertRepository.findUnlockedMore(lastConcertNo, MAX);
+    }
+
+    @Override
     public void approveConcert(Long concertNo) {
         if(concertRepository.isLocked(concertNo)) {
             concertRepository.unlockConcert(concertNo);
@@ -153,6 +163,7 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public void removeConcert(Long concertNo) {
+        concertRequestServiceImpl.deletePicFile(concertRepository.findByConcertNo(concertNo).get().getFolderName(), "concert_pics");
         concertRepository.deleteByConcertNo(concertNo);
     }
 }

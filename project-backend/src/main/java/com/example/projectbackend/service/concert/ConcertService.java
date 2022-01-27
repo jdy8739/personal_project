@@ -31,6 +31,8 @@ public interface ConcertService {
 
     public List<Concert> getUnlockedList();
 
+    public List<Concert> findUnlockedMore(Long lastConcertNo);
+
     public void approveConcert(Long concertNo);
 
     public void removeConcert(Long concertNo);

@@ -22,7 +22,6 @@ export default {
     notDecidedYet: true,
 
     taste: { chosenGenres: '' },
-    dateForFilter: false,
 
     userName: '',
 
@@ -38,5 +37,5 @@ export default {
     searchedResults: [],
 
     concertList: [],
-    concertListAll: []
+    concertListAll: [],
 }

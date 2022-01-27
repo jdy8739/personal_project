@@ -218,6 +218,24 @@ export default {
 
     setConcertListByUserTaste(state, payload) {
         state.taste.chosenGenres = [...payload];
+    },
+
+    joinConcertList(state, payload) {
+        let i = state.concertList.length;
+        let j = state.concertList[i - 1].length;
+        if(j === 0) {
+            i -= 1;
+            j = 4;
+        }
+        if(j === 4) {
+            state.concertList.push(payload);
+        } else {
+            const cut = 4 - j;
+            for(let k=0; k<cut; k++) {
+                state.concertList[i - 1].push(payload[k]);
+            }
+            state.concertList.push(payload.slice(cut, payload.length)); 
+        }
     }
 }
     

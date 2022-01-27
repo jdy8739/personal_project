@@ -34,17 +34,22 @@ export default {
         ConcertRow1,
         MainPageFooter
     },
-    data() {
-        return {
-            
+    props: {
+        isDeleted: {
+            type: Boolean,
         }
     },
     computed: {
-        ...mapState(['isLoggedIn', 'userProfile', 'userIdentity', 'taste', 'dateForFilter', 'concertList'])
+        ...mapState(['isLoggedIn', 'userProfile', 'userIdentity', 'taste', 'concertList', 'concertNoFilteredByDate'])
     },
     methods: {
         ...mapActions(['fetchTaste', 'fetchUnlockedConcertList']),
         ...mapMutations(['handleUserLogin']),
+    },
+    created() {
+        if(this.isDeleted) {
+            window.location.reload();
+        }
     },
     mounted() {
         this.fetchUnlockedConcertList();
@@ -105,36 +110,9 @@ export default {
     line-height: 40px;
 }
 
-
 .bigImg {
     filter: blur(1px) grayscale(100%); 
     opacity: 0.6;
-}
-
-.box {
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-
-    width: 200px;
-    height: 50px;
-    box-sizing: border-box;
-    padding: 15px;
-    background: white;
-    display: inline-block;
-    user-select: none;
-    text-align: left;
-    cursor: pointer;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
-    line-height: 1.8;
-    color: #272727;
-    font-family: Consolas, 'Courier New', 'Lucida Console';
-    border-radius: 4px;
-}
-
-.box.dragged {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .concert-wrapper {
@@ -143,7 +121,6 @@ export default {
     max-width: 2200px;
     margin: auto;
 }
-
 
 @media screen and (max-width: 1580px) {
     .location {

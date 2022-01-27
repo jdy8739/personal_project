@@ -1,10 +1,7 @@
 <template>
     <div class="pt-5">
         <div align="center">
-            <v-btn v-if="btnColor == 0" class="ma-2" outlined large color="grey" v-on:mouseover="changeBtn">
-                SHOW MORE
-            </v-btn>
-            <v-btn v-else-if="btnColor == 1" class="ma-2" outlined large color="teal" v-on:mouseout="changeBtnBack">
+            <v-btn class="ma-2" outlined large color="teal" @click="showConcertMore">
                 SHOW MORE
             </v-btn>
         </div>
@@ -22,9 +19,7 @@
                 <textarea disabled v-model="thirdBox" class="textBox"></textarea>
             </div>
         </div>
-
         <div style="width: 100%;"> <!-- margin-left: 10%; 또는 margin: auto; 로 슬라이드 가운데 정렬-->
-
             <agile :nav-buttons="false" :autoplay-speed="5000" :speed="2500" fade pause-on-hover pause-on-dots-hover autoplay>
                 <img class="slide" src='@/assets/img/04.jpg'/>
                 <img class="slide" src='@/assets/img/07.jpg'/>
@@ -32,33 +27,30 @@
                 <img class="slide" src='@/assets/img/05.jpg'/>
                 <img class="slide" src='@/assets/img/01.jpg'/>
             </agile>
-            
         </div>
-
         <div align="center" style="margin-top: 50px; margin-bottom: 40px;">
             <p class="footerText">혹시 찾으시는 정보나 불편한 점이 있으신가요???</p>
             <p class="footerText" style="display: inline; margin-right: 10px;">여기에서 말씀해주세요. :)</p>
-
-            <v-icon color="teal">
-                email
-            </v-icon>
+            <v-icon color="teal">email</v-icon>
         </div>
-
     </div>
 </template>
 
 <script>
-import { VueAgile } from 'vue-agile'
+import axios from 'axios';
+import { VueAgile } from 'vue-agile';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'MainPageFooter',
     components: {
         agile: VueAgile
     },
+    computed: {
+        ...mapState(['concertList'])
+    },
     data() {
         return {
-            btnColor: 0,
-
             firstTitle: '저희 MUSIC GHUETTO의 공연들은...',
             firstBox: '매일, 매주 업데이트됩니다! 저희 서비스를 통해 고객님의 취향에 맞는 공연과 뮤지션들을 추천해드려요. 꼭 놓치지말고 확인해보세요! :) ' + 
             '다양한 이벤트와 선물도 준비되어있습니다. 여러분들을 위한 공연을 지금 확인하세요!',
@@ -73,11 +65,26 @@ export default {
         }
     },
     methods: {
-        changeBtn() {
-            this.btnColor = 1
-        },
-        changeBtnBack() {
-            this.btnColor = 0
+        ...mapMutations(['joinConcertList']),
+
+        showConcertMore() {
+            let i = this.concertList.length;
+            let j = this.concertList[i - 1].length;
+
+            if(j === 0) {
+                i -= 1;
+                j = 4;
+            }
+            const lastConcertNo = this.concertList[i - 1][j - 1].concertNo;
+            
+            axios.get(`http://localhost:8888/concert/show_more/${ lastConcertNo }`)
+                .then(res => {
+                    if(res.data.length === 0) {
+                        alert('더 가져올 공연 정보가 없습니다.');
+                        return;
+                    } else this.joinConcertList(res.data);
+                })
+                .catch(err => console.log(err));
         }
     }
 }

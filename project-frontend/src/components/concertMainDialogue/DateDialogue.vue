@@ -21,10 +21,13 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="teal darken-1" text @click.native="apply($event)">
+                        <v-btn color="teal darken-1" text @click.native="reset">
+                            초기화
+                        </v-btn>
+                        <v-btn color="teal darken-1" text @click.native="apply">
                             적용
                         </v-btn>
-                        <v-btn color="teal darken-1" text @click.native="cancel($event)">
+                        <v-btn color="teal darken-1" text @click.native="cancel">
                             취소
                         </v-btn>
                     </v-card-actions>
@@ -60,6 +63,9 @@ export default {
             this.startDate = '';
             this.endDate = '';
             this.dialog = false;
+        },
+        reset() {
+            this.setDateCriteria([0, 0]);
         }
     }
 }

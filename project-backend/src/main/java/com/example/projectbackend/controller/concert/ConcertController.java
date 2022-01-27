@@ -100,6 +100,12 @@ public class ConcertController {
         return new ResponseEntity<List<Concert>>(concertService.getUnlockedList(), HttpStatus.OK);
     }
 
+    @GetMapping("/show_more/{lastConcertNo}")
+    public ResponseEntity<List<Concert>> showMore(@PathVariable("lastConcertNo") Long lastConcertNo) {
+        log.info("showMore(): " + lastConcertNo);
+        return new ResponseEntity<List<Concert>>(concertService.findUnlockedMore(lastConcertNo), HttpStatus.OK);
+    }
+
     @PutMapping("/postConcert/{concertNo}")
     public ResponseEntity<Void> postConcert(@PathVariable("concertNo") Long concertNo) {
         log.info("postConcert(): " + concertNo);

@@ -39,8 +39,12 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
       @Query("select co from Concert co where co.concertName like %:concertName%") //like(포함)
       List<Concert> findByConcertName(String concertName);
 
-      @Query("select co from Concert co where co.locked = false")
+      //@Query("select co from Concert co where co.locked = false")
+      @Query(value = "SELECT * FROM Concert where locked = false LIMIT 12", nativeQuery = true)
       List<Concert> findUnlocked();
+
+      @Query(value = "SELECT * FROM Concert where locked = false and concert_no > :lastConcertNo LIMIT :MAX", nativeQuery = true)
+      List<Concert> findUnlockedMore(Long lastConcertNo, Integer MAX);
 
       @Query("select co.locked from Concert co where co.concertNo = :concertNo")
       boolean isLocked(Long concertNo);

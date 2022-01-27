@@ -199,6 +199,23 @@ export default {
         font-size: 40px;
         line-height: 40px;
     }
+
+    .recomended-icon {
+        width: 45px;
+        height: 38px;
+    }
+
+    .banned-icon {
+        width: 130px;
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .banned-icon {
+        width: 90px;
+        height: 55px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -210,6 +227,16 @@ export default {
     .long-text {
         font-size: 75px;
         line-height: 80px;
+    }
+
+    .recomended-icon {
+        width: 85px;
+        height: 75px;
+    }
+
+    .banned-icon {
+        width: 180px;
+        height: 120px;
     }
 }
 </style>

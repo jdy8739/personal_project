@@ -49,21 +49,21 @@ public class ConcertRequestServiceImpl implements ConcertRequestService {
     @Override
     public void deleteRequest(Long concertRequestNo) {
         String preFolderName = concertRequestRepository.findByConcertRequestNo(concertRequestNo).get().getFolderName();
-        deletePicFile(preFolderName);
+        deletePicFile(preFolderName, "registered_pics");
         concertRequestRepository.deleteByConcertRequestNo(concertRequestNo);
     }
 
     @Override
     public void modifyRequest(ConcertRequest concertRequest) {
         String preFolderName = concertRequestRepository.findByConcertRequestNo(concertRequest.getConcertRequestNo()).get().getFolderName();
-        deletePicFile(preFolderName);
+        deletePicFile(preFolderName, "registered_pics");
         concertRequestRepository.save(concertRequest);
     }
 
     @Override
-    public void deletePicFile(String preFolderName) {
+    public void deletePicFile(String preFolderName, String targetFolder) {
         if(preFolderName != null) {
-            File dir = new File("./images/registered_pics/" + preFolderName);
+            File dir = new File("./images/" + targetFolder + "/" + preFolderName);
             if(dir.exists()) {
                 File[] files = dir.listFiles();
                 for(File file : files) file.delete();

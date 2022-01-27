@@ -186,8 +186,7 @@ export default {
                 axios.delete(`http://localhost:8888/concert/remove_concert/${ this.concertNo }`)
                     .then(() => {
                         alert('성공적으로 공연 정보가 삭제되었습니다.');
-                        window.location.reload();
-                        this.$router.push({ name: 'MainPage' });
+                        this.$router.push({ name: 'MainPage', params: { isDeleted: true } });
                     })
                     .catch(err => console.log(err));
             }

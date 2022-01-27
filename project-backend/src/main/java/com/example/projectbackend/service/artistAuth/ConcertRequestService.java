@@ -18,7 +18,7 @@ public interface ConcertRequestService {
 
     public void modifyRequest(ConcertRequest concertRequest);
 
-    public void deletePicFile(String preFolderName);
+    public void deletePicFile(String preFolderName, String targetFolder);
 
     public List<ConcertRequest> getAllRequest();
 

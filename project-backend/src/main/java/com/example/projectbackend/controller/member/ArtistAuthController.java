@@ -34,7 +34,7 @@ public class ArtistAuthController {
                                     @RequestParam("code") String code,
                                     @RequestParam("preFolderName") String preFolderName) {
 
-        concertRequestService.deletePicFile(preFolderName);
+        concertRequestService.deletePicFile(preFolderName, "registered_pics");
 
         log.info("requestUploadFile(): " + fileList + ", " + concertName + ", " + code);
 
