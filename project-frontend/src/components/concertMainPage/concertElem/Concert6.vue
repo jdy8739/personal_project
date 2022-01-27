@@ -3,12 +3,15 @@
         <div :style="{ position: `${ position }` }">
             <img class="responsive-img bigColorImg"
             :src="require(`../../../../../project-backend/images/concert_pics/${ concert.folderName }/${ concert.concertName }-1.jpg`)">
-            <div class="text-box">
+            <div v-if="isThisConcertFilteredByDate()" class="text-box">
                 <div v-if="isLongTitleName()" class="img-title big-text d-lg-block">{{ concert.concertArtist }}</div>
                 <div v-else class="img-title small-text d-lg-block">{{ concert.concertArtist }}</div>
                 <div class="location d-none d-lg-block">{{ concert.concertVenue }}</div>
                 <div class="date d-none d-lg-block">{{ concert.concertDate }}</div>
-                <div v-if="isLikedTaste()" style="color: white;">{{ ownGenre }}</div>
+                <img class="recomended-icon" v-if="isLikedTaste()" src="../../../assets/recomended_icon.png"/>
+            </div>
+            <div v-else class="text-box">
+                <img class="banned-icon" src="../../../assets/banned_icon.png"/>
             </div>
         </div>
     </div>
@@ -36,11 +39,12 @@ export default {
     },
     data() {
         return {
-           position: 'relative'
+           position: 'relative',
+           isNotFiltered: true
         }
     },
     computed: {
-        ...mapState(['taste']),
+        ...mapState(['taste', 'concertNoFilteredByDate']),
         ownId() {
             return this.rowIndex * 4 + this.colIndex + 1;
         },
@@ -60,31 +64,38 @@ export default {
                 return false;
             } else return true;
         },
+        isThisConcertFilteredByDate() {
+            if(this.concertNoFilteredByDate.length === 0) return true;
+            for(let i=0; i<this.concertNoFilteredByDate.length; i++) {
+                if(this.concertNoFilteredByDate[i] === this.ownId) return true;
+            }
+            this.isNotFiltered = false;
+            return false;
+        },
         focusOnThisConcert(onChange, offBox) {
-            this.$store.dispatch('fetchUnlockedConcertList');
-            this.$store.dispatch('fetchConcertListAll');
+            if(this.isNotFiltered) {
+                let id = this.ownId;
+                let focusedConcert = document.getElementById(id);
+                let focusedImg = focusedConcert.getElementsByTagName('img')[0];
+                let focusedText = focusedConcert.querySelector('.text-box');
 
-            let id = this.ownId;
-            let focusedConcert = document.getElementById(id);
-            let focusedImg = focusedConcert.getElementsByTagName('img')[0];
-            let focusedText = focusedConcert.querySelector('.text-box');
-
-            if(onChange && offBox) {
-                focusedConcert.classList.add('concert-box');
-                focusedImg.classList.add('bigColorImg');
-                focusedImg.classList.remove('blurImg');
-                focusedText.classList.remove('hide');
-            } else if(onChange && !offBox) {
-                focusedConcert.classList.remove('concert-box');
-                focusedImg.classList.remove('bigColorImg');
-                focusedImg.classList.remove('blurImg');
-                focusedText.classList.remove('hide');
-                EventBus.$emit('offColors', id);
-            } else {
-                focusedConcert.classList.add('concert-box');
-                focusedImg.classList.add('bigColorImg');
-                focusedImg.classList.add('blurImg');
-                focusedText.classList.add('hide');
+                if(onChange && offBox) {
+                    focusedConcert.classList.add('concert-box');
+                    focusedImg.classList.add('bigColorImg');
+                    focusedImg.classList.remove('blurImg');
+                    focusedText.classList.remove('hide');
+                } else if(onChange && !offBox) {
+                    focusedConcert.classList.remove('concert-box');
+                    focusedImg.classList.remove('bigColorImg');
+                    focusedImg.classList.remove('blurImg');
+                    focusedText.classList.remove('hide');
+                    EventBus.$emit('offColors', id);
+                } else {
+                    focusedConcert.classList.add('concert-box');
+                    focusedImg.classList.add('bigColorImg');
+                    focusedImg.classList.add('blurImg');
+                    focusedText.classList.add('hide');
+                }
             }
         }
     },
@@ -102,6 +113,28 @@ export default {
 </script>
 
 <style scoped>
+
+.recomended-icon {
+    width: 85px;
+    height: 75px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.banned-icon {
+    width: 180px;
+    height: 120px;
+    position: absolute;
+    left: 28%;
+    top: 35%;
+    /* transform: translate(-50%, -50%); */
+    transition: all 1s;
+}
+
+.concert-box:hover .banned-icon {
+    transform: rotate(10deg);
+}
 
 .hide {
     display: none;

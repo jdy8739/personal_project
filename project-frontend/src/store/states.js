@@ -21,7 +21,7 @@ export default {
 
     notDecidedYet: true,
 
-    taste: null,
+    taste: { chosenGenres: '' },
     dateForFilter: false,
 
     userName: '',
@@ -33,8 +33,7 @@ export default {
     bookedList: [],
     bookedConcert: '',
 
-    criteriaDateOfStart: '',
-    criteriaDateOfEnd: '',
+    concertNoFilteredByDate: [],
 
     searchedResults: [],
 

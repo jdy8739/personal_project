@@ -13,7 +13,6 @@
         <div>
           <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :rowIndex="i" :concerts="concerts" class="concert-wrapper"/>
         </div>
-        <p style="color: white;">{{ taste }}</p>
         <main-page-footer/>
     </div>
 </template>

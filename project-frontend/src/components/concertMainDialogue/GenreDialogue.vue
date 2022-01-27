@@ -20,7 +20,6 @@
                             <v-checkbox class="shrink mr-2" label="JAZZ" v-model="chosenGenres" multiple value="JAZZ" dark color="blue"/>
                             <v-checkbox class="shrink mr-2" label="ACOUSTIC" v-model="chosenGenres" multiple value="ACOUSTIC" dark color="yellow"/>
                         </div>
-                        {{chosenGenres}}
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -44,7 +43,7 @@ export default {
     data() {
         return {
             dialog: false,
-            chosenGenres: [ "ROCK", "HIP-HOP", "EDM", "JAZZ", "ACOUSTIC" ]
+            chosenGenres: []
         }
     },
     methods: {

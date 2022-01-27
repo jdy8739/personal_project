@@ -203,12 +203,21 @@ export default {
     },
 
     setDateCriteria(state, payload) {
-        state.criteriaDateOfStart = payload[0];
-        state.criteriaDateOfEnd = payload[1];
+        const [ startDate, endDate ] = payload;
+        state.concertNoFilteredByDate = [];
+        let dateElem = '';
+        for(let i=0; i<state.concertList.length; i++) {
+            for(let j=0; j<state.concertList[i].length; j++) {
+                dateElem = state.concertList[i][j].concertDate;
+                if(startDate <= dateElem && endDate >= dateElem) {
+                    state.concertNoFilteredByDate.push(i * 4 + j + 1);
+                }
+            }
+        }
     },
 
     setConcertListByUserTaste(state, payload) {
-        state.taste = payload;
+        state.taste.chosenGenres = [...payload];
     }
 }
     
