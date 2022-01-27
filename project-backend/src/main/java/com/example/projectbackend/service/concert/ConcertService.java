@@ -27,11 +27,11 @@ public interface ConcertService {
 
     public List<Concert> searchText(String searchedText);
 
-    public List<Concert> searchArtist(String searchedArtist);
-
     public List<Concert> getList();
 
     public List<Concert> getUnlockedList();
 
     public void approveConcert(Long concertNo);
+
+    public void removeConcert(Long concertNo);
 }

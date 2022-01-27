@@ -22,7 +22,6 @@ import {
     FETCH_BOOKED_CONCERT,
 
     FETCH_SEARCHED_RESULTS,
-    FETCH_SEARCHED_ARTISTS,
 
     FETCH_CONCERT_LIST,
     FETCH_CONCERT_LIST_ALL
@@ -159,24 +158,14 @@ export default {
             })
     },
 
-    fetchSearchedResults({ commit }, searchedText) {
-        return axios.post(`http://localhost:8888/concert/searchText/${searchedText}`)
+    fetchSearchedResults({ commit }, keyword) {
+        return axios.post(`http://localhost:8888/concert/searchText/${keyword}`)
             .then(res => {
-                commit(FETCH_SEARCHED_RESULTS, res.data)
+                commit(FETCH_SEARCHED_RESULTS, res.data);
             })
-            .catch(() => {
-                alert('검색기능이 원활하지 않습니다. 잠시후에 다시 시도해주세요.')
-            })
-    },
-
-    fetchSearchedArtists({ commit }, searchedText) {
-        return axios.post(`http://localhost:8888/concert/searchArtist/${searchedText}`)
-            .then(res => {
-                //alert(JSON.stringify(res.data))
-                commit(FETCH_SEARCHED_ARTISTS, res.data)
-            })
-            .catch(() => {
-                alert('검색기능이 원활하지 않습니다. 잠시후에 다시 시도해주세요.')
+            .catch(err => {
+                alert('검색기능이 원활하지 않습니다. 잠시후에 다시 시도해주세요.');
+                console.log(err);
             })
     },
 

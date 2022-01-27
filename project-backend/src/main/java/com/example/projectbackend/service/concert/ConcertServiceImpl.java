@@ -11,8 +11,10 @@ import com.example.projectbackend.repository.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ListUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,7 +114,7 @@ public class ConcertServiceImpl implements ConcertService {
         if(searchedText.toLowerCase().equals("rock") || searchedText.equals("락") || searchedText.equals("록")) {
             genreName = "rock";
         } else if(searchedText.toLowerCase().equals("hiphop") || searchedText.equals("힙합")) {
-            genreName = "hiphop";
+            genreName = "hip-hop";
         } else if(searchedText.toLowerCase().equals("jazz") || searchedText.equals("재즈")) {
             genreName = "jazz";
         } else if(searchedText.toLowerCase().equals("edm") || searchedText.equals("이디엠")) {
@@ -128,12 +130,14 @@ public class ConcertServiceImpl implements ConcertService {
         } else {
             log.info("no such genreName");
         }
-        return searchedList;
-    }
 
-    @Override
-    public List<Concert> searchArtist(String searchedArtist) {
-        return concertRepository.findByConcertArtist(searchedArtist);
+        List<Concert> searchedList2 = concertRepository.findByConcertName(searchedText);
+        List<Concert> joind = new ArrayList<Concert>();
+
+        joind.addAll(searchedList);
+        joind.addAll(searchedList2);
+
+        return joind;
     }
 
     @Override
@@ -151,5 +155,10 @@ public class ConcertServiceImpl implements ConcertService {
         if(concertRepository.isLocked(concertNo)) {
             concertRepository.unlockConcert(concertNo);
         } else concertRepository.lockConcert(concertNo);
+    }
+
+    @Override
+    public void removeConcert(Long concertNo) {
+        concertRepository.deleteByConcertNo(concertNo);
     }
 }

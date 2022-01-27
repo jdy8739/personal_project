@@ -1,7 +1,7 @@
 <template>
     <div align="center" class="main-bg grey darken-4">
         <p class="topBar">CONCERT MANAGE</p>
-        <p class="description" >현재 등록된 공연 상품 목록입니다.</p>
+        <p class="description">현재 등록된 공연 상품 목록입니다.</p>
         <concert-list-all :concertListAll="concertListAll"/>
     </div>
 </template>
@@ -26,6 +26,7 @@ export default {
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');
             this.handleUserLogin(userInfo);
+            this.fetchConcertListAll();
         }
     },
     watch: {
@@ -33,10 +34,11 @@ export default {
             if(a !== 'manager') {
                 alert('권한이 없는 페이지입니다!');
                 this.$router.push({ name: 'ExceptionPage' });
-            } else {
-                this.fetchConcertListAll();
             }
         }
+    },
+    beforeDestroy() {
+        window.location.reload();
     }
 }
 </script>

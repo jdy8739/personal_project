@@ -59,7 +59,7 @@ export default {
         sendToDetailPage() {
             this.$router.push({
                 name: 'ConcertDetailPage',
-                params: { concertNo: (this.concertIdx + 1).toString() }
+                params: { concertNo: parseInt(this.getChosenConcert.concertNo) }
             });
         },
         closeInfoBox() {

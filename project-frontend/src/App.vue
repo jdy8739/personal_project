@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <concert-tool-bar />
-        <router-view />
+        <router-view :key="$route.fullPath"/>
       <bottom-tool-bar />
     </v-main>
   </v-app>

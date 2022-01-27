@@ -26,7 +26,6 @@ import {
     FETCH_BOOKED_CONCERT,
 
     FETCH_SEARCHED_RESULTS,
-    FETCH_SEARCHED_ARTISTS,
 
     FETCH_CONCERT_LIST,
     FETCH_CONCERT_LIST_ALL
@@ -115,10 +114,6 @@ export default {
 
     [FETCH_SEARCHED_RESULTS] (state, payload) {
         state.searchedResults = payload
-    },
-
-    [FETCH_SEARCHED_ARTISTS] (state, payload) {
-        state.searchedArtists = payload
     },
 
     [FETCH_CONCERT_LIST] (state, payload) {

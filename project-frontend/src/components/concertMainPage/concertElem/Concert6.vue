@@ -50,11 +50,13 @@ export default {
         },
 
         focusOnThisConcert(onChange, offBox) {
+            this.$store.dispatch('fetchUnlockedConcertList');
+            this.$store.dispatch('fetchConcertListAll');
 
-            const id = this.ownId;
-            const focusedConcert = document.getElementById(id);
-            const focusedImg = focusedConcert.getElementsByTagName('img')[0];
-            const focusedText = focusedConcert.querySelector('.text-box');
+            let id = this.ownId;
+            let focusedConcert = document.getElementById(id);
+            let focusedImg = focusedConcert.getElementsByTagName('img')[0];
+            let focusedText = focusedConcert.querySelector('.text-box');
 
             if(onChange && offBox) {
                 focusedConcert.classList.add('concert-box');
@@ -66,7 +68,7 @@ export default {
                 focusedImg.classList.remove('bigColorImg');
                 focusedImg.classList.remove('blurImg');
                 focusedText.classList.remove('hide');
-                EventBus.$emit('offColors', id)
+                EventBus.$emit('offColors', id);
             } else {
                 focusedConcert.classList.add('concert-box');
                 focusedImg.classList.add('bigColorImg');
@@ -81,7 +83,6 @@ export default {
                 this.focusOnThisConcert(false, false);
             }
         });
-
         EventBus.$on('offBox', () => {
             this.focusOnThisConcert(true, true);
         });

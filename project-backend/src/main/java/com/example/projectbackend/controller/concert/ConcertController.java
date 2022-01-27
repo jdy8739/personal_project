@@ -88,13 +88,6 @@ public class ConcertController {
         return new ResponseEntity<List<Concert>>(SearchedList, HttpStatus.OK);
     }
 
-    @PostMapping("/searchArtist/{searchedText}")
-    public ResponseEntity<List<Concert>> searchArtist(@PathVariable("searchedText") String searchedArtist) throws Exception {
-        //log.info("searchText(): " + searchedText);
-        List<Concert> SearchedList = concertService.searchArtist(searchedArtist);
-        return new ResponseEntity<List<Concert>>(SearchedList, HttpStatus.OK);
-    }
-
     @GetMapping("/list")
     public ResponseEntity<List<Concert>> getList() {
         log.info("getList(): ");
@@ -111,6 +104,13 @@ public class ConcertController {
     public ResponseEntity<Void> postConcert(@PathVariable("concertNo") Long concertNo) {
         log.info("postConcert(): " + concertNo);
         concertService.approveConcert(concertNo);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/remove_concert/{concertNo}")
+    public ResponseEntity<Void> removeConcert(@PathVariable("concertNo") Long concertNo) {
+        log.info("removeConcert(): " + concertNo);
+        concertService.removeConcert(concertNo);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

@@ -38,7 +38,7 @@
         <hr style="width: 25%">
         <div class="flex-box mt-6 fonted">
             <p class="mt-2 mr-5">이 공연에 관심있으세요?</p>
-            <span>
+            <div style="display: block;">
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                         <div v-if="!isLoggedIn || !notLikedYet">
@@ -57,8 +57,18 @@
                     <span v-if="!isLoggedIn || !notLikedYet">찜하기</span>
                     <span v-else-if="isLoggedIn">찜해제</span>
                 </v-tooltip> 
-            </span>
+            </div>
             <booking-dialogue :concertNo="parseInt(concertNo)"/>
+            &emsp;
+            <v-tooltip bottom v-if="userIdentity === 'manager'">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn class="btn-flat white-text waves-effect waves-teal mr-4" @click="removeConcert"
+                    color="white" outlined v-bind="attrs" v-on="on">
+                        <v-icon>delete</v-icon>
+                    </v-btn>
+                </template>
+                <span>공연 삭제</span>
+            </v-tooltip> 
         </div>
     </div>    
 </template>
@@ -75,7 +85,7 @@ export default {
     },
     props: {
         concertNo: {
-            type: Number,
+            type: [Number, String],
             required: true
         }
     },
@@ -94,7 +104,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['concert', 'likedList', 'isLoggedIn', 'userProfile', 'member', 'notBookedYet', 'notLikedYet'])
+        ...mapState(['concert', 'isLoggedIn', 'userProfile', 'notBookedYet', 'notLikedYet', 'userIdentity'])
     },
     methods: {
         ...mapActions(['fetchLikedOrNot', 'fetchConcert', 'fetchBookedOrNot']),
@@ -169,6 +179,18 @@ export default {
         },
         cancelBook() {
             alert('예약 취소는 마이페이지의 예약리스트에서 할 수 있습니다! :)')
+        },
+        removeConcert() {
+            const remove = confirm('정말 해당 공연을 삭제할까요?');
+            if(remove) {
+                axios.delete(`http://localhost:8888/concert/remove_concert/${ this.concertNo }`)
+                    .then(() => {
+                        alert('성공적으로 공연 정보가 삭제되었습니다.');
+                        window.location.reload();
+                        this.$router.push({ name: 'MainPage' });
+                    })
+                    .catch(err => console.log(err));
+            }
         }
     },
     mounted() {

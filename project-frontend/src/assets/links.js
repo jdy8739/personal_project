@@ -1,10 +1,5 @@
 const links = [
     {
-        text: 'ABOUT US',
-        icon: 'people',
-        route: '/aboutUs',
-    },
-    {
         text: 'LOG IN',
         icon: '/people'
     },
@@ -34,11 +29,6 @@ const loggedInlinks = [
     {
         text: 'LOG OUT',
         icon: ''           
-    },
-    {
-        text: 'ABOUT US',
-        icon: 'people',
-        route: '/aboutUs',
     },
     {
         text: 'SUPPORT',
@@ -88,11 +78,6 @@ const artistLinks = [
     {
         text: 'LOG OUT',
         icon: '',
-    },
-    {
-        text: 'ABOUT US',
-        icon: 'people',
-        route: '/aboutUs',
     },
     {
         text: 'SUPPORT',

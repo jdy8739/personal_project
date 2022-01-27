@@ -5,7 +5,6 @@ import Home from '../views/Home.vue'
 import MainPage from '../views/concert/MainPage.vue'
 import ConcertDetailPage from '../views/concert/ConcertDetailPage.vue'
 import LikedListPage from '../views/concert/LikedListPage.vue'
-import AboutUsPage from '../views/concert/AboutUsPage.vue'
 
 import SignupPage from '../views/member/SignupPage.vue'
 import PreferenceFillInPage from '../views/member/PreferenceFillInPage.vue'
@@ -144,11 +143,6 @@ const routes = [
     props: {
       default: true
     }
-  },
-  {
-    path: '/aboutUs',
-    name: 'AboutUsPage',
-    component: AboutUsPage
   },
   {
     path: '/register/request',

@@ -20,7 +20,7 @@
 
             <v-toolbar-items>
                 <v-icon class="material-icons small teal-text" @click="searchKeyword">search</v-icon>
-                <input type="text" class="search-text" placeholder="찾고자 하는 장르 또는 아티스트" @keydown.enter="searchKeyword"/>
+                <input type="text" class="search-text" placeholder="찾고자 하는 장르 또는 아티스트" @keydown.enter="searchKeyword" v-model="searchText"/>
                 <p class="btn-flat topBarText pt-2">&copy; MUSIC GHUETTO</p>
             </v-toolbar-items>
 
@@ -96,7 +96,8 @@ export default {
             managerLinks: managerLinks,
             artistLinks: artistLinks,
             navLinks: navLinks,
-            navLinksForArtist: navLinksForArtist
+            navLinksForArtist: navLinksForArtist,
+            searchText: ''
         }
     },
     computed: {
@@ -115,7 +116,6 @@ export default {
                 return this.managerLinks;
             }
         },
-
         filterNavBar() {
             if(this.userIdentity !== 'artist' || !this.isLoggedIn) {
                 return this.navLinks;
@@ -123,31 +123,25 @@ export default {
                 return this.navLinksForArtist;
             } 
         },
-
         imgRequest() {
-                try {                
-                    return require(`../../../../../project-backend/images/memberPic/${this.userProfile.memberNo}_${this.userProfile.id}.jpg`)
-                    
-                } catch (e) {
-                    return require(`@/assets/logo.png`)
-                }
+            try {                
+                return require(`../../../../../project-backend/images/memberPic/${this.userProfile.memberNo}_${this.userProfile.id}.jpg`)
+            } catch (e) {
+                return require(`@/assets/logo.png`)
+            }
         },
-
         searchKeyword() {
             this.$router.push({
                 name: 'SearchPage',
                 //params: { searchText: this.searchText } 
-                query: { searchText: this.searchText }
-            })
+                query: { search: this.searchText }
+            });
         },
-
         handleFileUpload() {
             this.files = this.$refs.files.files; //data의 files는 input에서 받는 ref - files의 id files
             this.profilePicChanged = true;
         },
-
         imgUpload() {
-
             if(this.isLoggedIn) {
                 axios.post('http://localhost:8888/member/needSession')
                     .then(res => {
@@ -166,7 +160,7 @@ export default {
                                 formData.append("memberNo", memberNo);
                                 formData.append("id", id);
 
-                                axios.post('http://localhost:8888/member/sendMemberPic', formData, { //멀티 컨텐츠 날릴때는 무조건 헤더를 이 형식으로 맞춰야한다.
+                                axios.post('http://localhost:8888/member/sendMemberPic', formData, {
                                     headers: {
                                         'Content-Type': 'multipart/form-data' 
                                     }
@@ -189,10 +183,8 @@ export default {
                     });
             }
         },
-
         logOut($event) {
             if($event.target.innerHTML === 'LOG OUT') {
-                
                 this.$cookies.remove("CurrentUser");
                 this.handleUserLogin();
 

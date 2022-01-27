@@ -36,8 +36,8 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
       @Query("select co from Concert co where co.concertGenre like :genreName%") //like(포함)
       List<Concert> findByGenreName(String genreName);
 
-      @Query("select co from Concert co where co.concertArtist like :searchedArtist%") //like(포함)
-      List<Concert> findByConcertArtist(String searchedArtist);
+      @Query("select co from Concert co where co.concertName like :concertName%") //like(포함)
+      List<Concert> findByConcertName(String concertName);
 
       @Query("select co from Concert co where co.locked = false")
       List<Concert> findUnlocked();
@@ -54,4 +54,8 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
       @Modifying(clearAutomatically = true, flushAutomatically = true)
       @Query("update Concert co set co.locked = true where co.concertNo = :concertNo")
       void lockConcert(Long concertNo);
+
+      @Transactional
+      @Modifying
+      void deleteByConcertNo(Long concertNo);
 }
