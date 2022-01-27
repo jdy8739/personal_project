@@ -17,10 +17,10 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="teal darken-1" text @click.native="btn_apply($event)">
+                        <v-btn color="teal darken-1" text @click.native="apply($event)">
                             지금 할래요!
                         </v-btn>
-                        <v-btn color="teal darken-1" text @click.native="btn_cancel($event)">
+                        <v-btn color="teal darken-1" text @click.native="cancel($event)">
                             괜찮아요 나중에할게요!
                         </v-btn>
                     </v-card-actions>
@@ -48,12 +48,12 @@ export default {
         }
     },
     methods: {
-        btn_apply() {
+        apply() {
             this.$router.push({
                 name: 'InterestedSetUpPage',
             })
         },
-        btn_cancel() {
+        cancel() {
             this.$router.push({
                 name: 'MainPage',
             })

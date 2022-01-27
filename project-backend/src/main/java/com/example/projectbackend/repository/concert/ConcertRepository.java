@@ -33,10 +33,10 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
       @Query("update Concert co set co.venueCapacity = co.venueCapacity + :numOfVisitors where co.concertNo = :concertNo")
       void plusVenueCapacity(Integer numOfVisitors, Long concertNo);
 
-      @Query("select co from Concert co where co.concertGenre like :genreName%") //like(포함)
+      @Query("select co from Concert co where co.concertGenre like %:genreName%") //like(포함)
       List<Concert> findByGenreName(String genreName);
 
-      @Query("select co from Concert co where co.concertName like :concertName%") //like(포함)
+      @Query("select co from Concert co where co.concertName like %:concertName%") //like(포함)
       List<Concert> findByConcertName(String concertName);
 
       @Query("select co from Concert co where co.locked = false")

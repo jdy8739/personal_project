@@ -26,23 +26,18 @@ public class TasteController {
         log.info("postTaste(): " + memberTaste);
 
         boolean isNotDecidedYet = tasteService.isDecidedOrNot(memberTaste.getMemberNo().intValue());
-
         if(isNotDecidedYet) {
             tasteService.addTaste(memberTaste);
-
         } else if(!isNotDecidedYet) {
             tasteService.updateTaste(memberTaste);
         }
-
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @GetMapping("/alreadyDecidePref/{memberNo}")
     public ResponseEntity<Boolean> getDecidedOrNot(@PathVariable ("memberNo") Integer memberNo) throws Exception {
         log.info("getDecidedOrNot(): " + memberNo);
-
         boolean isNotDecidedYet = tasteService.isDecidedOrNot(memberNo);
-
         return new ResponseEntity<Boolean>(isNotDecidedYet, HttpStatus.OK);
     }
 
@@ -52,11 +47,8 @@ public class TasteController {
 
         try {
             MemberTaste memberTaste = tasteService.getTaste(memberNo).get();
-
             return new ResponseEntity<MemberTaste>(memberTaste, HttpStatus.OK);
-
         } catch (NoSuchElementException noSuchElementException) {
-
             return null;
         }
     }

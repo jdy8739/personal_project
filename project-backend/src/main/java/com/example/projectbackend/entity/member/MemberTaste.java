@@ -1,5 +1,6 @@
 package com.example.projectbackend.entity.member;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,17 +35,11 @@ public class MemberTaste {
     @Column(length = 30, nullable = true)
     private String chosenArtists;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @CreationTimestamp
     private Date regDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @UpdateTimestamp
     private Date updDate;
-
-    public MemberTaste(String chosenGenres, String speedTaste, String atmosphereTaste, String chosenArtists) {
-        this.chosenGenres = chosenGenres;
-        this.speedTaste = speedTaste;
-        this.atmosphereTaste = atmosphereTaste;
-        this.chosenArtists = chosenArtists;
-    }
-
 }

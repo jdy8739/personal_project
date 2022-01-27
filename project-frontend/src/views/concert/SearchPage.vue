@@ -22,7 +22,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['fetchSearchedResults', 'fetchSearchedArtists']),
+        ...mapActions(['fetchSearchedResults']),
 
         toDetailPage(concertNo) {
             this.$router.push({
@@ -32,12 +32,11 @@ export default {
         }
     },
     computed: {
-        ...mapState(['searchedResults', 'searchedArtists'])
+        ...mapState(['searchedResults'])
     },
     mounted() {
         this.keyword = this.$route.query.search;
         this.fetchSearchedResults(this.keyword);
-        this.fetchSearchedArtists(this.keyword);
 
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');
@@ -67,5 +66,6 @@ export default {
 
 .res-list:hover {
     color: palevioletred;
+    background-color: rgb(52, 87, 88);
 }
 </style>

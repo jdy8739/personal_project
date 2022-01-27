@@ -7,7 +7,8 @@
                 <div v-if="isLongTitleName()" class="img-title big-text d-lg-block">{{ concert.concertArtist }}</div>
                 <div v-else class="img-title small-text d-lg-block">{{ concert.concertArtist }}</div>
                 <div class="location d-none d-lg-block">{{ concert.concertVenue }}</div>
-                <div class="date d-none d-lg-block">{{ concert.concertDate }}</div>  
+                <div class="date d-none d-lg-block">{{ concert.concertDate }}</div>
+                <div v-if="isLikedTaste()" style="color: white;">{{ ownGenre }}</div>
             </div>
         </div>
     </div>
@@ -15,6 +16,7 @@
 
 <script>
 import EventBus from '@/eventBus.js'
+import { mapState } from 'vuex';
 
 export default {
     name: 'ConcertElement',
@@ -38,17 +40,26 @@ export default {
         }
     },
     computed: {
+        ...mapState(['taste']),
         ownId() {
             return this.rowIndex * 4 + this.colIndex + 1;
+        },
+        ownGenre() {
+            return this.concert.concertGenre.toString();
         }
     },
     methods: {
+        isLikedTaste() {
+            if(JSON.stringify(this.taste).includes(this.ownGenre)) {
+                return true;
+            }
+            else return false;
+        },
         isLongTitleName() {
             if(this.concert.concertArtist.length > 14) {
                 return false;
             } else return true;
         },
-
         focusOnThisConcert(onChange, offBox) {
             this.$store.dispatch('fetchUnlockedConcertList');
             this.$store.dispatch('fetchConcertListAll');

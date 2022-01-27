@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.ListUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -123,8 +120,7 @@ public class ConcertServiceImpl implements ConcertService {
             genreName = "acoustic";
         }
 
-        List<Concert> searchedList = null;
-
+        List<Concert> searchedList = new ArrayList<>();
         if(genreName != "") {
             searchedList = concertRepository.findByGenreName(genreName); //장르로 찾기
         } else {
@@ -132,12 +128,10 @@ public class ConcertServiceImpl implements ConcertService {
         }
 
         List<Concert> searchedList2 = concertRepository.findByConcertName(searchedText);
-        List<Concert> joind = new ArrayList<Concert>();
-
-        joind.addAll(searchedList);
-        joind.addAll(searchedList2);
-
-        return joind;
+        Set<Concert> set = new LinkedHashSet<>(searchedList);
+        set.addAll(searchedList2);
+        List<Concert> mergedList = new ArrayList<>(set);
+        return mergedList;
     }
 
     @Override

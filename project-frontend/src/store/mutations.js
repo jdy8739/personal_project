@@ -200,6 +200,15 @@ export default {
             return concert.concertNo === payload;
         });
         state.concertListAll[targetIndex].locked = !state.concertListAll[targetIndex].locked;
+    },
+
+    setDateCriteria(state, payload) {
+        state.criteriaDateOfStart = payload[0];
+        state.criteriaDateOfEnd = payload[1];
+    },
+
+    setConcertListByUserTaste(state, payload) {
+        state.taste = payload;
     }
 }
     

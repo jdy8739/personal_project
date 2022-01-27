@@ -1,164 +1,63 @@
 <template>
     <v-layout row justify-center>
-            <v-dialog v-model="dialog" persistent max-width="470">
-
+            <v-dialog v-model="dialog" persistent max-width="550">
                 <template v-slot:activator="{ on }">
-                    <div class="col s4 m4 l4 xl4 gray darken-5 btn-flat waves-effect waves-teal btn-dial" align="center" v-on="on" style="color: white;">
-                        Genre
+                    <div class="col s4 m4 l4 xl4 btn-flat waves-effect waves-teal btn-dial" align="center" v-on="on" style="color: white;">
+                        <p class="dialogTitle">Genre</p>
                     </div>
                 </template>
-             
                 <v-card class="#424242 grey darken-3">
-
                     <v-card-title class="headline">
                         <p class="headline">Genre</p>
                         <p class="description">장르를 설정하시면 맞는 공연을 추천해드려요! :)</p>
                     </v-card-title>
-
                     <v-card-text>
                         <div class="row">
-
-                            <p class="genreText" style="margin-right: 10px;">
-                                Rock
-                            </p>
-
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="ROCK" 
-                            dark color="teal"/>
-
-                            <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="Pop" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Metal" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Punk" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Core" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Acoustic" dark></v-checkbox>
-                            </div>
-                       </div>
-                       <div class="row">
-
-                            <p class="genreText" style="margin-right: 10px;">
-                                Hip-Hop
-                            </p>
-
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="HIP-HOP" 
-                            dark color="teal"/>
-
-                            <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="BoomBap" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Trap" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Old-School" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="R&B" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Dance" dark></v-checkbox>
-                            </div>
-                       </div>
-                       <div class="row">
-
-                            <p class="genreText" style="margin-right: 10px;">
-                                EDM
-                            </p>
-
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="EDM" 
-                            dark color="teal"/>
-
-                            <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="House" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Disco" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Techno" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Garage" dark></v-checkbox> 
-                                <v-checkbox class="shrink mr-2" label="Euro" dark></v-checkbox>  
-       
-                            </div>
-                       </div>
-                       <div class="row">
-
-                            <p class="genreText" style="margin-right: 10px;">
-                                Jazz
-                            </p>
-
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="JAZZ" 
-                            dark color="teal"/>
-
-                            <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="Blues" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Swing" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Fusion" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Contemporary" dark></v-checkbox> 
-                                <v-checkbox class="shrink mr-2" label="Free" dark></v-checkbox>                    
-                            </div>
-                       </div>
-                       <div class="row">
-
-                            <p class="genreText" style="margin-right: 10px;">
-                                Acoustic
-                            </p>
-
-                            <v-checkbox style="margin-top: 5px;" class="shrink mr-2" label="전부 좋아요!" v-model="chosenGenre" multiple value="ACOUSTIC" 
-                            dark color="teal"/>
-
-                            <div class="row">                            
-                                <v-checkbox class="shrink mr-2" label="Blues" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Swing" dark></v-checkbox>
-                                <v-checkbox class="shrink mr-2" label="Fusion" dark></v-checkbox>             
-                            </div>
-                       </div>
-                       <div>
-                           <p class="description">찾으시는 장르가 없나요? :( <br> 밑에 입력하시면 저희가 취향을 최대한 반영해드릴게요!</p>
-                           <input type="text" style="font-size: 12px; font-style: italic; color: white;" v-model="basicText" @click="resetText"/>
-                       </div>
-
+                            &ensp;
+                            <v-checkbox class="shrink mr-2" label="HIP-HOP" v-model="chosenGenres" multiple value="HIP-HOP" dark color="teal"/>
+                            <v-checkbox class="shrink mr-2" label="EDM" v-model="chosenGenres" multiple value="EDM" dark color="pink"/>
+                            <v-checkbox class="shrink mr-2" label="ROCK" v-model="chosenGenres" multiple value="ROCK" dark color="orange"/>
+                            <v-checkbox class="shrink mr-2" label="JAZZ" v-model="chosenGenres" multiple value="JAZZ" dark color="blue"/>
+                            <v-checkbox class="shrink mr-2" label="ACOUSTIC" v-model="chosenGenres" multiple value="ACOUSTIC" dark color="yellow"/>
+                        </div>
+                        {{chosenGenres}}
                     </v-card-text>
-
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <!-- <v-btn class="teal darken-1" text @click.native="btn_apply($event)">
-                            적용
-                        </v-btn> 클래스로하면 버튼에 색이 더해짐 -->
-                        <v-btn color="teal darken-1" text @click.native="btn_apply($event)">
+                        <v-btn color="teal darken-1" text @click.native="apply($event)">
                             적용
                         </v-btn>
-                        <v-btn color="teal darken-1" text @click.native="btn_cancel($event)">
+                        <v-btn color="teal darken-1" text @click.native="cancel($event)">
                             취소
                         </v-btn>
-                        
                     </v-card-actions>
-
                 </v-card>
             </v-dialog>
         </v-layout>
-        
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 
 export default {
     name: 'Dialogue',
     data() {
         return {
             dialog: false,
-            basicText: '찾으시는 장르를 입력하세요',
-            chosenGenre: [ "ROCK", "HIP-HOP", "EDM", "JAZZ", "ACOUSTIC" ]
+            chosenGenres: [ "ROCK", "HIP-HOP", "EDM", "JAZZ", "ACOUSTIC" ]
         }
     },
     methods: {
-        btn_apply() {
-            alert('적용되었습니다.')
+        ...mapMutations(['setConcertListByUserTaste']),
 
-            if(this.$store.state.taste == null) {
-                //alert('xx')
-                this.$store.state.taste = { chosenGenres: this.chosenGenre }
-            } else {
-                alert(this.chosenGenre)
-                this.$store.state.taste.chosenGenres = this.chosenGenre
-            }
-
-            this.dialog = false
+        apply() {
+            this.setConcertListByUserTaste(this.chosenGenres);
+            alert('적용되었습니다.');
+            this.dialog = false;
         },
-        btn_cancel() {
-            alert('변경 취소')
-            this.chosenGenre = []
-            this.dialog = false
-        },
-        resetText() {
-            this.basicText = ''
+        cancel() {
+            this.chosenGenres = [ "ROCK", "HIP-HOP", "EDM", "JAZZ", "ACOUSTIC" ];
+            this.dialog = false;
         }
     }
 }
@@ -201,6 +100,6 @@ export default {
 <style scoped>
 
 .btn-dial {
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 </style>

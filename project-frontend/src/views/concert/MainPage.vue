@@ -5,7 +5,7 @@
             <img class="responsive-img bigImg" src="@/assets/img/wall2.jpg" width="100%" style="margin-bottom: -6px;">
         </div>
         <hr>
-        <div class="row" style="margin-bottom: -20px;"> 
+        <div class="row" > 
             <genre-dialogue style="margin-top: 12px;" class="col xs4 sm4 md4 lg4"/>    
             <artist-dialogue class="col xs4 sm4 md4 lg4"/> 
             <date-dialogue class="col xs4 sm4 md4 lg4"/>                        
@@ -13,65 +13,31 @@
         <div>
           <concert-row-1 v-for="(concerts, i) in concertList" :key="i" :rowIndex="i" :concerts="concerts" class="concert-wrapper"/>
         </div>
-        <div :class="['box', 'grey darken-4', {'dragged': dragged}]" v-if="taste || dateForFilter"
-            v-dragged="onDragged"
-            style="width: 170px; color: red;">
-
-            <div v-if="!isFilterOff" style="margin-top: -5px;">
-                FILTER OFF
-                &emsp;
-                <v-btn icon color="red lighten-1" @click="offFilter" small>
-                    <v-icon>remove</v-icon>
-                </v-btn>
-            </div>
-
-            <div v-if="isFilterOff" style="margin-top: -5px; color: teal;">
-                FILTER ON
-                &emsp;
-                <v-btn icon color="teal lighten-1" @click="onFilter" small>
-                    <v-icon>done</v-icon>
-                </v-btn>
-            </div>
-        </div>   
+        <p style="color: white;">{{ taste }}</p>
         <main-page-footer/>
     </div>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
-
 import GenreDialogue from '@/components/concertMainDialogue/GenreDialogue'
 import ArtistDialogue from '@/components/concertMainDialogue/ArtistDialogue'
 import DateDialogue from '@/components/concertMainDialogue/DateDialogue'
-
 import ConcertRow1 from '@/components/concertMainPage/ConcertRow1'
 import MainPageFooter from '@/components/concertMainPage/MainPageFooter'
 
 export default {
     name: 'MainPage',
-    
     components: {
         GenreDialogue,
         ArtistDialogue,
         DateDialogue,
-
         ConcertRow1,
-
         MainPageFooter
     },
     data() {
         return {
-            nav_drawer: false,
-            deltaX: 0,
-            deltaY: 0,
-            offsetX: 0,
-            offsetY: 0,
-            clientX: 0,
-            clientY: 0,
-            dragged: false,
-
-            isFilterOff: false,
-            tmpChosenGenres: null
+            
         }
     },
     computed: {
@@ -80,42 +46,6 @@ export default {
     methods: {
         ...mapActions(['fetchTaste', 'fetchUnlockedConcertList']),
         ...mapMutations(['handleUserLogin']),
-
-        offFilter() {
-            this.tmpChosenGenres = this.$store.state.taste
-            this.$store.state.taste = null
-            this.isFilterOff = true
-
-            this.$store.state.dateForFilter = true
-        },
-
-        onFilter() {
-            this.$store.state.taste = this.tmpChosenGenres
-            this.isFilterOff = false
-
-            this.$store.state.dateForFilter = false
-        },
-
-        onDragged ({ el, deltaX, deltaY, offsetX, offsetY, clientX, clientY, first, last }) {
-        if (first) {
-          this.dragged = true
-          return
-        }
-        if (last) {
-          this.dragged = false
-          return
-        }
-        var l = +window.getComputedStyle(el)['left'].slice(0, -2) || 0
-        var t = +window.getComputedStyle(el)['top'].slice(0, -2) || 0
-        el.style.left = l + deltaX + 'px'
-        el.style.top = t + deltaY + 'px'
-        this.deltaX = deltaX
-        this.deltaY = deltaY
-        this.offsetX = offsetX
-        this.offsetY = offsetY
-        this.clientX = clientX
-        this.clientY = clientY
-      }
     },
     mounted() {
         this.fetchUnlockedConcertList();
@@ -123,7 +53,7 @@ export default {
         if(this.$cookies.isKey('CurrentUser')) {
             const userInfo = this.$cookies.get('CurrentUser');
             this.handleUserLogin(userInfo);
-            //this.fetchTaste(this.userProfile.memberNo);
+            this.fetchTaste(this.userProfile.memberNo);
         } 
     }
 }

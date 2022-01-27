@@ -104,7 +104,6 @@ export default {
         return axios.get(`http://localhost:8888/member/taste/getTaste/${ num }`)
             .then(res => {
                 commit(FETCH_TASTE, res.data)
-                //alert('res.data:' + JSON.stringify(res.data))
             })
     },
 
