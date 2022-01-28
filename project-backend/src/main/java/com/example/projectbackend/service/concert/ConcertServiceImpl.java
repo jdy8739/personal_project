@@ -150,7 +150,7 @@ public class ConcertServiceImpl implements ConcertService {
 
     @Override
     public List<Concert> findUnlockedMore(Long lastConcertNo) {
-        Integer MAX = 4;
+        final Integer MAX = 4;
         return concertRepository.findUnlockedMore(lastConcertNo, MAX);
     }
 

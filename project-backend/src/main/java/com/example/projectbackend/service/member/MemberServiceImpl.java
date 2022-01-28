@@ -1,7 +1,7 @@
 package com.example.projectbackend.service.member;
 
 import com.example.projectbackend.controller.member.request.MemberRequest;
-import com.example.projectbackend.controller.member.response.MemberResponse;
+import com.example.projectbackend.controller.session.MemberInfo;
 import com.example.projectbackend.entity.member.*;
 import com.example.projectbackend.repository.artistAuth.ConcertRequestRepository;
 import com.example.projectbackend.repository.board.BoardReplyRepository;
@@ -108,43 +108,19 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public Member login(MemberRequest memberRequest) throws Exception {
+    public int login(MemberRequest memberRequest) throws Exception {
 
-        try {
-            Optional<Member> requestedId = memberRepository.findByMemberId(memberRequest.getId()); //null포인트 익셉션이 안나옴
-
-            log.info("confirmed ID: " + requestedId.get().getId() + ", confirmed PW: " + requestedId.get().getPassword() +
-                    ", memberRequestPW: " + memberRequest.getPassword());
-
-            if (passwordEncoder.matches(memberRequest.getPassword(), requestedId.get().getPassword())) {
-                log.info("Valid ID");
-
-                Member confirmedMember = requestedId.get();
-                return confirmedMember;
-            } else {
-                log.info("Wrong Password has been input!");
-                Member noMember = new Member();
-                noMember.setId("no");
-
-                return noMember;
-            }
-
-        } catch (NoSuchElementException noSuchElementException) {
-            log.info("Not Existed ID!");
-
-        } finally {
-            ;
-        }
-        Member noMember = new Member();
-        noMember.setId("no");
-
-        return noMember;
+        Optional<Member> maybeMember = memberRepository.findByMemberId(memberRequest.getId());
+        if(maybeMember.isEmpty()) {
+            return 1;
+        } else if(!passwordEncoder.matches(memberRequest.getPassword(), maybeMember.get().getPassword())) {
+            return 2;
+        } else return 0;
     }
 
     @Override
     public boolean checkSessionValidation(String memberId) throws Exception {
-
-        return true;
+        return memberRepository.findByMemberId(memberId).isPresent();
     }
 
     @Override
@@ -154,20 +130,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member read(Long memberNo) throws Exception {
-
-        Member member = memberRepository.findByMemberNo(memberNo).get();
-
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        String formatDate = sdf.format(member.getRegDate());
-//        log.info("formatDate: " + formatDate);
-
-        //Date newDate = sdf.parse(member.getRegDate().getDate() + " " + member.getRegDate().getTime()); //ParseException: Unparseable date: "4 1630730129000"
-        //log.info("newDate: " + newDate);\
-
-        //Date date = sdf.parse("2018.09.09"); sdf에 있는 형식에 맞춰줘야 파싱됨
-        //log.info("date: " + date);
-
-        return member;
+        return memberRepository.findByMemberNo(memberNo).get();
     }
 
     @Override
@@ -205,11 +168,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberResponse modify(MemberRequest memberRequest) throws Exception { //자식 레퍼지토리와 부모 레퍼지토리를 동시에 수정해줘야 함
+    public MemberInfo modify(MemberRequest memberRequest) throws Exception { //자식 레퍼지토리와 부모 레퍼지토리를 동시에 수정해줘야 함
         String encodedPassword = passwordEncoder.encode(memberRequest.getPassword());
         memberRequest.setPassword(encodedPassword);
 
-        Long memberNo = new Long(memberRequest.getMemberNo());
+        Long memberNo = memberRequest.getMemberNo().longValue();
 
         String location = memberRequest.getLocation().replaceAll("\\[", "").replaceAll("\\]","").
                 replaceAll("\"", "");
@@ -221,9 +184,8 @@ public class MemberServiceImpl implements MemberService{
 
         //위는 넣어서 수정, 아래는 수정된 기본 정보 반환
 
-        MemberResponse memberResponse = new MemberResponse(new Long(memberRequest.getMemberNo()), memberRequest.getId(), memberRequest.getIdentity());
-
-        return memberResponse;
+        MemberInfo memberInfo = new MemberInfo(memberRequest.getMemberNo().longValue(), memberRequest.getId(), memberRequest.getIdentity());
+        return memberInfo;
     }
 
     @Override
@@ -232,7 +194,7 @@ public class MemberServiceImpl implements MemberService{
         if(!isNotAlreadyLiked(likedConcert.getMemberNo(), likedConcert.getConcertNo())) {
 
             likedConcertRepository.save(likedConcert);
-            concertRepository.plusNumberOfLikes(new Long(likedConcert.getConcertNo()));
+            concertRepository.plusNumberOfLikes(likedConcert.getConcertNo().longValue());
 
             return "";
 
@@ -249,8 +211,10 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void deleteLiked(int[] intArrForDelete) throws Exception {
-        likedConcertRepository.deleteByConcertNo(new Long(intArrForDelete[0]), new Long(intArrForDelete[1]));
-        concertRepository.minusNumberOfLikes(new Long(intArrForDelete[0])); //concert테이블에 number_of_likes가 1씩 감소
+        Integer A = intArrForDelete[0];
+        Integer B = intArrForDelete[1];
+        likedConcertRepository.deleteByConcertNo(A.longValue(), B.longValue());
+        concertRepository.minusNumberOfLikes(A.longValue()); //concert테이블에 number_of_likes가 1씩 감소
     }
 
     @Override
@@ -260,7 +224,6 @@ public class MemberServiceImpl implements MemberService{
         boolean ismatchedPassword = false;
 
         if(!tmpMember.isEmpty()) {
-
             ismatchedPassword = passwordEncoder.matches(memberRequest.getPassword(), tmpMember.get().getPassword()); //암호화된 코드가 먼저옴
             return ismatchedPassword;
         }

@@ -132,7 +132,7 @@ export default {
 
         addLiked() {
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
                            
@@ -155,7 +155,7 @@ export default {
         },
         unLiked() {
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
                             let formData = new FormData();

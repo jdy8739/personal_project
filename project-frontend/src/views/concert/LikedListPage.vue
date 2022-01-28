@@ -58,7 +58,7 @@ export default {
         delLikedConcert(conNo, index) { //conNo는 concertNo랑 같음
             
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
 

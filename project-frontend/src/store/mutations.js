@@ -33,6 +33,7 @@ import {
 } from './mutation-types'
 
 const NOT_EXIST = 'notExist';
+const NUMBER_OF_ROW = 4;
 
 export default {
     [FETCH_CONCERT] (state, payload) {
@@ -126,7 +127,7 @@ export default {
 
             deposit.push(payload[i]);
 
-            if(cnt % 4 == 0) {
+            if(cnt % NUMBER_OF_ROW == 0) {
                 arr.push(deposit);
                 deposit = [];
             }
@@ -210,7 +211,7 @@ export default {
             for(let j=0; j<state.concertList[i].length; j++) {
                 dateElem = state.concertList[i][j].concertDate;
                 if(startDate <= dateElem && endDate >= dateElem) {
-                    state.concertNoFilteredByDate.push(i * 4 + j + 1);
+                    state.concertNoFilteredByDate.push(i * NUMBER_OF_ROW + j + 1);
                 }
             }
         }
@@ -225,12 +226,12 @@ export default {
         let j = state.concertList[i - 1].length;
         if(j === 0) {
             i -= 1;
-            j = 4;
+            j = NUMBER_OF_ROW;
         }
-        if(j === 4) {
+        if(j === NUMBER_OF_ROW) {
             state.concertList.push(payload);
         } else {
-            const cut = 4 - j;
+            const cut = NUMBER_OF_ROW - j;
             for(let k=0; k<cut; k++) {
                 state.concertList[i - 1].push(payload[k]);
             }

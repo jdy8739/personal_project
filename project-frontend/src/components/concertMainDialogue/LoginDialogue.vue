@@ -61,22 +61,23 @@ export default {
                 const { id, password } = this.userInfo;
                 axios.post('http://localhost:8888/member/login', { id, password })
                     .then(res => {
-                        if(res.data.id.length > 2) {
-                            alert(res.data.id + '으로 로그인되었습니다!')
+                        if(this.validation(res.data)) {
+                            alert(JSON.stringify(res.data) + '으로 로그인되었습니다!')
 
                             this.$cookies.set("CurrentUser", res.data, '120m'); 
                             this.handleUserLogin(res.data);
 
                             this.$router.push({ name: 'MainPage' });
-                        } else {
-                            alert('로그인 실패!');
-                        }
+                        } 
                     })
-                    .catch(err => {
-                        console.log(err.response.data.message + '로그인 실패!');
-                    });
+                    .catch(err => console.log(err.response.data.message));
                 this.cancel();
             } 
+        },
+        validation(res) {
+            if(res.id === 'no such id') alert('존재하지않는 ID입니다.');
+            else if(res.id === 'wrong pw input') alert('비밀번호가 일치하지않습니다.');
+            else return true;
         }
     }
 }

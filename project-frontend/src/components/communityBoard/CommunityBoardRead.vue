@@ -110,7 +110,7 @@ export default {
         addReply() {
             if(this.isLoggedIn) {
                 
-                 axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(this.reply == '') {
                             alert('내용을 입력해주세요.');

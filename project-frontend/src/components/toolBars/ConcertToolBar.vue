@@ -143,7 +143,7 @@ export default {
         },
         imgUpload() {
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
 
@@ -201,7 +201,7 @@ export default {
                 });
             } else if(this.isLoggedIn) {
               
-                    axios.post('http://localhost:8888/member/needSession')
+                    axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
                             switch(index) {

@@ -1,7 +1,7 @@
 package com.example.projectbackend.service.member;
 
 import com.example.projectbackend.controller.member.request.MemberRequest;
-import com.example.projectbackend.controller.member.response.MemberResponse;
+import com.example.projectbackend.controller.session.MemberInfo;
 import com.example.projectbackend.entity.member.LikedConcert;
 import com.example.projectbackend.entity.member.Member;
 
@@ -11,7 +11,7 @@ public interface MemberService {
 
     public boolean register(MemberRequest memberRequest) throws Exception;
 
-    public Member login(MemberRequest memberRequest) throws Exception;
+    public int login(MemberRequest memberRequest) throws Exception;
 
     public List<Member> getList() throws Exception;
 
@@ -19,7 +19,7 @@ public interface MemberService {
 
     public void delete(Long memberNo) throws Exception;
 
-    public MemberResponse modify(MemberRequest memberRequest) throws Exception;
+    public MemberInfo modify(MemberRequest memberRequest) throws Exception;
 
     public boolean checkSessionValidation(String memberId) throws Exception;
 

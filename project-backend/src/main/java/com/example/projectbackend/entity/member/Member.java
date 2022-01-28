@@ -51,7 +51,7 @@ public class Member {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "member_no")
-    private Set<MemberIdentity> memberIdentityList = new HashSet<MemberIdentity>();
+    private List<MemberIdentity> memberIdentityList = new ArrayList<MemberIdentity>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "member_no")
@@ -64,10 +64,6 @@ public class Member {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "member_no")
     private Set<BookedConcert> bookedConcertList = new HashSet<BookedConcert>();
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    @JoinColumn(name = "member_no")
-//    private Set<Board> boardContentList = new HashSet<Board>();
 
     public Member(String id, String password, String name, String location, Date birthDay, String phoneNo) {
         this.id = id;

@@ -76,7 +76,7 @@ export default {
             
             if(this.isLoggedIn && (this.userProfile.id === id || this.userProfile.identity === 'admin')) {
                 
-                 axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
                             
@@ -107,7 +107,7 @@ export default {
             
             if(this.isLoggedIn && (this.userProfile.id === id || this.userProfile.identity === 'admin')) {
                 
-                 axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
                             axios.delete(`http://localhost:8888/board/deleteReply/${ replyNo }`) 

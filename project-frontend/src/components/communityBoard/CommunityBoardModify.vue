@@ -70,14 +70,14 @@ export default {
         }
     },
     computed: {
-        ...mapState(['isLoggedIn'])
+        ...mapState(['isLoggedIn', 'userProfile'])
     },
     methods: {
         ...mapActions(['fetchBoardList']),
 
         modify() {
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
 
@@ -109,7 +109,7 @@ export default {
         },
         deletee() {
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
 

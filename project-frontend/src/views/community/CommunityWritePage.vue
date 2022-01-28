@@ -70,7 +70,7 @@ export default {
 
         onSubmit() {
             if(this.isLoggedIn) {
-                axios.post('http://localhost:8888/member/needSession')
+                axios.post(`http://localhost:8888/member/needSession/${ this.userProfile.id }`)
                     .then(res => {
                         if(res.data) {
 
